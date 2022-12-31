@@ -67,7 +67,7 @@ function Tabs() {
       <Popup
         trigger={trigger}
         setTrigger={setTrigger}
-        actionName="Logout"
+        actionName="Logout?"
         actionFunc={HandleLogout}
       />
     </TabsWrapper>

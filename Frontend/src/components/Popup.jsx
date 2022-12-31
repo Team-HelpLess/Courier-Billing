@@ -6,10 +6,10 @@ function Popup(props) {
   return props.trigger ? (
     <PopupWrapper>
       <Pop>
-        <h3>Confirm {actionName}?</h3>
+        <h3>{actionName}</h3>
         <br />
         <Section>
-          <Button onClick={actionFunc}>{actionName}</Button>
+          {actionFunc ? <Button onClick={actionFunc}>{actionName}</Button> : ""}
           <Button onClick={() => props.setTrigger(false)}>Cancel</Button>
         </Section>
       </Pop>
@@ -45,7 +45,6 @@ const Pop = styled.div`
   }
 
   background: rgba(0, 0, 0, 0.25);
-  /* box-shadow: 10px 8px 32px 0 rgba(250, 250, 253, 0.37); */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -62,7 +61,8 @@ const Section = styled.section`
   width: 50%;
   height: auto;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 2rem;
 
   @media (max-width: 425px) {
     width: 60%;
@@ -72,8 +72,8 @@ const Section = styled.section`
 const Button = styled.button`
   height: 2rem;
   width: 5rem;
-  background: transparent;
-  color: white;
+  background: #ffffffc8;
+  color: black;
   cursor: pointer;
   transition: 0.5s ease;
   border-radius: 10px;
@@ -81,6 +81,5 @@ const Button = styled.button`
   &:hover {
     background: white;
     color: black;
-    box-shadow: 5px 4px 12px 0 rgba(44, 190, 190, 0.61);
   }
 `;

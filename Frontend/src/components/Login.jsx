@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { login } from "../store/store";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 import axios from "../api/axios";
@@ -105,13 +105,14 @@ const Message = styled.div`
 
 const Section = styled.section`
   height: 50vh;
-  width: 100%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 425px) {
     height: 50vh;
+    width: 100%;
   }
 `;
 
@@ -119,12 +120,12 @@ const LoginWrapper = styled.div`
   height: 50vh;
   width: 80%;
   position: relative;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgb(221 143 70 / 40%);
+  /* box-shadow: 0 8px 32px 0 rgb(255, 255, 255); */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgb(221 143 70 / 40%);
 
   @media (max-width: 425px) {
     width: 80%;
@@ -155,10 +156,6 @@ const InputPair = styled.div`
 const Label = styled.label`
   color: white;
   padding-bottom: 10px;
-
-  @media (max-width: 425px) {
-    color: #f70b4e;
-  }
 `;
 const Input = styled.input`
   &:-webkit-autofill,
@@ -169,7 +166,7 @@ const Input = styled.input`
     -webkit-box-shadow: 0 0 0 30px transparent inset !important;
   }
   &:-webkit-autofill {
-    -webkit-text-fill-color: #f70b4e !important;
+    -webkit-text-fill-color: #101010d1 !important;
   }
 
   background: transparent;
@@ -178,10 +175,6 @@ const Input = styled.input`
   border-bottom: 1px solid white;
   color: white;
   padding-bottom: 5px;
-
-  @media (max-width: 425px) {
-    color: #f70b4e;
-  }
 `;
 const Button = styled.button`
   margin-top: 0.5rem;
@@ -199,11 +192,10 @@ const Button = styled.button`
   margin-right: auto;
   margin-bottom: 1.5rem;
   transition: 0.5s;
-  background: #f70b4e;
+  background: #101010d1;
   cursor: pointer;
 
   &:hover {
-    // transform: scale(1.05);
-    background: #f70b4e;
+    background: #101010d1;
   }
 `;
