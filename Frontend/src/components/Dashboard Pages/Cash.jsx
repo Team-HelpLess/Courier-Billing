@@ -16,6 +16,7 @@ function Cash() {
   const [trigger, setTrigger] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteTrigger, setDeleteTrigger] = useState(false);
+  const [notify, setNotify] = useState(false);
 
   // State for the Final Submitables
   const [submitables, setSubmitables] = useState({});
@@ -54,10 +55,15 @@ function Cash() {
     }
   };
   const handleSubmit = () => {
-    Object.keys(submitables).map((key) => {
-      const data = submitables[key];
-      return postToApi(data);
-    });
+    if (Object.keys(submitables).length !== 0) {
+      Object.keys(submitables).map((key) => {
+        const data = submitables[key];
+        return postToApi(data);
+      });
+      handleReset();
+    } else {
+      setNotify(true);
+    }
   };
 
   // Function to handle the Generate button for generating Tiles
@@ -180,12 +186,10 @@ function Cash() {
       <Reset className={active ? "active" : ""}>
         <Button onClick={(e) => setTrigger(true)}>Reset</Button>
       </Reset>
-
       <CashWrapper>{tiles}</CashWrapper>
       <ButtonWrapper>
         <Button onClick={handleSubmit}>BOOK</Button>
       </ButtonWrapper>
-
       <Popup
         trigger={trigger}
         setTrigger={setTrigger}
@@ -195,9 +199,15 @@ function Cash() {
       <Popup
         trigger={deleteTrigger}
         setTrigger={setDeleteTrigger}
-        actionName="Delete Tile"
+        actionName="Delete"
         actionFunc={deleteTile}
       />
+      <Popup
+        trigger={notify}
+        setTrigger={setNotify}
+        actionName="Add BookList!"
+      />
+      ;
     </>
   );
 }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Login from "../components/Login";
 import InfoSection from "../components/InfoSection";
-import homepageBG from "../assets/mailDoodle.jpg";
+import homepageBG from "../assets/brownEnvelope1.png";
 
 function Homepage() {
   return (
@@ -21,30 +21,23 @@ function Homepage() {
 export default Homepage;
 
 const Section = styled.section`
-  &:before {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    /* opacity: 1; */
-    background-image: url(${homepageBG});
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
+  background-image: url(${homepageBG});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
 `;
 const SubSection = styled.section`
+  height: 100vh;
   width: 70%;
   margin: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 425px) {
-    flex-direction: column;
     width: 90%;
   }
 `;

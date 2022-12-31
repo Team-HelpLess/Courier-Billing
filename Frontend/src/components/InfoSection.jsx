@@ -12,27 +12,27 @@ function InfoSection() {
 export default InfoSection;
 
 const Div = styled.div`
-  height: 100vh;
-  width: 100%;
+  height: 30vh;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 425px) {
     height: 20vh;
-    margin-top: 15vh;
+    width: 100%;
   }
 `;
 
 const Wrapper = styled.section`
   height: 50%;
   width: 80%;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  background: rgb(221 143 70 / 40%);
+  /* box-shadow: 0 8px 32px 0 rgb(216, 26, 90); */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgb(221 143 70 / 40%);
 
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@ const Wrapper = styled.section`
 `;
 
 const Text = styled.p`
-  color: #f70b4e;
+  color: #101010d1;
   font-size: 5rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
