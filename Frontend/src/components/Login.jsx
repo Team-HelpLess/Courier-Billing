@@ -58,7 +58,6 @@ function Login() {
               textAlign: "center",
               marginBottom: "1rem",
               color: "white",
-              // color: "#3fc0e0",
               letterSpacing: "2px",
             }}
           >
@@ -121,7 +120,6 @@ const LoginWrapper = styled.div`
   width: 80%;
   position: relative;
   background: rgb(221 143 70 / 40%);
-  /* box-shadow: 0 8px 32px 0 rgb(255, 255, 255); */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
@@ -196,6 +194,6 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #101010d1;
+    background: #3c1d0d;
   }
 `;

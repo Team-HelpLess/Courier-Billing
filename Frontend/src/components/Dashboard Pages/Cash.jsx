@@ -23,8 +23,8 @@ function Cash() {
 
   // State for the cash input field values
   const [from, setFrom] = useState(" ");
-  const [cn, setCn] = useState(0);
-  const [phone, setPhone] = useState(0);
+  const [cn, setCn] = useState(NaN);
+  const [phone, setPhone] = useState();
   const [nums, setNums] = useState(0);
 
   // State for the Tiles
@@ -63,6 +63,9 @@ function Cash() {
       handleReset();
     } else {
       setNotify(true);
+      if (tiles.length === 0) {
+        handleReset();
+      }
     }
   };
 
@@ -294,20 +297,14 @@ const Button = styled.button`
   font-size: 0.7rem;
   height: 2rem;
   width: 5rem;
-  background: black;
-  color: white;
+  background: #ffffffc8;
+  color: black;
   cursor: pointer;
   transition: 0.5s ease;
   border-radius: 10px;
 
   &:hover {
-    color: black;
     background: white;
-  }
-
-  @media (max-width: 425px) {
-    background: white;
-    color: black;
   }
 `;
 

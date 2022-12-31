@@ -40,7 +40,7 @@ const Wrapper = styled.section`
 `;
 
 const Text = styled.p`
-  color: #101010d1;
+  color: white;
   font-size: 5rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
