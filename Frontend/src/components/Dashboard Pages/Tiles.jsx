@@ -22,7 +22,7 @@ function Tiles(props) {
 
   const [cnum, setcnum] = useState(cn);
   const [fr, setFr] = useState(from);
-  const [to, setTo] = useState(" ");
+  const [to, setTo] = useState("");
   const [district, setDistrict] = useState("Select");
   const [ph, setPh] = useState(phone);
   const [weight, setWeight] = useState(50);
@@ -75,7 +75,7 @@ function Tiles(props) {
         to_destination: district,
         courier_weight: weight,
         courier_rate: amount,
-        phone_no: parseInt(ph),
+        // phone_no: parseInt(ph),
       },
     };
 

@@ -1,9 +1,10 @@
+// Imports
 import styled from "styled-components";
-
 import Login from "../components/Login";
 import InfoSection from "../components/InfoSection";
 import homepageBG from "../assets/brownEnvelope1.png";
 
+// Homepage functional component
 function Homepage() {
   return (
     <>
@@ -17,9 +18,9 @@ function Homepage() {
     </>
   );
 }
-
 export default Homepage;
 
+// Stylings
 const Section = styled.section`
   background-image: url(${homepageBG});
   background-position: center;

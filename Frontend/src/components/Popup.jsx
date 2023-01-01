@@ -1,8 +1,12 @@
+// Imports
 import styled from "styled-components";
 
+// Actual Popup component
 function Popup(props) {
+  // destructuring the props
   const { actionName, actionFunc } = props;
 
+  // JSX element
   return props.trigger ? (
     <PopupWrapper>
       <Pop>
@@ -20,6 +24,7 @@ function Popup(props) {
 }
 export default Popup;
 
+// Stylings
 const PopupWrapper = styled.div`
   position: fixed;
   top: 0;

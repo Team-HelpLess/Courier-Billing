@@ -1,20 +1,26 @@
+// Imports
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/store";
-
 import axios from "../api/axios";
 import styled from "styled-components";
 import Popup from "./Popup";
 
+// Logout api URL
 const LOGOUT_URL = "/logout/";
 
+// Tabs component
 function Tabs() {
+  // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
   const [active, setActive] = useState(false);
 
+  // constants for the hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // logout function to block the refresh token and
+  // erase the present user credentials from userSlice
   const HandleLogout = async (e) => {
     e.preventDefault();
 
@@ -36,6 +42,7 @@ function Tabs() {
     }
   };
 
+  // functions to toggle the popup
   function toggleActive() {
     setActive((prevActive) => !prevActive);
   }
@@ -43,6 +50,7 @@ function Tabs() {
     setActive((prevActive) => prevActive);
   }
 
+  // jsx element for the tabs component
   return (
     <TabsWrapper>
       <TabLinks>
