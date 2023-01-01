@@ -29,6 +29,7 @@ function Login() {
 
   // UseEffect to navigate user to dashboard if logged in!
   useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
     if (aT) {
       navigate("/dashboard");
     }

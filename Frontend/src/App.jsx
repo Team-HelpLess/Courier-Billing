@@ -8,6 +8,10 @@ import Dashboard from "./pages/Dashboard";
 import RequireAuth from "./hooks/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import RefreshToken from "./hooks/RefreshToken";
+import Tabs from "./components/Tabs";
+import Cash from "./components/Dashboard Pages/Cash";
+import Credit from "./components/Dashboard Pages/Credit";
+import Records from "./components/Dashboard Pages/Records";
 
 // Functional App component
 function App() {
@@ -39,12 +43,17 @@ function App() {
       ) : (
         <AppWrapper>
           <Router>
+            <Tabs />
+
             <Routes>
               <Route path="/" element={<Homepage />} />
 
               <Route element={<PersistLogin />}>
                 <Route element={<RequireAuth />}>
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/cash" element={<Cash />} />
+                  <Route path="/credit" element={<Credit />} />
+                  <Route path="/records" element={<Records />} />
                 </Route>
               </Route>
             </Routes>
@@ -69,10 +78,10 @@ const P = styled.div`
 
 const AppWrapper = styled.div`
   min-height: 100vh;
-  width: 100%;
+  min-width: 100%;
   margin: auto;
 
   @media (max-width: 400px) {
-    width: 100%;
+    min-width: 100%;
   }
 `;

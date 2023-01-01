@@ -33,12 +33,10 @@ function Cash() {
   // State for the Generate and Reset actions
   const [active, setActive] = useState(false);
 
-  // Debugging goes here
+  // Debugging and miscellaneous goes here
   useEffect(() => {
-    console.log("submitables = ", submitables);
-    console.log("deleteId = ", deleteId);
-    console.log("tiles = ", tiles);
-  }, [submitables, deleteId, tiles]);
+    window.scrollTo(0, 0);
+  }, []);
 
   const postToApi = async (data) => {
     try {
@@ -121,7 +119,7 @@ function Cash() {
 
   // Actual Cash Component JSX
   return (
-    <>
+    <CashComponent>
       <Section className={active ? "active" : ""}>
         <Form onSubmit={handleGenerate} method="none">
           <Div>
@@ -210,16 +208,24 @@ function Cash() {
         setTrigger={setNotify}
         actionName="Add BookList!"
       />
-      ;
-    </>
+    </CashComponent>
   );
 }
 export default Cash;
 
 //  Styling of the Cash Component
+const CashComponent = styled.div`
+  padding-top: 2.5rem;
+  background: black;
+
+  @media (max-width: 425px) {
+    padding-top: 2rem;
+  }
+`;
+
 const CashWrapper = styled.section`
   width: 100%;
-  min-height: 65vh;
+  min-height: 75vh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
