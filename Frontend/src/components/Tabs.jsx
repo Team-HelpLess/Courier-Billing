@@ -1,7 +1,7 @@
 // Imports
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import { logout } from "../store/store";
 import axios from "../api/axios";
 import styled from "styled-components";
@@ -12,6 +12,9 @@ const LOGOUT_URL = "/logout/";
 
 // Tabs component
 function Tabs() {
+  // getting the logged in status
+  const aT = useSelector((state) => state.user.userAccessToken);
+
   // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
   const [active, setActive] = useState(false);
@@ -58,12 +61,23 @@ function Tabs() {
           <P>COURIER BILLING</P>
         </Header>
         <Ullist className={active ? "active" : ""} onClick={toggleActive}>
-          <StyledTabLinks onClick={activeToggle}>CASH</StyledTabLinks>
-          <StyledTabLinks onClick={activeToggle}>CREDIT</StyledTabLinks>
-          <StyledTabLinks onClick={activeToggle}>RECORDS</StyledTabLinks>
-          <StyledTabLinks onClick={(e) => setTrigger(true)}>
-            LOGOUT
+          <StyledTabLinks onClick={activeToggle}>
+            <NavLink to="/cash">CASH</NavLink>
           </StyledTabLinks>
+          <StyledTabLinks onClick={activeToggle}>
+            <NavLink to="/credit">CREDIT</NavLink>
+          </StyledTabLinks>
+          <StyledTabLinks onClick={activeToggle}>
+            <NavLink to="/records">RECORDS</NavLink>
+          </StyledTabLinks>
+          {aT ? (
+            <StyledTabLinks
+              className="logout-btn"
+              onClick={(e) => setTrigger(true)}
+            >
+              LOGOUT
+            </StyledTabLinks>
+          ) : null}
         </Ullist>
         <Div className={active ? "active" : ""} onClick={toggleActive}>
           <Span className="bar"></Span>
@@ -95,10 +109,20 @@ const TabLinks = styled.div`
   height: 10vh;
   width: 100%;
   padding: 24px 0px;
-  background: black;
+  background: #5a3b1d;
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  transition: 0.3s ease;
+
+  &:hover {
+    color: #180f0a;
+  }
 `;
 
 const Header = styled.div`
@@ -130,7 +154,7 @@ const Ullist = styled.ul`
     top: 10vh;
     right: -100%;
     height: 30vh;
-    gap: 10px;
+    gap: 25px;
     flex-direction: column;
     background-color: #000000;
     width: 100%;
@@ -150,10 +174,20 @@ const StyledTabLinks = styled.li`
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: 0.5s ease;
+  transition: 0.3s ease;
 
-  &:hover {
-    color: #11b2b8;
+  &.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 5.5rem;
+    border-radius: 10px;
+    background: #bb2121b9;
+  }
+  &.logout-btn:hover {
+    background: #180f0a;
+    color: #df1313b8;
   }
 `;
 
