@@ -219,7 +219,7 @@ export default Cash;
 //  Styling of the Cash Component
 const CashWrapper = styled.section`
   width: 100%;
-  min-height: 70vh;
+  min-height: 65vh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -1,12 +1,16 @@
+// Imports
 import { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import RefreshToken from "./RefreshToken";
 
+// Functional component creating custom hook useAxiosPrivate
 const useAxiosPrivate = () => {
+  // accessToken from store and refresh instance from refreshToken component
   const accessToken = useSelector((state) => state.user.userAccessToken);
   const refresh = RefreshToken();
 
+  // Actual logic to integrate the bearer token in the header for authorization
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
@@ -32,6 +36,7 @@ const useAxiosPrivate = () => {
       }
     );
 
+    // cleanup function to prevent piling of the above functions
     return () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
       axiosPrivate.interceptors.response.eject(responseIntercept);

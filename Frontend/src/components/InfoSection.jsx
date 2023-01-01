@@ -28,7 +28,6 @@ const Wrapper = styled.section`
   height: 50%;
   width: 80%;
   background: rgb(221 143 70 / 40%);
-  /* box-shadow: 0 8px 32px 0 rgb(216, 26, 90); */
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;

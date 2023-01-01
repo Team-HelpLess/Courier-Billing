@@ -1,7 +1,7 @@
+// Imports
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 import styled from "styled-components";
 import Homepage from "./pages/Homepage";
 import Dashboard from "./pages/Dashboard";
@@ -9,9 +9,12 @@ import RequireAuth from "./hooks/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import RefreshToken from "./hooks/RefreshToken";
 
+// Functional App component
 function App() {
+  // constant for AccessToken
   const aT = useSelector((state) => state.user.userAccessToken);
 
+  // checking if user already logged in for persist login
   const [isloading, setIsLoading] = useState(true);
   const refresh = RefreshToken();
   useEffect(() => {
@@ -28,6 +31,7 @@ function App() {
     !aT ? verifyRefresh() : setIsLoading(false);
   }, []);
 
+  // Actual app JSX
   return (
     <>
       {isloading ? (
@@ -50,9 +54,9 @@ function App() {
     </>
   );
 }
-
 export default App;
 
+// Stylings for the APP component
 const P = styled.div`
   height: 100vh;
   width: 100%;
