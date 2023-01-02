@@ -311,7 +311,7 @@ const DivOne = styled.div`
   @media (max-width: 425px) {
     width: 70%;
     height: auto;
-    margin-left: 10px;
+    margin-left: 15px;
   }
 `;
 const DivTwo = styled.div`
