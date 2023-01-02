@@ -1,15 +1,19 @@
+// Imports
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import styled from "styled-components";
 
+// Records api URL
 const RECORDS_URL = "";
 
+// Records Functional component
 function Records() {
+  // Constants for the states and miscallaneous
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [once, setOnce] = useState(true);
   const axiosPrivate = useAxiosPrivate();
 
+  // Async Await axios request to the API for getting the records
   const getRecords = async () => {
     try {
       const response = await axiosPrivate.get(RECORDS_URL);
@@ -22,20 +26,20 @@ function Records() {
     }
   };
 
+  // useEffect hook to run the getRecords function while component loads.
   useEffect(() => {
-    if (once) {
-      getRecords();
-    }
-    setOnce(false);
+    getRecords();
   }, []);
 
-  function renderTableHeader() {
-    let header = Object.keys(records[0]);
-    return header.map((key, index) => {
-      return <th key={index}>{key.toUpperCase()}</th>;
-    });
-  }
+  // Funtion to Render the Table haeader from the api data
+  // function renderTableHeader() {
+  //   let header = Object.keys(records[0]);
+  //   return header.map((key, index) => {
+  //     return <Th key={index}>{key.toUpperCase()}</Th>;
+  //   });
+  // }
 
+  // Function to render the Table records in the table
   function renderTableRecord() {
     return records.map((record, index) => {
       const {
@@ -52,33 +56,46 @@ function Records() {
         booked_time,
       } = record;
       return (
-        <tr key={index}>
-          <td>{courier_number}</td>
-          <td>{courier_type}</td>
-          <td>{courier_company}</td>
-          <td>{from_company}</td>
-          <td>{to_company}</td>
-          <td>{to_destination}</td>
-          <td>{courier_weight}</td>
-          <td>{courier_rate}</td>
-          <td>{phone_no}</td>
-          <td>{booked_date}</td>
-          <td>{booked_time}</td>
-        </tr>
+        <Tr key={index}>
+          <Td data-label="C.Number">{courier_number}</Td>
+          <Td data-label="C.Type">{courier_type}</Td>
+          <Td data-label="C.Company">{courier_company}</Td>
+          <Td data-label="From">{from_company}</Td>
+          <Td data-label="To">{to_company}</Td>
+          <Td data-label="Destination">{to_destination}</Td>
+          <Td data-label="Weight">{courier_weight}</Td>
+          <Td data-label="Amount">{courier_rate}</Td>
+          <Td data-label="Phone">{phone_no}</Td>
+          <Td data-label="Date">{booked_date}</Td>
+          <Td data-label="Time">{booked_time}</Td>
+        </Tr>
       );
     });
   }
 
+  // Actual records JSX element.
   return (
     <RecordsWrapper>
       {loading ? (
         <P>Loading...</P>
       ) : (
         <RecordsTable id="records">
-          <tbody>
-            <tr>{renderTableHeader()}</tr>
+          <Tbody>
+            <Tr>
+              <Th>C.Number</Th>
+              <Th>C.Type</Th>
+              <Th>C.Company</Th>
+              <Th>From</Th>
+              <Th>To</Th>
+              <Th>Destination</Th>
+              <Th>Weight</Th>
+              <Th>Amount</Th>
+              <Th>Phone</Th>
+              <Th>Date</Th>
+              <Th>Time</Th>
+            </Tr>
             {renderTableRecord()}
-          </tbody>
+          </Tbody>
         </RecordsTable>
       )}
     </RecordsWrapper>
@@ -86,6 +103,7 @@ function Records() {
 }
 export default Records;
 
+// Stylings
 const P = styled.div`
   height: 100vh;
   width: 100%;
@@ -96,7 +114,75 @@ const P = styled.div`
   background: black;
 `;
 
+const RecordsTable = styled.table`
+  width: 90%;
+  border-collapse: collapse;
+
+  @media (max-width: 425px) {
+    display: block;
+  }
+`;
+
+const Tbody = styled.tbody`
+  & Tr:nth-child(even) {
+    background-color: #2929296c;
+  }
+
+  & Th {
+    top: 10vh;
+    position: sticky;
+  }
+
+  @media (max-width: 425px) {
+    display: block;
+  }
+`;
+
+const Tr = styled.tr`
+  @media (max-width: 425px) {
+    display: block;
+    margin-bottom: 25px;
+    border: 1px solid gray;
+  }
+`;
+
+const Th = styled.th`
+  background: blue;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+
+const Td = styled.td`
+  padding: 10px;
+  text-align: center;
+
+  @media (max-width: 425px) {
+    color: white;
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+
+    &::before {
+      content: attr(data-label);
+      color: grey;
+      position: absolute;
+      left: 0;
+      width: 50%;
+      font-weight: 900;
+      text-align: left;
+      padding-left: 10px;
+    }
+  }
+`;
+
 const RecordsWrapper = styled.div`
+  padding-top: 5vh;
   min-height: 100vh;
   width: 100%;
   background: black;
@@ -104,7 +190,4 @@ const RecordsWrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 0.8rem;
 `;
-
-const RecordsTable = styled.table``;
