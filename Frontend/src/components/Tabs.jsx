@@ -13,7 +13,7 @@ const LOGOUT_URL = "/logout/";
 // Tabs component
 function Tabs() {
   // getting the logged in status
-  const aT = useSelector((state) => state.user.userAccessToken);
+  const aT = useSelector((state) => state?.user?.userAccessToken);
 
   // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
