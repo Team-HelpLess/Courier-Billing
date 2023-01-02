@@ -1,7 +1,7 @@
 // Imports
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { logout } from "../store/store";
 import axios from "../api/axios";
 import styled from "styled-components";
@@ -18,6 +18,7 @@ function Tabs() {
   // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
   const [active, setActive] = useState(false);
+  const [tabActive, setTabActive] = useState("dashboard");
 
   // constants for the hooks
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function Tabs() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(LOGOUT_URL, {
+      await axios.post(LOGOUT_URL, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,17 +59,45 @@ function Tabs() {
     <TabsWrapper>
       <TabLinks>
         <Header>
-          <P>COURIER BILLING</P>
+          <P>
+            <Link
+              className={tabActive === "dashboard" ? active : ""}
+              onClick={() => {
+                setTabActive("dashboard");
+              }}
+              to="/dashboard"
+            >
+              COURIER BILLING
+            </Link>
+          </P>
         </Header>
         <Ullist className={active ? "active" : ""} onClick={toggleActive}>
-          <StyledTabLinks onClick={activeToggle}>
-            <NavLink to="/cash">CASH</NavLink>
+          <StyledTabLinks
+            className={tabActive === "cash" ? "active" : ""}
+            onClick={() => {
+              activeToggle;
+              setTabActive("cash");
+            }}
+          >
+            <Link to="/cash">CASH</Link>
           </StyledTabLinks>
-          <StyledTabLinks onClick={activeToggle}>
-            <NavLink to="/credit">CREDIT</NavLink>
+          <StyledTabLinks
+            className={tabActive === "credit" ? "active" : ""}
+            onClick={() => {
+              activeToggle;
+              setTabActive("credit");
+            }}
+          >
+            <Link to="/credit">CREDIT</Link>
           </StyledTabLinks>
-          <StyledTabLinks onClick={activeToggle}>
-            <NavLink to="/records">RECORDS</NavLink>
+          <StyledTabLinks
+            className={tabActive === "records" ? "active" : ""}
+            onClick={() => {
+              activeToggle;
+              setTabActive("records");
+            }}
+          >
+            <Link to="/records">RECORDS</Link>
           </StyledTabLinks>
           {aT ? (
             <StyledTabLinks
@@ -115,12 +144,18 @@ const TabLinks = styled.div`
   justify-content: space-between;
 `;
 
-const NavLink = styled(Link)`
+const Link = styled(NavLink)`
+  padding: 5px;
+  border-radius: 10px;
   text-decoration: none;
   color: white;
   transition: 0.3s ease;
 
   &:hover {
+    color: #180f0a;
+  }
+  &.active {
+    background: white;
     color: #180f0a;
   }
 `;
@@ -186,8 +221,7 @@ const StyledTabLinks = styled.li`
     background: #bb2121b9;
   }
   &.logout-btn:hover {
-    background: #180f0a;
-    color: #df1313b8;
+    background: red;
   }
 `;
 
