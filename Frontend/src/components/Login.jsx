@@ -93,6 +93,7 @@ function Login() {
                 name="name"
                 autoComplete="off"
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </InputPair>
             <InputPair>
@@ -101,6 +102,7 @@ function Login() {
                 type="password"
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </InputPair>
             <Button>Login</Button>
