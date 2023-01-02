@@ -13,7 +13,7 @@ const LOGIN_URL = "token/obtain/";
 // Action Login component
 function Login() {
   // aT for checking whether user is logged in or not!
-  const aT = useSelector((state) => state.user.userAccessToken);
+  const aT = useSelector((state) => state?.user?.userAccessToken);
 
   // states for the UserName and PassWord
   const [username, setUsername] = useState("");
@@ -60,8 +60,10 @@ function Login() {
     } catch (err) {
       if (!err?.response) {
         setMsg("NO SERVER RESPONSE!");
+      } else if (err.response?.status === 401) {
+        setMsg("PROVIDE VALID CREDENTIALS!");
       } else {
-        setMsg(err?.response?.data || "SOMETHING WENT WRONG!");
+        setMsg("SOMETHING WENT WRONG!");
       }
     }
   };
@@ -112,7 +114,6 @@ function Login() {
 export default Login;
 
 // Styling using styled components...
-
 const Message = styled.div`
   font-size: 0.75rem;
   height: 5vh;
@@ -137,7 +138,7 @@ const Section = styled.section`
   }
 `;
 
-const LoginWrapper = styled.div`
+const LoginWrapper = styled.section`
   height: 50vh;
   width: 80%;
   position: relative;
@@ -152,7 +153,7 @@ const LoginWrapper = styled.div`
     height: 50vh;
   }
 `;
-const LoginForm = styled.div`
+const LoginForm = styled.section`
   height: inherit;
 `;
 
