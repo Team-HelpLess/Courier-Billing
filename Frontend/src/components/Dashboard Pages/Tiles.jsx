@@ -311,7 +311,7 @@ const DivOne = styled.div`
   @media (max-width: 425px) {
     width: 70%;
     height: auto;
-    margin-left: 5px;
+    margin-left: 10px;
   }
 `;
 const DivTwo = styled.div`
@@ -324,12 +324,6 @@ const DivTwo = styled.div`
   }
 `;
 const DivThree = styled.div`
-  height: 100%;
-  width: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   @media (max-width: 425px) {
     display: none;
   }
@@ -360,6 +354,7 @@ const DivFive = styled.div`
     width: 100%;
     flex-direction: column;
     align-items: center;
+    margin-left: 5px;
   }
 `;
 const DivSix = styled.div`
@@ -396,6 +391,14 @@ const Button = styled.button`
   }
   &.deletebtn:hover {
     background: rgba(214, 20, 20, 0.61);
+  }
+
+  @media (max-width: 425px) {
+    margin-right: 0;
+
+    &.savebtn {
+      margin-top: 15px;
+    }
   }
 `;
 
@@ -458,6 +461,7 @@ const Check = styled.span`
   }
 
   @media (max-width: 425px) {
+    margin-top: 15px;
     font-size: 1.5rem;
   }
 `;
