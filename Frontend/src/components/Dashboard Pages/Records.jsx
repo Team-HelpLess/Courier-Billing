@@ -1,5 +1,6 @@
 // Imports
-import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { useState, useEffect, useRef } from "react";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import styled from "styled-components";
 
@@ -11,7 +12,12 @@ function Records() {
   // Constants for the states and miscallaneous
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
+  const dataFetchedRef = useRef(false);
   const axiosPrivate = useAxiosPrivate();
+
+  // Options for Time and Date formatting
+  const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
+  const dateOptions = { day: "2-digit", month: "2-digit", year: "numeric" };
 
   // Async Await axios request to the API for getting the records
   const getRecords = async () => {
@@ -28,16 +34,10 @@ function Records() {
 
   // useEffect hook to run the getRecords function while component loads.
   useEffect(() => {
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
     getRecords();
   }, []);
-
-  // Funtion to Render the Table haeader from the api data
-  // function renderTableHeader() {
-  //   let header = Object.keys(records[0]);
-  //   return header.map((key, index) => {
-  //     return <Th key={index}>{key.toUpperCase()}</Th>;
-  //   });
-  // }
 
   // Function to render the Table records in the table
   function renderTableRecord() {
@@ -55,6 +55,15 @@ function Records() {
         booked_date,
         booked_time,
       } = record;
+
+      // Formatting Date
+      const formattedDate = format(new Date(booked_date), "dd/MM/yyyy");
+      // Formatting Time
+      const [hours, minutes, seconds] = booked_time.split(":");
+      const time = new Date(0, 0, 0, hours, minutes, seconds);
+      const timeFormatter = new Intl.DateTimeFormat("en-US", timeOptions);
+      const formattedTime = timeFormatter.format(time);
+
       return (
         <Tr key={index}>
           <Td data-label="C.Number">{courier_number}</Td>
@@ -66,8 +75,8 @@ function Records() {
           <Td data-label="Weight">{courier_weight}</Td>
           <Td data-label="Amount">{courier_rate}</Td>
           <Td data-label="Phone">{phone_no}</Td>
-          <Td data-label="Date">{booked_date}</Td>
-          <Td data-label="Time">{booked_time}</Td>
+          <Td data-label="Date">{formattedDate}</Td>
+          <Td data-label="Time">{formattedTime}</Td>
         </Tr>
       );
     });
