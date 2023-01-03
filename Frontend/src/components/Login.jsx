@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { login } from "../store/store";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "../api/axios";
@@ -31,7 +31,7 @@ function Login() {
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
     if (aT) {
-      navigate("/dashboard");
+      navigate(-1);
     }
   }, []);
   // Setting the history
