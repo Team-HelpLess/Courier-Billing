@@ -57,7 +57,7 @@ function Records() {
       } = record;
 
       // Formatting Date
-      const formattedDate = format(new Date(booked_date), "dd/MM/yyyy");
+      const formattedDate = format(new Date(booked_date), "dd-MM-yy");
       // Formatting Time
       const [hours, minutes, seconds] = booked_time.split(":");
       const time = new Date(0, 0, 0, hours, minutes, seconds);
