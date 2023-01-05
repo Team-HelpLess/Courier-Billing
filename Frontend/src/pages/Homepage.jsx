@@ -26,7 +26,7 @@ const Section = styled.section`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: -webkit-fill-available;
   width: 100%;
 `;
 const SubSection = styled.section`

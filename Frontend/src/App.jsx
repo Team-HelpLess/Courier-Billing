@@ -1,6 +1,6 @@
 // Imports
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Homepage from "./pages/Homepage";
@@ -20,8 +20,12 @@ function App() {
 
   // checking if user already logged in for persist login
   const [isloading, setIsLoading] = useState(true);
+  const loadRef = useRef(false);
   const refresh = RefreshToken();
   useEffect(() => {
+    if (loadRef.current) return;
+    loadRef.current = true;
+
     const verifyRefresh = async () => {
       try {
         await refresh();
