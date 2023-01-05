@@ -204,6 +204,10 @@ const Input = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
+
+  @media (max-width: 425px) {
+    width: 20ch;
+  }
 `;
 
 const Select = styled.select`
