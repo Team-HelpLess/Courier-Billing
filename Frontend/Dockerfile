@@ -1,0 +1,12 @@
+FROM node:16
+
+RUN apt-get update
+
+WORKDIR /Frontend/
+COPY package-lock.json package.json /Frontend/
+RUN cd /Frontend/ && npm i
+COPY . . 
+
+EXPOSE 5173
+
+CMD [ "npm", "run", "dev"]
