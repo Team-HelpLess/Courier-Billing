@@ -1,11 +1,15 @@
+// Imports
 import { useState } from "react";
 import { format } from "date-fns";
 import styled from "styled-components";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 
+// update api url
 const UPDATE_URL = "update/";
 
+// Function to render an Editable row in the records table
 function EditableRow(props) {
+  // destructuring props
   const { record, index, setEditId, getRecords } = props;
 
   const {
@@ -20,7 +24,7 @@ function EditableRow(props) {
     phone_no,
     booked_date,
     booked_time,
-  } = record;
+  } = record; // Destructuring the record Object
 
   // Formatting Date
   const formattedDate = format(new Date(booked_date), "dd-MM-yy");
@@ -31,6 +35,7 @@ function EditableRow(props) {
   const timeFormatter = new Intl.DateTimeFormat("en-US", timeOptions);
   const formattedTime = timeFormatter.format(time);
 
+  // States to update the record with user provided values
   const [cnum, setCnum] = useState(courier_number);
   const [ctype, setCtype] = useState(courier_type);
   const [ccom, setCcom] = useState(courier_company);
@@ -41,6 +46,7 @@ function EditableRow(props) {
   const [crate, setCrate] = useState(courier_rate);
   const [phone, setPhone] = useState(phone_no);
 
+  // private axios instance from useAxiosPrivate
   const axiosPrivate = useAxiosPrivate();
   const handleSave = async (e) => {
     e.preventDefault();
@@ -58,7 +64,7 @@ function EditableRow(props) {
       booked_date: booked_date,
       booked_time: booked_time,
     };
-
+    // actual axios request
     try {
       const response = await axiosPrivate.put(UPDATE_URL, { ...toUpdate });
       console.log(response);
@@ -74,6 +80,7 @@ function EditableRow(props) {
     setEditId(null);
   };
 
+  // JSX element for the editable row
   return (
     <Tr key={index}>
       <Td data-label="C.Number">
@@ -158,6 +165,7 @@ function EditableRow(props) {
 }
 export default EditableRow;
 
+// Stylings
 const Tr = styled.tr`
   @media (max-width: 425px) {
     display: block;
@@ -198,6 +206,7 @@ const Input = styled.input`
   color: white;
   padding-bottom: 5px;
   width: 10ch;
+  transition: 0.3s ease;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

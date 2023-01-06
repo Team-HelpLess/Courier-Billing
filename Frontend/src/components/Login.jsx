@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { login } from "../store/store";
 import { useDispatch } from "react-redux";
-import { useNavigate, Navigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "../api/axios";
@@ -56,7 +56,11 @@ function Login() {
         })
       );
       setMsg("Login Successful!");
-      navigate(from, { replace: true });
+      if (from !== "") {
+        navigate(from, { replace: true });
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       if (!err?.response) {
         setMsg("NO SERVER RESPONSE!");

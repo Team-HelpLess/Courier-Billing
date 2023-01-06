@@ -96,6 +96,10 @@ const RecordsWrapper = styled.div`
   justify-content: center;
   color: white;
   transition: 0.3s ease;
+
+  & > * {
+    transition: 0.3s ease;
+  }
 `;
 
 const P = styled.div`
