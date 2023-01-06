@@ -1,7 +1,9 @@
+// Imports
 import { format } from "date-fns";
 import styled from "styled-components";
 import usePrivateAxios from "../../hooks/usePrivateAxios";
 
+// delete api url
 const DELETE_URL = "delete/";
 
 // Function to render the Table records in the table
@@ -34,14 +36,15 @@ function ReadOnlyRow(props) {
   const timeFormatter = new Intl.DateTimeFormat("en-US", timeOptions);
   const formattedTime = timeFormatter.format(time);
 
+  // axiosPrivate instance from usePrivateAxios
   const axiosPrivate = usePrivateAxios();
   const handleDelete = async (e) => {
     e.preventDefault();
-
+    // actual axios request
     try {
-      const response = await axiosPrivate.delete(DELETE_URL, {
-        courier_number,
-      });
+      const response = await axiosPrivate.delete(
+        `${DELETE_URL}${courier_number}/`
+      );
       console.log(response);
       getRecords();
     } catch (err) {
@@ -52,7 +55,7 @@ function ReadOnlyRow(props) {
       }
     }
   };
-
+  // jsx element for the row in the table
   return (
     <Tr key={index}>
       <Td data-label="C.Number">{courier_number}</Td>
@@ -86,6 +89,7 @@ function ReadOnlyRow(props) {
 }
 export default ReadOnlyRow;
 
+// Stylings
 const Tr = styled.tr`
   @media (max-width: 425px) {
     display: block;
@@ -97,6 +101,7 @@ const Tr = styled.tr`
 const Td = styled.td`
   padding: 10px;
   text-align: center;
+  transition: 0.3s ease;
 
   @media (max-width: 425px) {
     color: white;
