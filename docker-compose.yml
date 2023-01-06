@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: goameer030/cb-backend:latest
+    build: ./Backend/.
+    container_name: backend
+    ports:
+      - 8000:8000
+    volumes:
+      - ./Backend:/Backend
+  
+  frontend:
+    image: goameer030/cb-frontend:latest
+    build: ./Frontend/.
+    ports:
+      - 5173:5173
+    volumes:
+      - ./Frontend:/Frontend
