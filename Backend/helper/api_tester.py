@@ -5,7 +5,7 @@ choice = int(input("Choice: "))
 
 headers = {
     "Authorization": "Bearer "
-    + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcyNDEzMTA5LCJpYXQiOjE2NzIzOTUwNzIsImp0aSI6ImRjNTNlMGYzYmMwNjQwZTdiYWMyYzNhM2UwYjIzZGEwIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiIxMTExIiwiZW1haWwiOiJhbWVlcjAzMDYyMDAzQGdtYWlsLmNvbSJ9.vKrh1nsTDWCl8X6JH0CugqXC1sOfzIh9qHMtcPOoz6Q"
+    + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcyNTgxMTMyLCJpYXQiOjE2NzI1NjMxMzIsImp0aSI6ImE3ZThiN2E0ZjA0OTRmODQ5NmExNzNiN2UyY2U0MTNiIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiIxMTExIiwiZW1haWwiOiJhbWVlcjAzMDYyMDAzQGdtYWlsLmNvbSJ9.uI9eLkDM1QcGwjxNNm9CXCJ8faN0ehtGIir0qBDOPyo"
 }
 url = "http://127.0.0.1:8000/"
 

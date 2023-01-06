@@ -13,7 +13,7 @@ class RecordView(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
-        if request.user.has_perm("record.view_recordmodel"):
+        if request.user.has_perm("records.view_recordmodel"):
             records = RecordModel.objects.all()
             serializer = RecordSerializer(records, many=True)
             return Response(serializer.data)
@@ -21,7 +21,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def post(self, request):
-        if request.user.has_perm("record.add_recordmodel"):
+        if request.user.has_perm("records.add_recordmodel"):
             serializer = RecordSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -38,7 +38,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def update(self, request):
-        if request.user.has_perm("record.change_recordmodel"):
+        if request.user.has_perm("records.change_recordmodel"):
             record = RecordModel.objects.get(courier_number=request.data['courier_number'])
             serializer = RecordSerializer(record, data=request.data)
             if serializer.is_valid():
@@ -49,7 +49,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def delete(self, request, cn=None):
-        if request.user.has_perm("record.delete_recordmodel"):
+        if request.user.has_perm("records.delete_recordmodel"):
             record = get_object_or_404(RecordModel, courier_number=cn)
             serializer = RecordSerializer(record)
             record.delete()
@@ -58,7 +58,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def find_by_courier_no(self, request, cn=None):
-        if request.user.has_perm("record.view_recordmodel"):
+        if request.user.has_perm("records.view_recordmodel"):
             record = get_object_or_404(RecordModel, courier_number=cn)
             serializer = RecordSerializer(record)
             return Response(serializer.data)
@@ -66,7 +66,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def find_many(self, request):
-        if request.user.has_perm("record.view_recordmodel"):
+        if request.user.has_perm("records.view_recordmodel"):
             records = RecordModel.objects.all()
             keys = request.data.keys()
             for key in keys:
