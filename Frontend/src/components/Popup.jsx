@@ -13,7 +13,11 @@ function Popup(props) {
         <h3>{actionName}</h3>
         <br />
         <Section>
-          {actionFunc ? <Button onClick={actionFunc}>{actionName}</Button> : ""}
+          {actionFunc ? (
+            <Button onClick={actionFunc}>{actionName.split(" ")[0]}</Button>
+          ) : (
+            ""
+          )}
           <Button onClick={() => props.setTrigger(false)}>Cancel</Button>
         </Section>
       </Pop>

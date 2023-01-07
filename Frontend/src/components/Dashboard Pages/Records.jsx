@@ -2,15 +2,21 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
+import Popup from "../Popup";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 
 // Records api URL
 const RECORDS_URL = "";
+// delete api url
+const DELETE_URL = "delete/";
 
 // Records Functional component
 function Records() {
   // Constants for the states and miscallaneous
+  const [deleteRecTrigger, setDeleteRecTrigger] = useState(false);
+  const [deleteRecId, setDeleteRecId] = useState(null);
+
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editId, setEditId] = useState(null);
@@ -28,6 +34,25 @@ function Records() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axiosPrivate.delete(
+        `${DELETE_URL}${deleteRecId}/`
+      );
+      console.log(response);
+      getRecords();
+    } catch (err) {
+      if (!err?.response) {
+        console.log("NO SEVER RESPONSE");
+      } else {
+        console.log("SOMETHING WRONG");
+      }
+    }
+
+    setDeleteRecTrigger(false);
   };
 
   // useEffect hook to run the getRecords function while component loads.
@@ -73,13 +98,21 @@ function Records() {
                   record={record}
                   index={index}
                   setEditId={setEditId}
-                  getRecords={getRecords}
+                  setDeleteRecId={setDeleteRecId}
+                  setDeleteRecTrigger={setDeleteRecTrigger}
                 />
               );
             })}
           </Tbody>
         </RecordsTable>
       )}
+
+      <Popup
+        trigger={deleteRecTrigger}
+        setTrigger={setDeleteRecTrigger}
+        actionName={`Delete ${deleteRecId}?`}
+        actionFunc={handleDelete}
+      />
     </RecordsWrapper>
   );
 }
