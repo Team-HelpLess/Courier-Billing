@@ -75,7 +75,7 @@ function Tiles(props) {
         to_destination: district,
         courier_weight: weight,
         courier_rate: amount,
-        phone_no: parseInt(ph),
+        phone_no: phone,
       },
     };
 

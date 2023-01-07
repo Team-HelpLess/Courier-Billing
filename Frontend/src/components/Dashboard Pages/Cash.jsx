@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Tiles from "./Tiles";
 import Popup from "../Popup";
+import Summary from "./Summary";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 
 const POST_URL = "";
@@ -11,6 +12,9 @@ const POST_URL = "";
 function Cash() {
   // Custom hook
   const axiosPrivate = useAxiosPrivate();
+
+  // triggers for Summary
+  const [summaryTrigger, setSummaryTrigger] = useState(false);
 
   // Triggers for Popups
   const [trigger, setTrigger] = useState(false);
@@ -24,7 +28,7 @@ function Cash() {
   // State for the cash input field values
   const [from, setFrom] = useState(" ");
   const [cn, setCn] = useState(NaN);
-  const [phone, setPhone] = useState();
+  const [phone, setPhone] = useState(NaN);
   const [nums, setNums] = useState(0);
 
   // State for the Tiles
@@ -58,6 +62,7 @@ function Cash() {
         const data = submitables[key];
         return postToApi(data);
       });
+      setSummaryTrigger(false);
       handleReset();
     } else {
       setNotify(true);
@@ -189,8 +194,22 @@ function Cash() {
       </Reset>
       <CashWrapper>{tiles}</CashWrapper>
       <ButtonWrapper>
-        <Button onClick={handleSubmit}>BOOK</Button>
+        <Button
+          onClick={(e) => {
+            setSummaryTrigger(true);
+          }}
+        >
+          BOOK
+        </Button>
       </ButtonWrapper>
+
+      <Summary
+        trigger={summaryTrigger}
+        setTrigger={setSummaryTrigger}
+        submitables={submitables}
+        action={handleSubmit}
+      />
+
       <Popup
         trigger={trigger}
         setTrigger={setTrigger}
