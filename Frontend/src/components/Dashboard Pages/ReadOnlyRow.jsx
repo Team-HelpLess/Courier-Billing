@@ -3,12 +3,10 @@ import { format } from "date-fns";
 import styled from "styled-components";
 import usePrivateAxios from "../../hooks/usePrivateAxios";
 
-// delete api url
-const DELETE_URL = "delete/";
-
 // Function to render the Table records in the table
 function ReadOnlyRow(props) {
-  const { record, index, setEditId, getRecords } = props;
+  const { record, index, setEditId, setDeleteRecId, setDeleteRecTrigger } =
+    props;
 
   // Options for Time formatting
   const timeOptions = { hour: "numeric", minute: "numeric", hour12: true };
@@ -38,23 +36,7 @@ function ReadOnlyRow(props) {
 
   // axiosPrivate instance from usePrivateAxios
   const axiosPrivate = usePrivateAxios();
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    // actual axios request
-    try {
-      const response = await axiosPrivate.delete(
-        `${DELETE_URL}${courier_number}/`
-      );
-      console.log(response);
-      getRecords();
-    } catch (err) {
-      if (!err?.response) {
-        console.log("NO SEVER RESPONSE");
-      } else {
-        console.log("SOMETHING WRONG");
-      }
-    }
-  };
+
   // jsx element for the row in the table
   return (
     <Tr key={index}>
@@ -80,7 +62,13 @@ function ReadOnlyRow(props) {
         </Button>
       </Td>
       <Td data-label="Delete">
-        <Button className="delete-btn" onClick={handleDelete}>
+        <Button
+          className="delete-btn"
+          onClick={() => {
+            setDeleteRecId(courier_number);
+            setDeleteRecTrigger(true);
+          }}
+        >
           DELETE
         </Button>
       </Td>
