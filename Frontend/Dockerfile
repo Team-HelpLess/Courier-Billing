@@ -1,10 +1,11 @@
-FROM node:16
+FROM node:19-bullseye-slim
 
 RUN apt-get update
 
-WORKDIR /Frontend/
+WORKDIR /Frontend
 COPY package-lock.json package.json /Frontend/
-RUN cd /Frontend/ && npm i
+RUN cd /Frontend/ && npm install vite && npm i
+
 COPY . . 
 
 EXPOSE 5173
