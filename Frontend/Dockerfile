@@ -4,7 +4,7 @@ RUN apt-get update
 
 WORKDIR /Frontend
 COPY package-lock.json package.json /Frontend/
-RUN cd /Frontend/ && npm install vite && npm i
+RUN cd /Frontend/ && npm i
 
 COPY . . 
 

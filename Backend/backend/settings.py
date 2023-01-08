@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
 
+    'django_celery_results',
+
     'authentication',
     'helper',
     'records',
@@ -217,3 +219,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("MAIL_ID")
 EMAIL_HOST_PASSWORD = os.getenv("MAIL_PASSWORD")
+
+# Celery Settings
+CELERY_TIME_ZONE = 'Asia/Kolkata'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
