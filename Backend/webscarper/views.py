@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.response import Response
+from .tasks import drs_scrapper
 
-# Create your views here.
+class WebScrapperView(viewsets.ViewSet):
+    def find_drs(self, request, cn):
+        return Response(drs_scrapper(cn))

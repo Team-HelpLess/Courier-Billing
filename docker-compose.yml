@@ -1,17 +1,56 @@
 services:
-  backend:
-    image: goameer030/cb-backend:latest
-    build: ./Backend/.
-    container_name: backend
-    ports:
-      - 8000:8000
-    volumes:
-      - ./Backend:/Backend
-  
   frontend:
     image: goameer030/cb-frontend:latest
     build: ./Frontend/.
+    container_name: Frontend
     ports:
       - 5173:5173
     volumes:
       - ./Frontend:/Frontend
+    depends_on:
+      - backend
+
+  backend:
+    image: goameer030/cb-backend:latest
+    build: ./Backend/.
+    container_name: Backend
+    environment:
+      - MAIL_PASSWORD="${MAIL_PASSWORD}"
+      - AKASH_USER_ID="${AKASH_USER_ID}"
+      - AKASH_PASSWORD="${AKASH_PASSWORD}"
+      - ANJANI_USER_ID="${ANJANI_USER_ID}"
+      - ANJANI_PASSWORD="${ANJANI_PASSWORD}"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./Backend:/Backend
+    links:
+      - redis
+    depends_on:
+      - celery
+      - selenium
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: Selenium
+    expose:
+      - 4444
+    ports:
+      - 4444:4444
+
+  celery:
+    build: ./Backend/
+    container_name: Celery
+    command: celery -A backend worker -l info
+    volumes:
+      - ./Backend:/Backend
+    links:
+      - redis
+
+  redis:
+    image: redis:latest
+    container_name: Redis
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
