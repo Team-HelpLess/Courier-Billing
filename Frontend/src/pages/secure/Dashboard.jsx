@@ -11,8 +11,4 @@ export default Dashboard;
 const DashWrapper = styled.div`
   min-height: 100vh;
   min-width: 100%;
-  /* background-image: url(${brownEnvelope2});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
 `;

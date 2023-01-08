@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Homepage from "./pages/Homepage";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/secure/Dashboard";
+import Cash from "./pages/secure/Cash";
+import Credit from "./pages/secure/Credit";
+import Records from "./pages/secure/Records";
 import RequireAuth from "./hooks/RequireAuth";
-import PersistLogin from "./components/PersistLogin";
 import RefreshToken from "./hooks/RefreshToken";
+import PersistLogin from "./components/PersistLogin";
 import Tabs from "./components/Tabs";
-import Cash from "./components/Dashboard Pages/Cash";
-import Credit from "./components/Dashboard Pages/Credit";
-import Records from "./components/Dashboard Pages/Records";
 
 // Functional App component
 function App() {
