@@ -2,9 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
-import Popup from "../Popup";
-import ReadOnlyRow from "./ReadOnlyRow";
-import EditableRow from "./EditableRow";
+import Popup from "../../components/Popup";
+import ReadOnlyRow from "../../components/dashboard components/ReadOnlyRow";
+import EditableRow from "../../components/dashboard components/EditableRow";
 
 // Records api URL
 const RECORDS_URL = "";
