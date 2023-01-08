@@ -2,7 +2,6 @@
 import styled from "styled-components";
 import Login from "../components/Login";
 import InfoSection from "../components/InfoSection";
-import homepageBG from "../assets/brownEnvelope1.png";
 
 // Homepage functional component
 function Homepage() {
@@ -22,10 +21,10 @@ export default Homepage;
 
 // Stylings
 const Section = styled.section`
-  background-image: url(${homepageBG});
+  /* background-image: url(${homepageBG});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   height: -webkit-fill-available;
   width: 100%;
 `;

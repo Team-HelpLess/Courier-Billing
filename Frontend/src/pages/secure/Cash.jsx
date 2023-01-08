@@ -1,9 +1,9 @@
 // Imports
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Tiles from "./Tiles";
-import Popup from "../Popup";
-import Summary from "./Summary";
+import Tiles from "../../components/dashboard components/Tiles";
+import Popup from "../../components/Popup";
+import Summary from "../../components/dashboard components/Summary";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 
 const POST_URL = "";
