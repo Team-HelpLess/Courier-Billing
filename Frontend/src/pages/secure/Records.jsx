@@ -88,15 +88,15 @@ function Records() {
             {records.map((record, index) => {
               return editId === record.courier_number ? (
                 <EditableRow
+                  key={index}
                   record={record}
-                  index={index}
                   setEditId={setEditId}
                   getRecords={getRecords}
                 />
               ) : (
                 <ReadOnlyRow
+                  key={index}
                   record={record}
-                  index={index}
                   setEditId={setEditId}
                   setDeleteRecId={setDeleteRecId}
                   setDeleteRecTrigger={setDeleteRecTrigger}

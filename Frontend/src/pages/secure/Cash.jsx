@@ -28,7 +28,7 @@ function Cash() {
   // State for the cash input field values
   const [from, setFrom] = useState(" ");
   const [cn, setCn] = useState(NaN);
-  const [phone, setPhone] = useState(NaN);
+  const [phone, setPhone] = useState(undefined);
   const [nums, setNums] = useState(0);
 
   // State for the Tiles
