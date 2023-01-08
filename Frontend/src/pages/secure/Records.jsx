@@ -5,6 +5,7 @@ import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import Popup from "../../components/Popup";
 import ReadOnlyRow from "../../components/dashboard components/ReadOnlyRow";
 import EditableRow from "../../components/dashboard components/EditableRow";
+import SearchRecord from "../../components/dashboard components/SearchRecord";
 
 // Records api URL
 const RECORDS_URL = "";
@@ -68,43 +69,46 @@ function Records() {
       {loading ? (
         <P>Loading...</P>
       ) : (
-        <RecordsTable id="records">
-          <Tbody>
-            <Tr>
-              <Th>C.Number</Th>
-              <Th>C.Type</Th>
-              <Th>C.Company</Th>
-              <Th>From</Th>
-              <Th>To</Th>
-              <Th>Destination</Th>
-              <Th>Weight</Th>
-              <Th>Amount</Th>
-              <Th>Phone</Th>
-              <Th>Date</Th>
-              <Th>Time</Th>
-              <Th>Edit</Th>
-              <Th>Delete</Th>
-            </Tr>
-            {records.map((record, index) => {
-              return editId === record.courier_number ? (
-                <EditableRow
-                  key={index}
-                  record={record}
-                  setEditId={setEditId}
-                  getRecords={getRecords}
-                />
-              ) : (
-                <ReadOnlyRow
-                  key={index}
-                  record={record}
-                  setEditId={setEditId}
-                  setDeleteRecId={setDeleteRecId}
-                  setDeleteRecTrigger={setDeleteRecTrigger}
-                />
-              );
-            })}
-          </Tbody>
-        </RecordsTable>
+        <RecWrapper>
+          <SearchRecord setRecords={setRecords} />
+          <RecordsTable id="records">
+            <Tbody>
+              <Tr>
+                <Th>C.Number</Th>
+                <Th>C.Type</Th>
+                <Th>C.Company</Th>
+                <Th>From</Th>
+                <Th>To</Th>
+                <Th>Destination</Th>
+                <Th>Weight</Th>
+                <Th>Amount</Th>
+                <Th>Phone</Th>
+                <Th>Date</Th>
+                <Th>Time</Th>
+                <Th>Edit</Th>
+                <Th>Delete</Th>
+              </Tr>
+              {records.map((record, index) => {
+                return editId === record.courier_number ? (
+                  <EditableRow
+                    key={index}
+                    record={record}
+                    setEditId={setEditId}
+                    getRecords={getRecords}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    key={index}
+                    record={record}
+                    setEditId={setEditId}
+                    setDeleteRecId={setDeleteRecId}
+                    setDeleteRecTrigger={setDeleteRecTrigger}
+                  />
+                );
+              })}
+            </Tbody>
+          </RecordsTable>
+        </RecWrapper>
       )}
 
       <Popup
@@ -133,6 +137,13 @@ const RecordsWrapper = styled.div`
   & > * {
     transition: 0.3s ease;
   }
+`;
+
+const RecWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const P = styled.div`

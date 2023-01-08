@@ -66,6 +66,7 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def find_many(self, request):
+        print(request.data)
         if request.user.has_perm("records.view_recordmodel"):
             records = RecordModel.objects.all()
             keys = request.data.keys()
