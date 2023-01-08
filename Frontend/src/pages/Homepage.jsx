@@ -21,10 +21,6 @@ export default Homepage;
 
 // Stylings
 const Section = styled.section`
-  /* background-image: url(${homepageBG});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
   height: -webkit-fill-available;
   width: 100%;
 `;
