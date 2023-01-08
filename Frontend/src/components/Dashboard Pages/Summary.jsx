@@ -16,13 +16,13 @@ function Summary(props) {
 
     return (
       <Tr>
-        <Td data_label="C.Number">{courier_number}</Td>
-        <Td data_label="From">{from_company}</Td>
-        <Td data_label="To">{to_company}</Td>
-        <Td data_label="Destination">{to_destination}</Td>
-        <Td data_label="Phone">{phone_no}</Td>
-        <Td data_label="Weight">{courier_weight} g</Td>
-        <Td data_label="Rate">{courier_rate}</Td>
+        <Td data-label="C.Number">{courier_number}</Td>
+        <Td data-label="From">{from_company}</Td>
+        <Td data-label="To">{to_company}</Td>
+        <Td data-label="Destination">{to_destination}</Td>
+        <Td data-label="Phone">{phone_no}</Td>
+        <Td data-label="Weight">{courier_weight} g</Td>
+        <Td data-label="Rate">{courier_rate}</Td>
       </Tr>
     );
   };
@@ -83,12 +83,11 @@ const Sumry = styled.section`
   padding: 10px;
 
   height: 60vh;
-  overflow-x: hidden;
   width: 65%;
   color: white;
 
   @media (max-width: 425px) {
-    width: 80%;
+    width: 90%;
   }
 
   background: rgba(0, 0, 0, 0.25);
@@ -109,11 +108,13 @@ const Section = styled.section`
   height: 75%;
   width: 95%;
   margin: auto;
+
+  overflow: auto;
+  overflow-x: hidden;
 `;
 
 const BookListTable = styled.table`
   height: 70%;
-  overflow: scroll;
   width: 100%;
   border-collapse: collapse;
 
@@ -142,6 +143,8 @@ const Th = styled.th`
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 12px;
+  top: 0;
+  position: sticky;
 
   @media (max-width: 425px) {
     display: none;
