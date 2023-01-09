@@ -5,6 +5,7 @@ import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import Popup from "../../components/Popup";
 import ReadOnlyRow from "../../components/dashboard components/ReadOnlyRow";
 import EditableRow from "../../components/dashboard components/EditableRow";
+import SearchRecord from "../../components/dashboard components/SearchRecord";
 
 // Records api URL
 const RECORDS_URL = "";
@@ -36,7 +37,7 @@ function Records() {
     }
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async e => {
     e.preventDefault();
     try {
       const response = await axiosPrivate.delete(
@@ -57,62 +58,71 @@ function Records() {
 
   // useEffect hook to run the getRecords function while component loads.
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     getRecords();
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 100);
+  }, [records]);
 
   // Actual records JSX element.
   return (
     <RecordsWrapper>
-      {loading ? (
-        <P>Loading...</P>
-      ) : (
-        <RecordsTable id="records">
-          <Tbody>
-            <Tr>
-              <Th>C.Number</Th>
-              <Th>C.Type</Th>
-              <Th>C.Company</Th>
-              <Th>From</Th>
-              <Th>To</Th>
-              <Th>Destination</Th>
-              <Th>Weight</Th>
-              <Th>Amount</Th>
-              <Th>Phone</Th>
-              <Th>Date</Th>
-              <Th>Time</Th>
-              <Th>Edit</Th>
-              <Th>Delete</Th>
-            </Tr>
-            {records.map((record, index) => {
-              return editId === record.courier_number ? (
-                <EditableRow
-                  record={record}
-                  index={index}
-                  setEditId={setEditId}
-                  getRecords={getRecords}
-                />
-              ) : (
-                <ReadOnlyRow
-                  record={record}
-                  index={index}
-                  setEditId={setEditId}
-                  setDeleteRecId={setDeleteRecId}
-                  setDeleteRecTrigger={setDeleteRecTrigger}
-                />
-              );
-            })}
-          </Tbody>
-        </RecordsTable>
-      )}
+      <RecWrapper>
+        <SearchRecord setRecords={setRecords} />
+        {loading ? (
+          <P>Loading...</P>
+        ) : records.length !== 0 ? (
+          <RecordsTable id="records">
+            <Tbody>
+              <Tr>
+                <Th>C.Number</Th>
+                <Th>C.Type</Th>
+                <Th>C.Company</Th>
+                <Th>From</Th>
+                <Th>To</Th>
+                <Th>Destination</Th>
+                <Th>Weight</Th>
+                <Th>Amount</Th>
+                <Th>Phone</Th>
+                <Th>Date</Th>
+                <Th>Time</Th>
+                <Th>Edit</Th>
+                <Th>Delete</Th>
+              </Tr>
+              {records.map((record, index) => {
+                return editId === record.courier_number ? (
+                  <EditableRow
+                    key={index}
+                    record={record}
+                    setEditId={setEditId}
+                    getRecords={getRecords}
+                  />
+                ) : (
+                  <ReadOnlyRow
+                    key={index}
+                    record={record}
+                    setEditId={setEditId}
+                    setDeleteRecId={setDeleteRecId}
+                    setDeleteRecTrigger={setDeleteRecTrigger}
+                  />
+                );
+              })}
+            </Tbody>
+          </RecordsTable>
+        ) : (
+          <Exclam>❕No Records to show :(</Exclam>
+        )}
 
-      <Popup
-        trigger={deleteRecTrigger}
-        setTrigger={setDeleteRecTrigger}
-        actionName={`Delete ${deleteRecId}?`}
-        actionFunc={handleDelete}
-      />
+        <Popup
+          trigger={deleteRecTrigger}
+          setTrigger={setDeleteRecTrigger}
+          actionName={`Delete ${deleteRecId}?`}
+          actionFunc={handleDelete}
+        />
+      </RecWrapper>
     </RecordsWrapper>
   );
 }
@@ -135,6 +145,14 @@ const RecordsWrapper = styled.div`
   }
 `;
 
+const RecWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const P = styled.div`
   height: 100vh;
   width: 100%;
@@ -143,6 +161,14 @@ const P = styled.div`
   justify-content: center;
   color: white;
   background: black;
+`;
+
+const Exclam = styled.div`
+  height: 50vh;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const RecordsTable = styled.table`
