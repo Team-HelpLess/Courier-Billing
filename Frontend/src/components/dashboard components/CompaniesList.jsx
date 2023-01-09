@@ -1,4 +1,4 @@
-export const companies = {
+export const parties = {
   "Vimal Exports": [],
   "Vishnu Laxmi": [],
   "Ujwal Textile mills": [],
