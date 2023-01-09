@@ -37,7 +37,7 @@ function Records() {
     }
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async e => {
     e.preventDefault();
     try {
       const response = await axiosPrivate.delete(
@@ -58,19 +58,23 @@ function Records() {
 
   // useEffect hook to run the getRecords function while component loads.
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     getRecords();
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 100);
+  }, [records]);
 
   // Actual records JSX element.
   return (
     <RecordsWrapper>
-      {loading ? (
-        <P>Loading...</P>
-      ) : (
-        <RecWrapper>
-          <SearchRecord setRecords={setRecords} />
+      <RecWrapper>
+        <SearchRecord setRecords={setRecords} />
+        {loading ? (
+          <P>Loading...</P>
+        ) : records.length !== 0 ? (
           <RecordsTable id="records">
             <Tbody>
               <Tr>
@@ -108,15 +112,17 @@ function Records() {
               })}
             </Tbody>
           </RecordsTable>
-        </RecWrapper>
-      )}
+        ) : (
+          <Exclam>❕No Records to show :(</Exclam>
+        )}
 
-      <Popup
-        trigger={deleteRecTrigger}
-        setTrigger={setDeleteRecTrigger}
-        actionName={`Delete ${deleteRecId}?`}
-        actionFunc={handleDelete}
-      />
+        <Popup
+          trigger={deleteRecTrigger}
+          setTrigger={setDeleteRecTrigger}
+          actionName={`Delete ${deleteRecId}?`}
+          actionFunc={handleDelete}
+        />
+      </RecWrapper>
     </RecordsWrapper>
   );
 }
@@ -140,6 +146,7 @@ const RecordsWrapper = styled.div`
 `;
 
 const RecWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -154,6 +161,14 @@ const P = styled.div`
   justify-content: center;
   color: white;
   background: black;
+`;
+
+const Exclam = styled.div`
+  height: 50vh;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const RecordsTable = styled.table`

@@ -12,14 +12,24 @@ function SearchRecord(props) {
   const { setRecords } = props;
 
   // states for the component
-  const [keyWord, setKeyWord] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [district, setDistrict] = useState("");
+  const [type, setType] = useState("");
+  const [comp, setComp] = useState("");
 
   // PrivateAxios instance to send api request
   const axiosPrivate = useAxiosPrivate();
   const handleSearch = async () => {
-    const data = { from_company: keyWord };
+    const data = {};
+    if (from !== "") data["from_company"] = from;
+    if (to !== "") data["to_company"] = to;
+    if (district !== "") data["to_destination"] = district;
+    if (type !== "") data["courier_type"] = type;
+    if (comp !== "") data["courier_company"] = comp;
+
     try {
-      const response = await axiosPrivate.get(SEARCH_URL, JSON.stringify(data));
+      const response = await axiosPrivate.post(SEARCH_URL, data);
       console.log(response);
       setRecords(response?.data);
     } catch (err) {
@@ -35,12 +45,36 @@ function SearchRecord(props) {
     <SearchWrapper>
       <Search>
         <Form
-          onSubmit={(e) => {
+          onSubmit={e => {
             e.preventDefault();
             handleSearch();
           }}
         >
-          <Input onChange={(e) => setKeyWord(e.target.value)} required />
+          <Input
+            onChange={e => setFrom(e.target.value)}
+            placeholder="From Party"
+            name="from_company"
+          />
+          <Input
+            onChange={e => setTo(e.target.value)}
+            placeholder="To Party"
+            name="to_company"
+          />
+          <Input
+            onChange={e => setDistrict(e.target.value)}
+            placeholder="District"
+            name="to_destination"
+          />
+          <Input
+            onChange={e => setType(e.target.value)}
+            placeholder="cash / credit"
+            name="courier_type"
+          />
+          <Input
+            onChange={e => setComp(e.target.value)}
+            placeholder="akash / anjani"
+            name="courier_company"
+          />
           <Button type="submit">🔍</Button>
         </Form>
       </Search>
@@ -57,11 +91,28 @@ const SearchWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+
+  @media (max-width: 425px) {
+    height: 20vh;
+  }
 `;
 
-const Search = styled.section``;
+const Search = styled.section`
+  width: 100%;
+`;
 
-const Form = styled.form``;
+const Form = styled.form`
+  margin: auto;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+`;
 
 const Input = styled.input`
   outline: none;
@@ -75,8 +126,14 @@ const Input = styled.input`
 const Button = styled.button`
   outline: none;
   border: none;
-  border-bottom: 1px solid white;
   padding: 5px 0px;
   background: transparent;
   cursor: pointer;
+  transition: 0.3s ease;
+  width: 2rem;
+  border-radius: 10px;
+
+  &:hover {
+    background: white;
+  }
 `;

@@ -66,7 +66,6 @@ class RecordView(viewsets.ViewSet):
             return Response({"PermissionError": "You don't have permission"})
 
     def find_many(self, request):
-        print(request.data)
         if request.user.has_perm("records.view_recordmodel"):
             records = RecordModel.objects.all()
             keys = request.data.keys()
@@ -105,7 +104,7 @@ class APIRoot(APIView):
                 # "api/delete/ - delete()": reverse('delete', request=request),
                 "api/update/ - update()" : reverse('update', request=request),
                 # "api/find/ - get()": reverse('find_by_courier_no', request=request),
-                "api/find_many/ - get()": reverse("find_many", request=request),
+                "api/find_many/ - post()": reverse("find_many", request=request),
                 "cleanup/ - post()": reverse("clean_up", request=request),
                 "excel/ - post()": reverse("get_excel", request=request),
             }
