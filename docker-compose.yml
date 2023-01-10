@@ -7,6 +7,8 @@ services:
       - 5173:5173
     volumes:
       - ./Frontend:/Frontend
+    links:
+      - backend
     depends_on:
       - backend
 
@@ -26,6 +28,8 @@ services:
       - ./Backend:/Backend
     links:
       - redis
+      - celery
+      - selenium
     depends_on:
       - celery
       - selenium

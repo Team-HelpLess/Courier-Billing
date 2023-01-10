@@ -175,7 +175,7 @@ REST_FRAMEWORK = {
 }
 
 # Cors Origin
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:5173', 'http://172.17.0.3:5173', 'https://cbilling-api.azurewebsites.net']
+CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:5173', 'http://172.17.0.3:5173', 'https://cbilling-api.azurewebsites.net', 'https://*']
 CORS_ALLOW_CREDENTIALS = True
 # CORS_ALLOW_ALL_ORIGINS = True
 
