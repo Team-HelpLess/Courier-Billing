@@ -1,8 +1,21 @@
+version: '3.9'
 services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - backend
+    depends_on:
+      - backend
+      - frontend
   frontend:
     image: goameer030/cb-frontend:latest
     build: ./Frontend/.
-    container_name: Frontend
+    container_name: frontend
     ports:
       - 5173:5173
     volumes:
@@ -15,13 +28,13 @@ services:
   backend:
     image: goameer030/cb-backend:latest
     build: ./Backend/.
-    container_name: Backend
+    container_name: backend
     environment:
-      - MAIL_PASSWORD="${MAIL_PASSWORD}"
-      - AKASH_USER_ID="${AKASH_USER_ID}"
-      - AKASH_PASSWORD="${AKASH_PASSWORD}"
-      - ANJANI_USER_ID="${ANJANI_USER_ID}"
-      - ANJANI_PASSWORD="${ANJANI_PASSWORD}"
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - AKASH_USER_ID=${AKASH_USER_ID}
+      - AKASH_PASSWORD=${AKASH_PASSWORD}
+      - ANJANI_USER_ID=${ANJANI_USER_ID}
+      - ANJANI_PASSWORD=${ANJANI_PASSWORD}
     ports:
       - 8000:8000
     volumes:
@@ -36,7 +49,9 @@ services:
 
   selenium:
     image: selenium/standalone-chrome
-    container_name: Selenium
+    container_name: selenium
+    environment:
+      - SE_NODE_MAX_CONCURRENT_SESSIONS=2
     expose:
       - 4444
     ports:
@@ -44,7 +59,7 @@ services:
 
   celery:
     build: ./Backend/
-    container_name: Celery
+    container_name: celery
     command: celery -A backend worker -l info
     volumes:
       - ./Backend:/Backend
@@ -53,7 +68,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: Redis
+    container_name: redis
     expose:
       - 6379
     ports:

@@ -7,36 +7,39 @@ import os
 from celery import shared_task
 
 def akash_webscraper(cn, driver):
-    driver.get("http://agconline.in/")
-    user_id = driver.find_element(By.XPATH, "//*[@id='txtUserID']")
-    user_id.send_keys(os.environ['AKASH_USER_ID'])
-    password = driver.find_element(By.XPATH, "//*[@id='txtPassword']")
-    password.send_keys(os.environ['AKASH_PASSWORD'])
-    button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.ID, "cmdLogin")))
-    button.click()
-    driver.execute_script(
-        f"window.open('Status_DocMulti.aspx?No={cn}&Tmp=(new Date()).getTime()', '_blank', '', false);"
-    )
-    tabs = driver.window_handles
-    driver.switch_to.window(tabs[1])
-    if WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH, "//*[@id='lblStatus']"))).text == "Document Not Found...":
-        return {"Error": "Document Not Found..."}
-    details = {'detail': []}
-    table = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "//*[@id='EntryTbl']")))
-    details['title'] = table.find_element(By.TAG_NAME, "td").text
-    rows = table.find_elements(By.TAG_NAME, "tr")
-    for row in rows[4:]:
-        temp = {}
-        columns = row.find_elements(By.TAG_NAME, "td")
-        for index, column in enumerate(columns):
-            temp[rows[2].find_elements(By.TAG_NAME, "td")[
-                index].text] = column.text
-        details['detail'].append(temp)
-    return details
+    try:
+        driver.get("http://agconline.in/")
+        user_id = driver.find_element(By.XPATH, "//*[@id='txtUserID']")
+        user_id.send_keys(os.environ['AKASH_USER_ID'])
+        password = driver.find_element(By.XPATH, "//*[@id='txtPassword']")
+        password.send_keys(os.environ['AKASH_PASSWORD'])
+        button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "cmdLogin")))
+        button.click()
+        driver.execute_script(
+            f"window.open('Status_DocMulti.aspx?No={cn}&Tmp=(new Date()).getTime()', '_blank', '', false);"
+        )
+        tabs = driver.window_handles
+        driver.switch_to.window(tabs[1])
+        if WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.XPATH, "//*[@id='lblStatus']"))).text == "Document Not Found...":
+            return {"Error": "Document Not Found..."}
+        details = {'detail': []}
+        table = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='EntryTbl']")))
+        details['title'] = table.find_element(By.TAG_NAME, "td").text
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        for row in rows[4:]:
+            temp = {}
+            columns = row.find_elements(By.TAG_NAME, "td")
+            for index, column in enumerate(columns):
+                temp[rows[2].find_elements(By.TAG_NAME, "td")[
+                    index].text] = column.text
+            details['detail'].append(temp)
+        return details
+    except Exception as e:
+        return {e}
 
 def anjani_webscraper(cn, driver):
     driver.get("http://www.anjanicourier.in/")
@@ -76,10 +79,10 @@ def drs_scrapper(cn):
 
         # Selenium Settings
         options = webdriver.ChromeOptions()
-        options.add_argument('--ignore-ssl-errors=yes')
-        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
         driver = webdriver.Remote(
-            command_executor='http://localhost:4444/wd/hub',
+            command_executor='http://selenium:4444',
             options=options
         )
 
@@ -87,11 +90,8 @@ def drs_scrapper(cn):
             result = akash_webscraper(cn, driver)
         else:
             result = anjani_webscraper(cn, driver)
-
-        for tab in driver.window_handles:
-            driver.switch_to.window(tab)
-            driver.close()
-            return result
+        driver.quit()
+        return result
 
     else:
         return f"Invalid Courier Number {cn}"
