@@ -13,7 +13,7 @@ const LOGOUT_URL = "/logout/";
 // Tabs component
 function Tabs() {
   // getting the logged in status
-  const aT = useSelector((state) => state?.user?.userAccessToken);
+  const aT = useSelector(state => state?.user?.userAccessToken);
 
   // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
@@ -25,7 +25,7 @@ function Tabs() {
   const navigate = useNavigate();
   // logout function to block the refresh token and
   // erase the present user credentials from userSlice
-  const HandleLogout = async (e) => {
+  const HandleLogout = async e => {
     e.preventDefault();
 
     try {
@@ -36,22 +36,23 @@ function Tabs() {
       });
       setTrigger(false);
       dispatch(logout());
-      navigate("/");
     } catch (err) {
       if (!err?.response) {
         console.log("No response from Server");
       } else {
         console.log("Something went wrong");
       }
+    } finally {
+      navigate("/");
     }
   };
 
   // functions to toggle the popup
   function toggleActive() {
-    setActive((prevActive) => !prevActive);
+    setActive(prevActive => !prevActive);
   }
   function activeToggle() {
-    setActive((prevActive) => prevActive);
+    setActive(prevActive => prevActive);
   }
 
   // jsx element for the tabs component
@@ -102,7 +103,7 @@ function Tabs() {
           {aT ? (
             <StyledTabLinks
               className="logout-btn"
-              onClick={(e) => setTrigger(true)}
+              onClick={e => setTrigger(true)}
             >
               LOGOUT
             </StyledTabLinks>
@@ -138,7 +139,7 @@ const TabLinks = styled.div`
   height: 10vh;
   width: 100%;
   padding: 24px 0px;
-  background: #5a3b1d;
+  background: #202225;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -148,11 +149,11 @@ const Link = styled(NavLink)`
   padding: 5px;
   border-radius: 10px;
   text-decoration: none;
-  color: white;
+  color: #7a7b81;
   transition: 0.3s ease;
 
   &:hover {
-    color: #180f0a;
+    color: white;
   }
   &.active {
     background: white;
@@ -191,7 +192,7 @@ const Ullist = styled.ul`
     height: 30vh;
     gap: 25px;
     flex-direction: column;
-    background-color: #000000;
+    background-color: #202225;
     width: 100%;
     text-align: center;
     transition: 0.5s;

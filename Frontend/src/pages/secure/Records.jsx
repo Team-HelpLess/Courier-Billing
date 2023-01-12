@@ -63,9 +63,9 @@ function Records() {
     dataFetchedRef.current = true;
     getRecords();
   }, []);
-  useEffect(() => {
-    window.scrollTo(0, 100);
-  }, [records]);
+  // useEffect(() => {
+  //   window.scrollTo(0, 100);
+  // }, [records]);
 
   // Actual records JSX element.
   return (
@@ -133,7 +133,7 @@ const RecordsWrapper = styled.div`
   padding-top: 5vh;
   min-height: 100vh;
   width: 100%;
-  background: black;
+  background: #2f3136;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +160,7 @@ const P = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
-  background: black;
+  background: #2f3136;
 `;
 
 const Exclam = styled.div`
@@ -183,7 +183,7 @@ const RecordsTable = styled.table`
 
 const Tbody = styled.tbody`
   & Tr:nth-child(even) {
-    background-color: #2929296c;
+    background-color: #00000088;
   }
 
   & Th {

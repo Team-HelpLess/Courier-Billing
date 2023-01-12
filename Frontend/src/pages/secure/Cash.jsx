@@ -42,7 +42,7 @@ function Cash() {
     window.scrollTo(0, 0);
   }, []);
 
-  const postToApi = async (data) => {
+  const postToApi = async data => {
     try {
       const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ function Cash() {
   };
   const handleSubmit = () => {
     if (Object.keys(submitables).length !== 0) {
-      Object.keys(submitables).map((key) => {
+      Object.keys(submitables).map(key => {
         const data = submitables[key];
         return postToApi(data);
       });
@@ -73,7 +73,7 @@ function Cash() {
   };
 
   // Function to handle the Generate button for generating Tiles
-  const handleGenerate = (e) => {
+  const handleGenerate = e => {
     e.preventDefault();
 
     setActive(true);
@@ -114,8 +114,8 @@ function Cash() {
 
   // Function to delete a Tile from the cash component after generated
   const deleteTile = () => {
-    setTiles(tiles.filter((tile) => tile.key !== String(deleteId)));
-    setSubmitables((prevSubmitables) => {
+    setTiles(tiles.filter(tile => tile.key !== String(deleteId)));
+    setSubmitables(prevSubmitables => {
       const { [deleteId]: deleted, ...rest } = prevSubmitables;
       return rest;
     });
@@ -133,7 +133,7 @@ function Cash() {
               <Input
                 type="text"
                 style={{ width: "16ch" }}
-                onChange={(e) => setFrom(e.target.value)}
+                onChange={e => setFrom(e.target.value)}
                 required
               />
             </InputPair>
@@ -142,7 +142,7 @@ function Cash() {
               <Input
                 type="number"
                 style={{ width: "12ch" }}
-                onChange={(e) => setCn(e.target.value)}
+                onChange={e => setCn(e.target.value)}
                 required
               />
             </InputPair>
@@ -151,15 +151,15 @@ function Cash() {
               <Input
                 type="number"
                 style={{ width: "12ch" }}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={e => setPhone(e.target.value)}
               />
             </InputPair>
             <InputPair>
               <Label className="NumsCourierlbl">CouriersCount</Label>
               <Dec
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
-                  setNums((prevNums) => prevNums - 1);
+                  setNums(prevNums => prevNums - 1);
                 }}
               >
                 -
@@ -174,12 +174,12 @@ function Cash() {
                   textAlign: "center",
                   paddingRight: "5px",
                 }}
-                onChange={(e) => setNums(e.target.value)}
+                onChange={e => setNums(e.target.value)}
               />
               <Inc
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
-                  setNums((prevNums) => prevNums + 1);
+                  setNums(prevNums => prevNums + 1);
                 }}
               >
                 +
@@ -190,12 +190,12 @@ function Cash() {
         </Form>
       </Section>
       <Reset className={active ? "active" : ""}>
-        <Button onClick={(e) => setTrigger(true)}>Reset</Button>
+        <Button onClick={e => setTrigger(true)}>Reset</Button>
       </Reset>
       <CashWrapper>{tiles}</CashWrapper>
       <ButtonWrapper>
         <Button
-          onClick={(e) => {
+          onClick={e => {
             setSummaryTrigger(true);
           }}
         >
@@ -235,7 +235,7 @@ export default Cash;
 //  Styling of the Cash Component
 const CashComponent = styled.div`
   padding-top: 2.5rem;
-  background: black;
+  background: #2f3136;
 
   @media (max-width: 425px) {
     padding-top: 2rem;
@@ -376,7 +376,7 @@ const Input = styled.input`
     -webkit-box-shadow: 0 0 0 30px black inset !important;
   }
   &:-webkit-autofill {
-    -webkit-text-fill-color: #3fc0e0 !important;
+    -webkit-text-fill-color: #2f3136 !important;
   }
 
   &::-webkit-outer-spin-button,
@@ -390,7 +390,7 @@ const Input = styled.input`
   border: none;
   border-bottom: 1px solid white;
   border-left: 1px solid white;
-  color: #3fc0e0;
+  color: #d8d9da;
   padding-bottom: 5px;
   padding-left: 5px;
   width: 5rem;

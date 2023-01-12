@@ -27,11 +27,11 @@ const Div = styled.div`
 const Wrapper = styled.section`
   height: 50%;
   width: 80%;
-  background: rgb(221 143 70 / 40%);
+  background: #36393f;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
-  border: 1px solid rgb(221 143 70 / 40%);
+  border: 1px solid #36393f;
 
   display: flex;
   align-items: center;
