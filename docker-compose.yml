@@ -47,7 +47,10 @@ services:
       - SE_NODE_MAX_CONCURRENT_SESSIONS=2
 
   celery:
-    image: goameer030/cb-backend:latest
+    build: 
+      context: ./Backend/.
+      args:
+        - ENV=PRODUCTION
     container_name: celery
     command: celery -A backend worker -l info
     volumes:
