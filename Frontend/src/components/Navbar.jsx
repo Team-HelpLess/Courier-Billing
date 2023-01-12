@@ -6,8 +6,8 @@ import styled from "styled-components";
 import billingPNG from "../assets/billingIcon.png";
 
 function Navbar() {
-  const userName = useSelector((state) => state.user.value.username);
-  const accessToken = useSelector((state) => state.user.value.userAccessToken);
+  const userName = useSelector(state => state.user.value.username);
+  const accessToken = useSelector(state => state.user.value.userAccessToken);
 
   let [navLinks, setNavLinks] = useState([]);
 

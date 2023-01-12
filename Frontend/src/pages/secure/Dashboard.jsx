@@ -11,4 +11,5 @@ export default Dashboard;
 const DashWrapper = styled.div`
   min-height: 100vh;
   min-width: 100%;
+  background: #2f3136;
 `;

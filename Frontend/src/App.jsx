@@ -16,7 +16,7 @@ import Tabs from "./components/Tabs";
 // Functional App component
 function App() {
   // constant for AccessToken
-  const aT = useSelector((state) => state.user.userAccessToken);
+  const aT = useSelector(state => state.user.userAccessToken);
 
   // checking if user already logged in for persist login
   const [isloading, setIsLoading] = useState(true);
@@ -77,7 +77,7 @@ const P = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
-  background: black;
+  background: #2f3136;
 `;
 
 const AppWrapper = styled.div`
