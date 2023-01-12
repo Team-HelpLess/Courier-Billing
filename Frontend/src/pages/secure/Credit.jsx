@@ -12,10 +12,10 @@ const CreditCard = partyName => {
 };
 
 const Card = styled.div`
-  height: 15rem;
+  height: 30rem;
   width: 20rem;
   border-radius: 10px;
-  background: gray;
+  background: white;
   display: flex;
   align-items: center;
   padding: 15px;
@@ -32,7 +32,7 @@ const Card = styled.div`
     padding: 10px;
   }
 `;
-const Span = styled.div`
+const Span = styled.span`
   margin-left: -15px;
   margin-top: 4rem;
   position: absolute;
@@ -41,7 +41,9 @@ const Span = styled.div`
   background: brown;
 
   @media (max-width: 425px) {
-    display: none;
+    margin-left: -9.75px;
+    margin-top: 2.5rem;
+    height: 5.5rem;
   }
 `;
 const Descript = styled.p`
@@ -79,7 +81,7 @@ export default Credit;
 const CreditWrapper = styled.div`
   min-height: 100vh;
   width: 100%;
-  background: black;
+  background: #2f3136;
 `;
 
 const CreditTiles = styled.section`

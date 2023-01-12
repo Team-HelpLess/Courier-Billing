@@ -121,6 +121,17 @@ const Input = styled.input`
   background: transparent;
   padding: 5px 0px;
   color: white;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: none;
+    -webkit-box-shadow: 0 0 0 30px black inset !important;
+  }
+  &:-webkit-autofill {
+    -webkit-text-fill-color: #2f3136 !important;
+  }
 `;
 
 const Button = styled.button`

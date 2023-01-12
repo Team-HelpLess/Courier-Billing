@@ -13,7 +13,7 @@ const LOGIN_URL = "token/obtain/";
 // Action Login component
 function Login() {
   // aT for checking whether user is logged in or not!
-  const aT = useSelector((state) => state?.user?.userAccessToken);
+  const aT = useSelector(state => state?.user?.userAccessToken);
 
   // states for the UserName and PassWord
   const [username, setUsername] = useState("");
@@ -38,7 +38,7 @@ function Login() {
   const from = location.state?.from?.pathname || "/dashboard";
 
   // Functino to handle submit of the login form
-  const LoginHandler = async (e) => {
+  const LoginHandler = async e => {
     e.preventDefault();
 
     try {
@@ -96,7 +96,7 @@ function Login() {
                 type="text"
                 name="name"
                 autoComplete="off"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={e => setUsername(e.target.value)}
                 required
               />
             </InputPair>
@@ -105,7 +105,7 @@ function Login() {
               <Input
                 type="password"
                 name="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
               />
             </InputPair>
@@ -148,11 +148,11 @@ const LoginWrapper = styled.section`
   height: 50vh;
   width: 80%;
   position: relative;
-  background: rgb(221 143 70 / 40%);
+  background: #36393f;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
-  border: 1px solid rgb(221 143 70 / 40%);
+  border: 1px solid #36393f;
 
   @media (max-width: 425px) {
     width: 80%;
@@ -190,7 +190,7 @@ const Input = styled.input`
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     box-shadow: none;
-    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-box-shadow: 0 0 0 30px #2f3136 inset !important;
   }
   &:-webkit-autofill {
     -webkit-text-fill-color: #101010d1 !important;
@@ -223,6 +223,7 @@ const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #3c1d0d;
+    color: black;
+    background: white;
   }
 `;
