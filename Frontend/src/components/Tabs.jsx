@@ -36,13 +36,14 @@ function Tabs() {
       });
       setTrigger(false);
       dispatch(logout());
-      navigate("/");
     } catch (err) {
       if (!err?.response) {
         console.log("No response from Server");
       } else {
         console.log("Something went wrong");
       }
+    } finally {
+      navigate("/");
     }
   };
 

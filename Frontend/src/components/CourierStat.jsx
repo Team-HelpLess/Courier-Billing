@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axiosPublic from "../api/axios";
+import { axiosPublic } from "../api/axios";
 import styled from "styled-components";
 
 const STAT_URL = "";
@@ -8,11 +8,9 @@ function CourierStat() {
   const [cnum, setCnum] = useState(null);
   const [stat, setStat] = useState(null);
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     try {
-      const response = await axiosPublic.post(`${STAT_URL}${cnum}/`);
+      const response = await axiosPublic.get(`${STAT_URL}${cnum}/`);
       console.log(response);
       setStat(response);
     } catch (err) {
@@ -36,8 +34,9 @@ function CourierStat() {
             />
             <Button
               type="submit"
-              onClick={() => {
-                handleSubmit;
+              onClick={e => {
+                e.preventDefault();
+                handleSubmit();
               }}
             >
               🔍
@@ -138,4 +137,9 @@ const Stat = styled.section`
   height: 75%;
   width: 90%;
   background: #2f3136;
+
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

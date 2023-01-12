@@ -15,6 +15,27 @@ function Homepage() {
           <InfoSection />
           <Login />
         </SubSection>
+
+        <Scroll>
+          <Navs>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                window.scrollTo(0, 0);
+              }}
+            >
+              ˄
+            </Button>
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                window.scrollTo(0, document.body.scrollHeight);
+              }}
+            >
+              ˅
+            </Button>
+          </Navs>
+        </Scroll>
       </Section>
     </>
   );
@@ -39,4 +60,28 @@ const SubSection = styled.section`
   @media (max-width: 425px) {
     width: 90%;
   }
+`;
+
+const Scroll = styled.div`
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  background: transparent;
+  height: 5rem;
+  width: 8rem;
+`;
+const Navs = styled.div`
+  height: inherit;
+  width: inherit;
+  display: flex;
+  padding: 10px;
+  gap: 15px;
+`;
+const Button = styled.button`
+  height: 2rem;
+  width: 2rem;
+  background: #202225;
+  color: white;
+  cursor: pointer;
+  border: none;
 `;
