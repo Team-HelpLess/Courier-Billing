@@ -8,6 +8,8 @@ services:
       - VITE_BACKEND_ADDRESS=${BACKEND_URL}
     ports:
       - 5173:5173
+    volumes:
+      - ./Frontend:/Frontend
     links:
       - backend
     depends_on:
@@ -15,13 +17,13 @@ services:
 
   backend:
     image: goameer030/cb-backend:latest
-    build: 
+    build:
       context: ./Backend/.
       args:
-        - ENV=PRODUCTION
+        - ENV=DEVELOPMENT
     container_name: backend
     environment:
-      - ENV=PRODUCTION
+      - ENV=DEVELOPMENT
 
       - MAIL_ID=${MAIL_ID}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
@@ -32,6 +34,8 @@ services:
       - ANJANI_PASSWORD=${ANJANI_PASSWORD}
     ports:
       - 8000:8000
+    volumes:
+      - ./Backend:/Backend
     links:
       - redis
       - celery
@@ -45,6 +49,10 @@ services:
     container_name: selenium
     environment:
       - SE_NODE_MAX_CONCURRENT_SESSIONS=2
+    expose:
+      - 4444
+    ports:
+      - 4444:4444
 
   celery:
     image: goameer030/cb-backend:latest
@@ -54,9 +62,11 @@ services:
       - ./Backend:/Backend
     links:
       - redis
-    depends_on:
-      - redis
 
   redis:
     image: redis:latest
     container_name: redis
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
