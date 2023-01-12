@@ -29,7 +29,7 @@ DEBUG = False if os.getenv("ENV") == "PRODUCTION" else True
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS =  ['*'] if DEBUG is not True else ['*']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*'] if DEBUG is not True else ['http://*', 'https://*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*', 'https://*.okteto.net/*'] if DEBUG is not True else ['http://*', 'https://*']
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -161,7 +161,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = ['https://goameer030-organic-potato-pw66w6q7r7qcxpj-5173.preview.app.github.dev']
+    CORS_ALLOWED_ORIGINS = ['https://goameer030-organic-potato-pw66w6q7r7qcxpj-5173.preview.app.github.dev', 'https://frontend-goameer030.cloud.okteto.net/']
 CORS_ALLOW_CREDENTIALS = True
 
 # JWT settings
