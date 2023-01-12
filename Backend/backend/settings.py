@@ -14,9 +14,6 @@ import os
 from pathlib import Path
 from datetime import timedelta
 
-from dotenv import load_dotenv
-load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,10 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9$^pl5bv0q61zc+*zyfj*f)jal5(d+_55ye#c_(*&3v#@!!dh_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if os.getenv("ENV") == "PRODUCTION" else True
+# DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS =  ['cbilling-api.azurewebsites.net', '127.0.0.1'] if DEBUG != True else ['*']
-CSRF_TRUSTED_ORIGINS = ['https://cbilling-api.azurewebsites.net/*', 'https://cbilling-api.azurewebsites.net/admin/login/?next=/admin/'] if DEBUG != True else ['http://*', 'https://*']
+ALLOWED_HOSTS =  ['*'] if DEBUG is not True else ['*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*'] if DEBUG is not True else ['http://*', 'https://*']
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -59,6 +57,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,12 +71,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -98,28 +97,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cbilling-api-db',
-            'USER': os.getenv("DB_USER"),
-            'PASSWORD': os.getenv("DB_PASSWORD"),
-            'HOST': os.getenv("DB_HOST"),
-            'PORT': '5432',
-            'OPTION': {
-                'sslmode': 'require',
-            }
-        }
-    }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -174,10 +157,12 @@ REST_FRAMEWORK = {
     )
 }
 
-# Cors Origin
-CORS_ALLOWED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:5173', 'http://172.17.0.3:5173', 'https://cbilling-api.azurewebsites.net', 'https://*']
+# Cors Origin Settings
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = ['https://goameer030-organic-potato-pw66w6q7r7qcxpj-5173.preview.app.github.dev']
 CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_ALL_ORIGINS = True
 
 # JWT settings
 SIMPLE_JWT = {
