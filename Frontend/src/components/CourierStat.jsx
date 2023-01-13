@@ -2,7 +2,7 @@ import { useState } from "react";
 import { axiosPublic } from "../api/axios";
 import styled from "styled-components";
 
-const STAT_URL = "";
+const STAT_URL = "drs/";
 
 function CourierStat() {
   const [cnum, setCnum] = useState(null);
@@ -16,8 +16,10 @@ function CourierStat() {
     } catch (err) {
       if (!err?.response) {
         console.log("No Server Response!");
+        setStat("No Response From Server! :( Try again!");
       } else {
         console.log("Something went wrong!");
+        setStat("Something Went Wrong!");
       }
     }
   };

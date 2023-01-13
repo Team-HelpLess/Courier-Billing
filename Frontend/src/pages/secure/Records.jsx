@@ -28,7 +28,6 @@ function Records() {
   const getRecords = async () => {
     try {
       const response = await axiosPrivate.get(RECORDS_URL);
-      console.log(response.data);
       setRecords(response.data);
     } catch (err) {
       console.error(err);
