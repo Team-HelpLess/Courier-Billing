@@ -1,9 +1,14 @@
 // Imports
 import styled from "styled-components";
+import CourierStat from "../../components/CourierStat";
 
 // functional Dashboard component
 function Dashboard() {
-  return <DashWrapper></DashWrapper>;
+  return (
+    <DashWrapper>
+      <CourierStat />
+    </DashWrapper>
+  );
 }
 export default Dashboard;
 
