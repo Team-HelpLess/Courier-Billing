@@ -58,7 +58,7 @@ const SubSection = styled.section`
   justify-content: center;
 
   @media (max-width: 425px) {
-    width: 90%;
+    width: 100%;
   }
 `;
 
