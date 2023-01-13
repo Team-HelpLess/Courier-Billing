@@ -3,7 +3,9 @@ import axios from "axios";
 const BASE_URL = `https://${import.meta.env.VITE_BACKEND_ADDRESS}/`;
 //const BASE_URL = "http://127.0.0.1:8000/";
 
-export const axiosPublic = axios.create({ baseURL: BASE_URL });
+export const axiosPublic = axios.create({ 
+  baseURL: BASE_URL, 
+});
 
 export default axios.create({
   baseURL: `${BASE_URL}api/`,
