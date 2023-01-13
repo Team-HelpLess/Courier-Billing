@@ -77,6 +77,7 @@ const StatContainer = styled.section`
 
   @media (max-width: 425px) {
     width: 90%;
+    height: 60%;
   }
 `;
 
@@ -133,6 +134,10 @@ const Button = styled.button`
   background: #202225;
   border: none;
   outline: none;
+
+  @media (max-width: 425px) {
+    height: 1.9rem;
+  }
 `;
 
 const Stat = styled.section`
