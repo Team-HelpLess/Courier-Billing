@@ -1,5 +1,5 @@
 // Imports
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { parties } from "../../components/dashboard components/CompaniesList";
 
@@ -14,20 +14,13 @@ const CreditCard = partyName => {
 
 // Credit Functional component
 function Credit() {
-  const RenderRef = useRef(false);
-  const [partiesList, setPartiesList] = useState([]);
-  const [filterlist, setFilterList] = useState([]);
+  const [partiesList] = useState(Object.keys(parties).sort());
+  const [filterlist, setFilterList] = useState(Object.keys(parties).sort());
   const [key, setKey] = useState("");
+  const [toggle, setToggle] = useState(false);
+  const [newParty, setNewParty] = useState("");
 
-  useEffect(() => {
-    if (RenderRef.current) {
-      return;
-    }
-    RenderRef.current = true;
-
-    setPartiesList(Object.keys(parties));
-    setFilterList(Object.keys(parties));
-  }, []);
+  // useEffect hook to run whenever the key changes
   useEffect(() => {
     const filters = partiesList.filter(party =>
       party.toLowerCase().includes(key.toLowerCase())
@@ -35,12 +28,52 @@ function Credit() {
     setFilterList(filters);
   }, [key]);
 
+  const handleAddParty = () => {
+    parties[newParty] = [];
+    setToggle(!toggle);
+  };
+
   // Actual JSX element for the Functional component
   return (
     <CreditWrapper>
       <Search>
-        <Input type="text" onChange={e => setKey(e.target.value)} />
+        <Input
+          title="Search 🔍 Party"
+          type="text"
+          onChange={e => setKey(e.target.value)}
+        />
+
+        <Button
+          title="Add a Party"
+          onClick={e => {
+            e.preventDefault();
+            setToggle(!toggle);
+          }}
+          className="plus-btn"
+        >
+          +
+        </Button>
       </Search>
+
+      <AddWrapper className={toggle ? "active" : ""}>
+        <AddParty>
+          <Input
+            className="addParty"
+            type="text"
+            onChange={e => setNewParty(e.target.value)}
+          />
+          <Button
+            title="click to add party"
+            className="addParty-btn"
+            onClick={e => {
+              e.preventDefault();
+              handleAddParty;
+            }}
+          >
+            ADD
+          </Button>
+        </AddParty>
+      </AddWrapper>
 
       <CreditTiles>
         {filterlist.map((party, index) => (
@@ -119,6 +152,27 @@ const Search = styled.div`
   justify-content: center;
 `;
 
+const AddWrapper = styled.div`
+  height: 25vh;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  &.active {
+    display: flex;
+  }
+`;
+const AddParty = styled.div`
+  height: 90%;
+  width: 80%;
+  background: #202225;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Input = styled.input`
   padding: 10px;
   background: #202225;
@@ -126,6 +180,46 @@ const Input = styled.input`
   border: none;
   font-size: 1.25rem;
   color: white;
+
+  &.addParty {
+    background: #2f3136;
+  }
+  @media (max-width: 425px) {
+    width: 10rem;
+  }
+`;
+
+const Button = styled.button`
+  padding: 7.5px;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+  width: 3rem;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &.plus-btn {
+    position: absolute;
+    margin-left: 75%;
+
+    @media (max-width: 425px) {
+      margin-left: 70%;
+      position: absolute;
+    }
+  }
+  &.addParty-btn {
+    padding: 12.5px;
+    width: 5rem;
+    font-size: 1rem;
+    font-weight: bolder;
+  }
+  &:hover {
+    background: white;
+  }
+
+  @media (max-width: 425px) {
+    padding: 7px;
+  }
 `;
 
 const CreditTiles = styled.section`
