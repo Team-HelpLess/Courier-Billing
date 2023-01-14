@@ -46,7 +46,7 @@ function CourierStat() {
           </Form>
         </StatForm>
 
-        <Stat>{stat}</Stat>
+        <Stat>{JSON.stringify(stat)}</Stat>
       </StatContainer>
     </CourierStatWrapper>
   );
@@ -144,6 +144,7 @@ const Stat = styled.section`
   height: 75%;
   width: 90%;
   background: #2f3136;
+  color: white;
 
   padding: 15px;
   display: flex;
