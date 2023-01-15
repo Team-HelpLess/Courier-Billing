@@ -84,4 +84,5 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
   border: none;
+  vertical-align: center;
 `;
