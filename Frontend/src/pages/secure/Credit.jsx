@@ -1,12 +1,18 @@
 // Imports
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { parties } from "../../components/dashboard components/CompaniesList";
 
 // Particular Cards
 const CreditCard = partyName => {
+  const navigate = useNavigate();
+  function handleClick() {
+    navigate("/partyBook", { state: { partyName: partyName.partyName } });
+  }
+
   return (
-    <Card>
+    <Card onClick={handleClick}>
       <Descript>{partyName.partyName}</Descript>
     </Card>
   );
@@ -159,9 +165,12 @@ const AddWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+  transition: opacity 0.7s ease-in-out;
+  opacity: 0;
 
   &.active {
     display: flex;
+    opacity: 1;
   }
 `;
 const AddParty = styled.div`

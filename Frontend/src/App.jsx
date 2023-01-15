@@ -7,6 +7,7 @@ import Homepage from "./pages/Homepage";
 import Dashboard from "./pages/secure/Dashboard";
 import Cash from "./pages/secure/Cash";
 import Credit from "./pages/secure/Credit";
+import PartyBook from "./components/dashboard components/PartyBook";
 import Records from "./pages/secure/Records";
 import RequireAuth from "./hooks/RequireAuth";
 import RefreshToken from "./hooks/RefreshToken";
@@ -57,6 +58,7 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/cash" element={<Cash />} />
                   <Route path="/credit" element={<Credit />} />
+                  <Route path="/partyBook" element={<PartyBook />} />
                   <Route path="/records" element={<Records />} />
                 </Route>
               </Route>
