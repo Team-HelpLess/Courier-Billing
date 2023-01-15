@@ -1,5 +1,5 @@
 // Imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { login } from "../store/store";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,6 +15,9 @@ function Login() {
   // aT for checking whether user is logged in or not!
   const aT = useSelector(state => state?.user?.userAccessToken);
 
+  // useRef
+  const inputRef = useRef(null);
+
   // states for the UserName and PassWord
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,11 +30,17 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // To reset message
+  useEffect(() => {
+    setMsg("");
+  }, [username, password]);
+
   // UseEffect to navigate user to dashboard if logged in!
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
+    inputRef.current.focus();
     if (aT) {
-      navigate(-1);
+      navigate("/dashboard");
     }
   }, []);
   // Setting the history
@@ -93,6 +102,7 @@ function Login() {
             <InputPair>
               <Label htmlFor="name">Username</Label>
               <Input
+                ref={inputRef}
                 type="text"
                 name="name"
                 autoComplete="off"
