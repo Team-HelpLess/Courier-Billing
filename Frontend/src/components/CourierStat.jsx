@@ -6,7 +6,7 @@ const STAT_URL = "drs/";
 
 function CourierStat() {
   const [cnum, setCnum] = useState(null);
-  const [stat, setStat] = useState(null);
+  const [stat, setStat] = useState();
 
   const handleSubmit = async () => {
     try {

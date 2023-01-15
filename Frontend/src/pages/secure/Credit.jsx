@@ -24,6 +24,7 @@ function Credit() {
   const [filterlist, setFilterList] = useState(Object.keys(parties).sort());
   const [key, setKey] = useState("");
   const [toggle, setToggle] = useState(false);
+  const [addtoggle, setAddtoggle] = useState(false);
   const [newParty, setNewParty] = useState("");
 
   // useEffect hook to run whenever the key changes
@@ -54,8 +55,9 @@ function Credit() {
           onClick={e => {
             e.preventDefault();
             setToggle(!toggle);
+            setAddtoggle(!addtoggle);
           }}
-          className="plus-btn"
+          className={toggle ? "plus-btn active" : "plus-btn"}
         >
           +
         </Button>
@@ -70,7 +72,7 @@ function Credit() {
           />
           <Button
             title="click to add party"
-            className="addParty-btn"
+            className={addtoggle ? "addParty-btn active" : "addParty-btn"}
             onClick={e => {
               e.preventDefault();
               handleAddParty;
@@ -159,18 +161,16 @@ const Search = styled.div`
 `;
 
 const AddWrapper = styled.div`
-  height: 25vh;
+  height: 0;
   width: 100%;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
-  transition: opacity 0.7s ease-in-out;
-  opacity: 0;
+  transition: all 0.4s ease-in-out;
 
   &.active {
-    display: flex;
-    opacity: 1;
+    height: 25vh;
   }
 `;
 const AddParty = styled.div`
@@ -210,6 +210,16 @@ const Button = styled.button`
   &.plus-btn {
     position: absolute;
     margin-left: 75%;
+    transition: 0.3s;
+
+    &.active {
+      transform: rotate(45deg);
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     @media (max-width: 425px) {
       margin-left: 70%;
@@ -217,10 +227,16 @@ const Button = styled.button`
     }
   }
   &.addParty-btn {
+    display: none;
     padding: 12.5px;
     width: 5rem;
     font-size: 1rem;
     font-weight: bolder;
+    transition: all 0.3s ease-in-out;
+
+    &.active {
+      display: block;
+    }
   }
   &:hover {
     background: white;
