@@ -1,7 +1,9 @@
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.response import Response
 from records.models import RecordModel
 from .excel.excel import Excel
+from .sendings.whatsapp import WhatsApp
 
 class ExcelView(viewsets.ViewSet):
     def get_excel(self, request):
@@ -16,3 +18,8 @@ class ExcelView(viewsets.ViewSet):
                 RecordModel=RecordModel,
             )
         return Response({"reponse": "done"})
+
+class WhatsAppView(viewsets.ViewSet):
+    def recieved_message(self, request):
+        response = WhatsApp.recieved_message_handler(request.data['Body'])
+        return HttpResponse(response)
