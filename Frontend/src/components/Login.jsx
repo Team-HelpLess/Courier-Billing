@@ -23,6 +23,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   // state for the response message
+  const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
   // const for react-router-dom hooks
@@ -49,6 +50,8 @@ function Login() {
   // Functino to handle submit of the login form
   const LoginHandler = async e => {
     e.preventDefault();
+    setLoading(true);
+    let res = "";
 
     try {
       const response = await axios.post(
@@ -64,7 +67,7 @@ function Login() {
           accessToken: response?.data?.access,
         })
       );
-      setMsg("Login Successful!");
+      res = "Login Successful!";
       if (from !== "") {
         navigate(from, { replace: true });
       } else {
@@ -72,12 +75,15 @@ function Login() {
       }
     } catch (err) {
       if (!err?.response) {
-        setMsg("NO SERVER RESPONSE!");
+        res = "NO SERVER RESPONSE!";
       } else if (err.response?.status === 401) {
-        setMsg("PROVIDE VALID CREDENTIALS!");
+        res = "PROVIDE VALID CREDENTIALS!";
       } else {
-        setMsg("SOMETHING WENT WRONG!");
+        res = "SOMETHING WENT WRONG!";
       }
+    } finally {
+      setLoading(false);
+      setMsg(res);
     }
   };
 
@@ -87,6 +93,7 @@ function Login() {
       <LoginWrapper>
         <LoginForm>
           <Message> {msg} </Message>
+          <Loading className={loading ? "active rotate" : ""}>⚙️</Loading>
           <h1
             style={{
               fontSize: "2rem",
@@ -139,6 +146,35 @@ const Message = styled.div`
   justify-content: center;
   color: white;
   margin-bottom: 0.25rem;
+`;
+
+const Loading = styled.span`
+  position: absolute;
+  font-size: 1.5rem;
+  margin-top: -2.25rem;
+  margin-left: 15.65rem;
+  display: none;
+
+  @media (max-width: 425px) {
+    margin-left: 8.9rem;
+  }
+
+  &.active {
+    display: block;
+  }
+
+  &.rotate {
+    animation: rotation 2s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
 `;
 
 const Section = styled.section`

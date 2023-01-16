@@ -1,15 +1,29 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import PartyPages from "./PartyPages";
 import styled from "styled-components";
 
 function PartyBook(props) {
   const {} = props; //Destructuring props
 
   const [detail, setDetail] = useState(false);
+  const [partyTiles, setPartyTiles] = useState([]);
+  const [nums, setNums] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const partyName = location.state.partyName;
+  const partyName = location?.state?.partyName;
+
+  const handlePages = e => {
+    e.preventDefault();
+
+    const newTiles = [];
+    for (let i = 0; i < nums; i++) {
+      newTiles.push(<PartyPages key={i} />);
+    }
+
+    setPartyTiles(newTiles);
+  };
 
   const BACK = "< Back";
   return (
@@ -51,7 +65,43 @@ function PartyBook(props) {
           <PreviousBooks></PreviousBooks>
         </PartyInfo>
 
-        <BookParty></BookParty>
+        <BookParty>
+          <Form onSubmit={handlePages} method="none">
+            <Dec
+              onClick={e => {
+                e.preventDefault();
+                setNums(prevNums => prevNums - 1);
+              }}
+            >
+              -
+            </Dec>
+            <Input
+              required
+              className="NumsCourier"
+              type="number"
+              value={nums}
+              style={{
+                width: "5ch",
+                textAlign: "center",
+                paddingRight: "5px",
+              }}
+              onChange={e => setNums(e.target.value)}
+            />
+            <Inc
+              onClick={e => {
+                e.preventDefault();
+                setNums(prevNums => prevNums + 1);
+              }}
+            >
+              +
+            </Inc>
+
+            <Button className="go-btn" type="submit">
+              GO
+            </Button>
+          </Form>
+          <Pages>{partyTiles}</Pages>
+        </BookParty>
       </PartyPage>
     </PartyWrapper>
   );
@@ -142,12 +192,24 @@ const Button = styled.button`
       margin-bottom: 1rem;
     }
   }
+
+  &.go-btn {
+    background: #ffffff86;
+    color: #202225;
+    width: 2.5rem;
+    height: 2rem;
+    margin-left: 1rem;
+
+    &:hover {
+      color: white;
+    }
+  }
 `;
 const FrequentParties = styled.div`
   height: 38vh;
   width: 100%;
   background: #202225;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 10px;
 
   &::-webkit-scrollbar {
@@ -157,7 +219,7 @@ const FrequentParties = styled.div`
     background: black;
   }
   &::-webkit-scrollbar-thumb {
-    background: #a19c9cd6;
+    background: #2f3136;
   }
 `;
 const Head = styled.p`
@@ -175,7 +237,7 @@ const PreviousBooks = styled.div`
   height: 38vh;
   width: 100%;
   background: #202225;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 10px;
 
   &::-webkit-scrollbar {
@@ -185,7 +247,7 @@ const PreviousBooks = styled.div`
     background: black;
   }
   &::-webkit-scrollbar-thumb {
-    background: #a19c9cd6;
+    background: #2f3136;
   }
 `;
 
@@ -194,7 +256,18 @@ const BookParty = styled.section`
   width: 49%;
   background: #202225;
   padding: 10px;
-  overflow-y: scroll;
+
+  @media (max-width: 425px) {
+    width: 100%;
+    height: 80vh;
+  }
+`;
+
+const Pages = styled.div`
+  height: 74vh;
+  width: 100%;
+  overflow-y: auto;
+  padding: 0 10px;
 
   display: flex;
   flex-direction: column;
@@ -207,11 +280,66 @@ const BookParty = styled.section`
     background: black;
   }
   &::-webkit-scrollbar-thumb {
-    background: #a19c9cd6;
+    background: #2f3136;
   }
 
   @media (max-width: 425px) {
-    width: 100%;
-    height: 80vh;
+    max-height: 90%;
   }
+`;
+
+const Form = styled.form`
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: none;
+    -webkit-box-shadow: 0 0 0 30px black inset !important;
+  }
+  &:-webkit-autofill {
+    -webkit-text-fill-color: #2f3136 !important;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid white;
+  color: #d8d9da;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  width: 5rem;
+`;
+
+const Dec = styled.button`
+  height: 22px;
+  width: 30px;
+  background: transparent;
+  outline: none;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+
+  @media (max-width: 425px) {
+    margin-bottom: 5px;
+    height: 25px;
+    width: 32px;
+  }
+`;
+const Inc = styled(Dec)`
+  margin-left: 0;
 `;
