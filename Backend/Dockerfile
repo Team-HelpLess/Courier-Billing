@@ -12,6 +12,7 @@ COPY . /Backend/
 
 EXPOSE 8000
 
-RUN python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py collectstatic
+# RUN python3 manage.py makemigrations && python3 manage.py migrate
+RUN python3 manage.py collectstatic
 
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
