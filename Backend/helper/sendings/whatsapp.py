@@ -24,19 +24,19 @@ class WhatsApp:
             response_message.body('Hi There,\nThis is an automated message, Send *help* to know about commands\nThankyou for contacting us')
             responsed = 1
         elif data.lower() == 'help':
-            response_message.body('Send *date(dd.mm.yyyy)*: All the records booked on the specific date from your number will be sent\nSend *courier_number(nnnnnnnnnn)*: Details about specific record will be sent')
+            response_message.body('Send *date(dd.mm.yyyy)*: All the records booked on the specific date from your number will be sent\nSend *courier_number(nnnnnnnnnn)*: Details about specific record will be sent, wait upto 15 seconds to get response, if you didin\'t get any response try sending it again')
             responsed = 1
         elif len(data.split('.')) == 3:
             try:
                 date = datetime.strptime(data, '%d.%m.%Y').date()
                 records = RecordModel.objects.filter(booked_date=date, phone_no=from_number)
-                serializers = RecordSerializer(records, many=True)
                 response_message.body(f"*Totally {len(records)} records booked on {date}*")
-                for i in serializers.data:
-                    response_message.body(f"Courier Number : {i['courier_number']} To : {i['to_company']}, {i['to_destination']}")
+                serializers = RecordSerializer(records, many=True)
+                for i in range(20 if len(records) > 20 else len(records)):
+                    response_message.body(f".\nCourier Number : {serializers.data[i]['courier_number']} To : {serializers.data[i]['to_company']}, {serializers.data[i]['to_destination']}")
                 responsed = 1
             except Exception as e:
-                response_message.body('Invalid date.\nCorrect format is *dd.mm.yyyy*')
+                response_message.body(f'Invalid date.\nCorrect format is *dd.mm.yyyy*')
                 responsed = 1
         elif len(data) in (9, 10) and data.isdigit():
             try:
