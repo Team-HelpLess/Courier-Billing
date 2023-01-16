@@ -30,6 +30,7 @@ load_dotenv()
 
 class SMS:
     def daily_SMS(self, record, to_number: str):
+        return 0
         client = Client(os.getenv("TWILIO_ACCOUNT_SID"), os.getenv("TWILIO_AUTH_TOKEN"))
         message = client.messages.create(
             body=f"{'Akash Courier Service:' if record.courier_company == 'akash' else 'Anjani Courier Service:'}\nYour Courier Booked on {record.booked_date} at {record.booked_time}\n\nDetails:\nCourier Number: {record.courier_number}\nFrom: {record.from_company} - Erode\nTo: {record.to_company} - {record.to_destination}\nWeight: {record.courier_weight}\nRate: {record.courier_rate}",

@@ -26,10 +26,10 @@ SECRET_KEY = 'django-insecure-9$^pl5bv0q61zc+*zyfj*f)jal5(d+_55ye#c_(*&3v#@!!dh_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.getenv("ENV") == "PRODUCTION" else True
-# DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS =  ['*'] if DEBUG is not True else ['*']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*', 'https://*.okteto.net/*'] if DEBUG is not True else ['http://*', 'https://*']
+ALLOWED_HOSTS =  ['*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*', 'https://*.okteto.net/*']
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -97,13 +97,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['SUPABASE_COURIER_BILLING_DATABASE_NAME'],
+            'USER': os.environ['SUPABASE_COURIER_BILLING_DATABASE_USER'],
+            'PASSWORD': os.environ['SUPABASE_COURIER_BILLING_DATABASE_PASSWORD'],
+            'HOST': os.environ['SUPABASE_COURIER_BILLING_DATABASE_HOST'],
+            'PORT': os.environ['SUPABASE_COURIER_BILLING_DATABASE_PORT'],
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -161,7 +172,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = ['https://goameer030-organic-potato-pw66w6q7r7qcxpj-5173.preview.app.github.dev', 'https://frontend-goameer030.cloud.okteto.net']
+    CORS_ALLOWED_ORIGINS = ['https://goameer030-stunning-space-carnival-q4xx4xgvqgq2xrv-5173.preview.app.github.dev', 'https://frontend-goameer030.cloud.okteto.net', 'https://*',]
 CORS_ALLOW_CREDENTIALS = True
 
 # JWT settings

@@ -25,6 +25,8 @@ services:
     environment:
       - ENV=DEVELOPMENT
 
+      - BACKEND_URL=${BACKEND_URL}
+
       - MAIL_ID=${MAIL_ID}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
 
@@ -35,6 +37,12 @@ services:
 
       - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
       - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+
+      - SUPABASE_COURIER_BILLING_DATABASE_HOST=${SUPABASE_COURIER_BILLING_DATABASE_HOST}
+      - SUPABASE_COURIER_BILLING_DATABASE_NAME=${SUPABASE_COURIER_BILLING_DATABASE_NAME}
+      - SUPABASE_COURIER_BILLING_DATABASE_USER=${SUPABASE_COURIER_BILLING_DATABASE_USER}
+      - SUPABASE_COURIER_BILLING_DATABASE_PASSWORD=${SUPABASE_COURIER_BILLING_DATABASE_PASSWORD}
+      - SUPABASE_COURIER_BILLING_DATABASE_PORT=${SUPABASE_COURIER_BILLING_DATABASE_PORT}
     ports:
       - 8000:8000
     volumes:
@@ -58,7 +66,10 @@ services:
       - 4444:4444
 
   celery:
-    image: goameer030/cb-backend:latest
+    build: 
+      context: ./Backend/.
+      args:
+        - ENV=DEVELOPMENT
     container_name: celery
     command: celery -A backend worker -l info
     volumes:
