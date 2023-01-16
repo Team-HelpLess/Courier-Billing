@@ -25,7 +25,7 @@ class RecordView(viewsets.ViewSet):
             serializer = RecordSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
-            if request.data.keys()['phone_no']:
+            if request.data['phone_no']:
                 sms = SMS()
                 record = RecordModel.objects.get(courier_number=request.data['courier_number'])
                 if sms.daily_SMS(record, request.data['phone_no']):

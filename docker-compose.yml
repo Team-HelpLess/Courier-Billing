@@ -23,6 +23,8 @@ services:
     environment:
       - ENV=PRODUCTION
 
+      - BACKEND_URL=${BACKEND_URL}
+
       - MAIL_ID=${MAIL_ID}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
 

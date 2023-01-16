@@ -21,5 +21,5 @@ class ExcelView(viewsets.ViewSet):
 
 class WhatsAppView(viewsets.ViewSet):
     def recieved_message(self, request):
-        response = WhatsApp.recieved_message_handler(request.data['Body'])
+        response = WhatsApp.recieved_message_handler(from_number=request.data['From'][12:], data=request.data['Body'])
         return HttpResponse(response)

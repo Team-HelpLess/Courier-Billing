@@ -25,6 +25,8 @@ services:
     environment:
       - ENV=DEVELOPMENT
 
+      - BACKEND_URL=${BACKEND_URL}
+
       - MAIL_ID=${MAIL_ID}
       - MAIL_PASSWORD=${MAIL_PASSWORD}
 
@@ -58,7 +60,10 @@ services:
       - 4444:4444
 
   celery:
-    image: goameer030/cb-backend:latest
+    build: 
+      context: ./Backend/.
+      args:
+        - ENV=DEVELOPMENT
     container_name: celery
     command: celery -A backend worker -l info
     volumes:
