@@ -3,7 +3,7 @@ import styled from "styled-components";
 function Summary(props) {
   const { trigger, setTrigger, submitables, action } = props;
 
-  const bookListRow = (rec) => {
+  const bookListRow = rec => {
     const {
       courier_number,
       from_company,
@@ -29,27 +29,34 @@ function Summary(props) {
 
   return trigger ? (
     <SummaryWrapper>
+      (
       <Sumry>
         <H3>BOOKING SUMMARY</H3>
         <br />
 
         <Section>
-          <BookListTable>
-            <Tbody>
-              <Tr>
-                <Th>C.Number</Th>
-                <Th>From</Th>
-                <Th>To</Th>
-                <Th>Destination</Th>
-                <Th>Phone</Th>
-                <Th>Weight</Th>
-                <Th>Amount</Th>
-              </Tr>
-              {Object.keys(submitables).map((key) => {
-                return bookListRow(submitables[key]);
-              })}
-            </Tbody>
-          </BookListTable>
+          {Object.keys(submitables).length === 0 ? (
+            <NoRec style={{ textAlign: "center" }}>
+              No Records Yet! <br /> Add Records to see Detailed Summary!
+            </NoRec>
+          ) : (
+            <BookListTable>
+              <Tbody>
+                <Tr>
+                  <Th>C.Number</Th>
+                  <Th>From</Th>
+                  <Th>To</Th>
+                  <Th>Destination</Th>
+                  <Th>Phone</Th>
+                  <Th>Weight</Th>
+                  <Th>Amount</Th>
+                </Tr>
+                {Object.keys(submitables).map(key => {
+                  return bookListRow(submitables[key]);
+                })}
+              </Tbody>
+            </BookListTable>
+          )}
         </Section>
 
         <ButtonSection>
@@ -57,6 +64,7 @@ function Summary(props) {
           <Button onClick={() => setTrigger(false)}>Cancel</Button>
         </ButtonSection>
       </Sumry>
+      )
     </SummaryWrapper>
   ) : (
     ""
@@ -76,6 +84,14 @@ const SummaryWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const NoRec = styled.div`
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Sumry = styled.section`

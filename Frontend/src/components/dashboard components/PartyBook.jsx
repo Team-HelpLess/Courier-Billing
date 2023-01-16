@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PartyPages from "./PartyPages";
 import styled from "styled-components";
+import Popup from "../Popup";
 
 function PartyBook(props) {
   const {} = props; //Destructuring props
@@ -10,12 +11,16 @@ function PartyBook(props) {
   const [partyTiles, setPartyTiles] = useState([]);
   const [nums, setNums] = useState(0);
 
+  const [active, setActive] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const partyName = location?.state?.partyName;
 
   const handlePages = e => {
     e.preventDefault();
+    setActive(true);
 
     const newTiles = [];
     for (let i = 0; i < nums; i++) {
@@ -23,6 +28,12 @@ function PartyBook(props) {
     }
 
     setPartyTiles(newTiles);
+  };
+
+  const handleReset = () => {
+    setPartyTiles([]);
+    setResetTrigger(false);
+    setActive(false);
   };
 
   const BACK = "< Back";
@@ -66,7 +77,11 @@ function PartyBook(props) {
         </PartyInfo>
 
         <BookParty>
-          <Form onSubmit={handlePages} method="none">
+          <Form
+            onSubmit={handlePages}
+            method="none"
+            className={active ? "active" : ""}
+          >
             <Dec
               onClick={e => {
                 e.preventDefault();
@@ -100,9 +115,21 @@ function PartyBook(props) {
               GO
             </Button>
           </Form>
+          <Reset className={active ? "active" : ""}>
+            <Button className="reset-btn" onClick={e => setResetTrigger(true)}>
+              Reset
+            </Button>
+          </Reset>
           <Pages>{partyTiles}</Pages>
         </BookParty>
       </PartyPage>
+
+      <Popup
+        trigger={resetTrigger}
+        setTrigger={setResetTrigger}
+        actionName="Confirm Reset?"
+        actionFunc={handleReset}
+      />
     </PartyWrapper>
   );
 }
@@ -204,6 +231,18 @@ const Button = styled.button`
       color: white;
     }
   }
+
+  &.reset-btn {
+    background: #ffffff86;
+    color: #202225;
+    width: 5rem;
+    height: 2rem;
+    margin-left: 1rem;
+
+    &:hover {
+      color: white;
+    }
+  }
 `;
 const FrequentParties = styled.div`
   height: 38vh;
@@ -294,6 +333,10 @@ const Form = styled.form`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.active {
+    display: none;
+  }
 `;
 
 const Input = styled.input`
@@ -342,4 +385,16 @@ const Dec = styled.button`
 `;
 const Inc = styled(Dec)`
   margin-left: 0;
+`;
+
+const Reset = styled.div`
+  height: 10%;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    display: flex;
+  }
 `;
