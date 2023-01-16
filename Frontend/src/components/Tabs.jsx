@@ -168,6 +168,7 @@ const Header = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  letter-spacing: 1px;
 `;
 
 const P = styled.p`
