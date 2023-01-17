@@ -14,6 +14,6 @@ class RecordModel(models.Model):
     to_destination = models.CharField("To Destination", max_length=20)
     courier_weight = models.FloatField("Courier Weight", default=100)
     courier_rate = models.PositiveSmallIntegerField("Courier Rate", default=40)
-    phone_no = models.BigIntegerField("Phone Number", blank=True, null=True)
+    phone_no = models.BigIntegerField("Phone Number", null=True)
     booked_date = models.DateField("Booked Date", auto_now=True)
     booked_time = models.TimeField("Booked Time", auto_now=True)
