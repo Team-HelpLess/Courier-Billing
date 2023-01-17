@@ -1,7 +1,19 @@
+import { useEffect, useRef, useState } from "react";
+import { districts } from "./districtList";
 import styled from "styled-components";
 
 function PartyPages(props) {
-  const {} = props;
+  const { courier_number, cweight, camount } = props;
+
+  const [cnum, setCnum] = useState(courier_number);
+  const [to, setTo] = useState("");
+  const [district, setDistrict] = useState("");
+  const [weight, setWeight] = useState(cweight);
+  const [amount, setAmount] = useState(camount);
+
+  // useEffect(() => {
+
+  // }, [cnum, to, district, weight, amount]);
 
   return (
     <PartyTileWrapper>
@@ -10,11 +22,55 @@ function PartyPages(props) {
           <Span className="bar"></Span>
           <Span className="bar"></Span>
         </Delete>
-        <Input className="cNum" />
-        <Input className="to" />
-        <Input className="district" />
-        <Input className="weight" />
-        <Input className="amount" />
+        <Div className="cNum">
+          <P>C.Number</P>
+          <Input
+            type="number"
+            value={cnum}
+            onChange={e => setCnum(e.target.value)}
+          />
+        </Div>
+
+        <Div className="to">
+          <P>To</P>
+          <Input type="text" onChange={e => setTo(e.target.value)} />
+        </Div>
+
+        <Div className="district">
+          <P>District</P>
+          <Input
+            type="text"
+            onChange={e => setDistrict(e.target.value)}
+            list="availableDistricts"
+          />
+          <datalist id="availableDistricts">
+            {districts.map((item, i) => (
+              <option key={i} value={`${item}`}>
+                {item}
+              </option>
+            ))}
+          </datalist>
+        </Div>
+
+        <Div className="weight">
+          <P>Weight</P>
+          <Input
+            type="number"
+            step="50"
+            value={weight}
+            onChange={e => setWeight(e.target.value)}
+          />
+        </Div>
+
+        <Div className="amount">
+          <P>Rate</P>
+          <Input
+            type="number"
+            step="10"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+          />
+        </Div>
       </PartyTile>
     </PartyTileWrapper>
   );
@@ -36,9 +92,9 @@ const PartyTile = styled.section`
   width: 100%;
   display: grid;
   grid-template-areas:
-    "cNum other delete"
-    "to district none"
-    "weight amount none";
+    "cNum cNum delete delete"
+    "to to district district"
+    "weight weight amount amount";
   /* grid-gap: 1rem; */
   padding: 10px;
 
@@ -49,16 +105,15 @@ const PartyTile = styled.section`
   }
 `;
 
-const Input = styled.input`
-  background: transparent;
-  outline: none;
-  border: none;
-  border-bottom: 1px solid white;
-
+const Div = styled.div`
+  display: flex;
+  width: 90%;
+  align-items: center;
+  justify-content: space-between;
   &.cNum {
     grid-area: cNum;
-    justify-self: center;
     align-self: center;
+    justify-self: center;
   }
 
   &.to {
@@ -84,6 +139,20 @@ const Input = styled.input`
     justify-self: center;
     align-self: center;
   }
+`;
+
+const P = styled.p`
+  color: white;
+  /* margin-right: 0.5rem; */
+`;
+
+const Input = styled.input`
+  background: #202225;
+  height: 2rem;
+  padding: 10px 10px;
+  color: white;
+  outline: none;
+  border: none;
 `;
 
 const Delete = styled.div`

@@ -9,6 +9,7 @@ function PartyBook(props) {
 
   const [detail, setDetail] = useState(false);
   const [partyTiles, setPartyTiles] = useState([]);
+  const [cnum, setCnum] = useState();
   const [nums, setNums] = useState(0);
 
   const [active, setActive] = useState(false);
@@ -24,7 +25,14 @@ function PartyBook(props) {
 
     const newTiles = [];
     for (let i = 0; i < nums; i++) {
-      newTiles.push(<PartyPages key={i} />);
+      newTiles.push(
+        <PartyPages
+          key={i}
+          courier_number={parseInt(cnum) + i}
+          cweight={50}
+          camount={40}
+        />
+      );
     }
 
     setPartyTiles(newTiles);
@@ -82,6 +90,12 @@ function PartyBook(props) {
             method="none"
             className={active ? "active" : ""}
           >
+            <Input
+              className="courier_number"
+              type="number"
+              onChange={e => setCnum(e.target.value)}
+              required
+            />
             <Dec
               onClick={e => {
                 e.preventDefault();
@@ -167,7 +181,6 @@ const PartyPage = styled.div`
 `;
 
 const PartyInfo = styled.section`
-  z-index: 2;
   height: 85vh;
   width: 49%;
   display: flex;
@@ -175,6 +188,7 @@ const PartyInfo = styled.section`
   justify-content: space-between;
 
   @media (max-width: 425px) {
+    z-index: 1;
     justify-content: space-around;
     width: 95%;
     position: fixed;
@@ -370,6 +384,12 @@ const Input = styled.input`
   padding-bottom: 5px;
   padding-left: 5px;
   width: 5rem;
+
+  &.courier_number {
+    width: 5rem;
+    height: 2rem;
+    padding: 10px 0px;
+  }
 `;
 
 const Dec = styled.button`
