@@ -167,6 +167,7 @@ const PartyPage = styled.div`
 `;
 
 const PartyInfo = styled.section`
+  z-index: 2;
   height: 85vh;
   width: 49%;
   display: flex;
@@ -177,7 +178,7 @@ const PartyInfo = styled.section`
     justify-content: space-around;
     width: 95%;
     position: fixed;
-    top: 15.5vh;
+    top: 16.5vh;
     left: -100%;
     transition: 0.5s ease;
     background: #2f3136;
@@ -242,6 +243,10 @@ const Button = styled.button`
     &:hover {
       color: white;
     }
+
+    @media (max-width: 425px) {
+      margin-left: 0;
+    }
   }
 `;
 const FrequentParties = styled.div`
@@ -298,7 +303,7 @@ const BookParty = styled.section`
 
   @media (max-width: 425px) {
     width: 100%;
-    height: 80vh;
+    height: 75vh;
   }
 `;
 
