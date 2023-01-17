@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from helper.sendings.sms import SMS
 from .models import RecordModel
 from .serializers import RecordSerializer
+import csv
+import os
 
 
 class RecordView(viewsets.ViewSet):
@@ -25,6 +27,24 @@ class RecordView(viewsets.ViewSet):
             serializer = RecordSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
+            rows = []
+            from_company_found = False
+            with open(r'./records/csv_data/tctd.csv', 'r') as tc_csv:
+                reader = csv.reader(tc_csv)
+                for row in reader:
+                    if request.data['from_company'] == row[0]:
+                        tctd = f"{request.data['to_company']}:{request.data['to_destination']}"
+                        if tctd not in row:
+                            row.append(tctd)
+                        rows.append(row)
+                        from_company_found = True
+                    else:
+                        rows.append(row)
+            if not from_company_found:
+                rows.append([request.data['from_company'], f"{request.data['to_company']}:{request.data['to_destination']}"])
+            with open(r'./records/csv_data/tctd.csv', 'w') as tc_csv:
+                writer = csv.writer(tc_csv)
+                writer.writerows(rows)
             if request.data['phone_no']:
                 sms = SMS()
                 record = RecordModel.objects.get(courier_number=request.data['courier_number'])
@@ -89,6 +109,19 @@ class RecordView(viewsets.ViewSet):
             return Response(serializer.data)
         else:
             return Response({"PermissionError": "You don't have permission"})
+
+    def find_tctd(self, request, fc):
+        if request.user.has_perm("records.view_recordmodel"):
+            data = {}
+            with open(r'./records/csv_data/tctd.csv', 'r') as tc_csv:
+                reader = csv.reader(tc_csv)
+                for row in reader:
+                    if row[0] == fc:
+                        for item in row[1:]:
+                            tctd = item.split(':')
+                            data[tctd[0]] = tctd[1]
+                        break
+            return Response(str(data))
 
 class APIRoot(APIView):
     def get(self, request):

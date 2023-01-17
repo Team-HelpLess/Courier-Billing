@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-9$^pl5bv0q61zc+*zyfj*f)jal5(d+_55ye#c_(*&3v#@!!dh_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.getenv("ENV") == "PRODUCTION" else True
 DEBUG_PROPAGATE_EXCEPTIONS = True
+# DEBUG = True
 
 ALLOWED_HOSTS =  ['*']
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/*', 'https://*.github.dev/*', 'https://*.okteto.net/*']
