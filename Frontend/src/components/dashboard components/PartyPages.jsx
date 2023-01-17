@@ -23,7 +23,7 @@ function PartyPages(props) {
           <Span className="bar"></Span>
         </Delete>
         <Div className="cNum">
-          <P>C.Number</P>
+          <P>C.Num</P>
           <Input
             type="number"
             value={cnum}
@@ -33,12 +33,17 @@ function PartyPages(props) {
 
         <Div className="to">
           <P>To</P>
-          <Input type="text" onChange={e => setTo(e.target.value)} />
+          <Input
+            className="white"
+            type="text"
+            onChange={e => setTo(e.target.value)}
+          />
         </Div>
 
         <Div className="district">
-          <P>District</P>
+          <P>Dist</P>
           <Input
+            className="white"
             type="text"
             onChange={e => setDistrict(e.target.value)}
             list="availableDistricts"
@@ -142,17 +147,20 @@ const Div = styled.div`
 `;
 
 const P = styled.p`
-  color: white;
-  /* margin-right: 0.5rem; */
+  color: #75787cc3;
 `;
 
 const Input = styled.input`
   background: #202225;
   height: 2rem;
   padding: 10px 10px;
-  color: white;
+  color: #ffffffa0;
   outline: none;
   border: none;
+
+  &.white {
+    color: white;
+  }
 `;
 
 const Delete = styled.div`
