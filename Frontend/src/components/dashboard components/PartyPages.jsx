@@ -3,7 +3,15 @@ import { districts } from "./districtList";
 import styled from "styled-components";
 
 function PartyPages(props) {
-  const { courier_number, cweight, camount } = props;
+  const {
+    courier_number,
+    cweight,
+    camount,
+    partyName,
+    setSubmitables,
+    setDeleteId,
+    setDeleteTrigger,
+  } = props;
 
   const [cnum, setCnum] = useState(courier_number);
   const [to, setTo] = useState("");
@@ -11,14 +19,37 @@ function PartyPages(props) {
   const [weight, setWeight] = useState(cweight);
   const [amount, setAmount] = useState(camount);
 
-  // useEffect(() => {
+  const comp = String(courier_number).length === 9 ? "akash" : "anjani";
 
-  // }, [cnum, to, district, weight, amount]);
+  useEffect(() => {
+    const TileValues = {
+      [props.formNum]: {
+        courier_number: parseInt(cnum),
+        courier_type: "credit",
+        courier_company: comp,
+        from_company: partyName,
+        to_company: to,
+        to_destination: district,
+        courier_weight: parseInt(weight),
+        courier_rate: parseInt(amount),
+        // phone_no: phone,
+      },
+    };
+
+    setSubmitables(prevSubmits => {
+      return { ...prevSubmits, ...TileValues };
+    });
+  }, [cnum, to, district, weight, amount]);
 
   return (
     <PartyTileWrapper>
       <PartyTile>
-        <Delete>
+        <Delete
+          onClick={e => {
+            setDeleteTrigger(true);
+            setDeleteId(props.formNum);
+          }}
+        >
           <Span className="bar"></Span>
           <Span className="bar"></Span>
         </Delete>
@@ -185,7 +216,7 @@ const Delete = styled.div`
 
   @media (max-width: 425px) {
     margin-top: -1rem;
-    margin-left: 17.5rem;
+    margin-left: 19rem;
   }
 `;
 const Span = styled.span`
