@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import PartyPages from "./PartyPages";
 import styled from "styled-components";
 import Popup from "../Popup";
+import Summary from "./Summary";
+
+const POST_URL = "";
 
 function PartyBook(props) {
   const {} = props; //Destructuring props
 
+  const [submitables, setSubmitables] = useState({});
+  const [deleteTrigger, setDeleteTrigger] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [summaryTrigger, setSummaryTrigger] = useState(false);
+  const [notify, setNotify] = useState(false);
+  const [status, setStatus] = useState(0);
+
   const [detail, setDetail] = useState(false);
   const [partyTiles, setPartyTiles] = useState([]);
+  const [cnum, setCnum] = useState();
   const [nums, setNums] = useState(0);
 
   const [active, setActive] = useState(false);
@@ -24,7 +36,20 @@ function PartyBook(props) {
 
     const newTiles = [];
     for (let i = 0; i < nums; i++) {
-      newTiles.push(<PartyPages key={i} />);
+      newTiles.push(
+        <PartyPages
+          key={i}
+          formNum={i}
+          courier_number={parseInt(cnum) + i}
+          partyName={partyName}
+          cweight={50}
+          camount={40}
+          submitables={submitables}
+          setSubmitables={setSubmitables}
+          setDeleteId={setDeleteId}
+          setDeleteTrigger={setDeleteTrigger}
+        />
+      );
     }
 
     setPartyTiles(newTiles);
@@ -34,6 +59,49 @@ function PartyBook(props) {
     setPartyTiles([]);
     setResetTrigger(false);
     setActive(false);
+  };
+
+  const deletePage = () => {
+    setPartyTiles(partyTiles.filter(tile => tile.key !== String(deleteId)));
+    setSubmitables(prevSubmitables => {
+      const { [deleteId]: deleted, ...rest } = prevSubmitables;
+      return rest;
+    });
+    setDeleteTrigger(false);
+  };
+
+  const axiosPrivate = useAxiosPrivate();
+  const postToApi = async data => {
+    try {
+      const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log(response);
+      setStatus(response?.status);
+    } catch (err) {
+      if (!err?.response) {
+        console.log("NO SERVER RESPONSE");
+        setStatus(err?.response?.status);
+      } else {
+        console.log(err);
+        setStatus(err?.response?.status);
+      }
+    }
+  };
+  const handleSubmit = () => {
+    if (Object.keys(submitables).length !== 0) {
+      Object.keys(submitables).map(key => {
+        const data = submitables[key];
+        return postToApi(data);
+      });
+      setSummaryTrigger(false);
+      handleReset();
+    } else {
+      setNotify(true);
+      if (partyTiles.length === 0) {
+        handleReset();
+      }
+    }
   };
 
   const BACK = "< Back";
@@ -82,6 +150,12 @@ function PartyBook(props) {
             method="none"
             className={active ? "active" : ""}
           >
+            <Input
+              className="courier_number"
+              type="number"
+              onChange={e => setCnum(e.target.value)}
+              required
+            />
             <Dec
               onClick={e => {
                 e.preventDefault();
@@ -121,6 +195,22 @@ function PartyBook(props) {
             </Button>
           </Reset>
           <Pages>{partyTiles}</Pages>
+          <BookButton
+            className={active ? "active" : ""}
+            onClick={e => {
+              e.preventDefault();
+              setSummaryTrigger(true);
+            }}
+          >
+            BOOK
+          </BookButton>
+
+          <Popup
+            trigger={deleteTrigger}
+            setTrigger={setDeleteTrigger}
+            actionName="Confirm Delete?"
+            actionFunc={deletePage}
+          />
         </BookParty>
       </PartyPage>
 
@@ -129,6 +219,19 @@ function PartyBook(props) {
         setTrigger={setResetTrigger}
         actionName="Confirm Reset?"
         actionFunc={handleReset}
+      />
+
+      <Popup
+        trigger={notify}
+        setTrigger={setNotify}
+        actionName="Add BookList!"
+      />
+
+      <Summary
+        trigger={summaryTrigger}
+        setTrigger={setSummaryTrigger}
+        submitables={submitables}
+        action={handleSubmit}
       />
     </PartyWrapper>
   );
@@ -167,7 +270,6 @@ const PartyPage = styled.div`
 `;
 
 const PartyInfo = styled.section`
-  z-index: 2;
   height: 85vh;
   width: 49%;
   display: flex;
@@ -175,6 +277,7 @@ const PartyInfo = styled.section`
   justify-content: space-between;
 
   @media (max-width: 425px) {
+    z-index: 1;
     justify-content: space-around;
     width: 95%;
     position: fixed;
@@ -303,12 +406,12 @@ const BookParty = styled.section`
 
   @media (max-width: 425px) {
     width: 100%;
-    height: 75vh;
+    height: 77.5vh;
   }
 `;
 
 const Pages = styled.div`
-  height: 74vh;
+  height: 66vh;
   width: 100%;
   overflow-y: auto;
   padding: 0 10px;
@@ -328,7 +431,7 @@ const Pages = styled.div`
   }
 
   @media (max-width: 425px) {
-    max-height: 90%;
+    max-height: 80%;
   }
 `;
 
@@ -370,6 +473,17 @@ const Input = styled.input`
   padding-bottom: 5px;
   padding-left: 5px;
   width: 5rem;
+
+  &.courier_number {
+    width: 5rem;
+    height: 2rem;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+
+    @media (max-width: 425px) {
+      margin-bottom: 10px;
+    }
+  }
 `;
 
 const Dec = styled.button`
@@ -383,7 +497,7 @@ const Dec = styled.button`
   margin-left: 10px;
 
   @media (max-width: 425px) {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     height: 25px;
     width: 32px;
   }
@@ -401,5 +515,32 @@ const Reset = styled.div`
 
   &.active {
     display: flex;
+  }
+`;
+
+const BookButton = styled.button`
+  &.active {
+    display: block;
+  }
+
+  display: none;
+  outline: none;
+  border: none;
+  height: 2rem;
+  width: 5rem;
+  border-radius: 25px;
+  transition: 0.4s ease;
+  cursor: pointer;
+
+  margin-top: 1rem;
+  margin-left: 18rem;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+
+  @media (max-width: 425px) {
+    margin-left: 9rem;
   }
 `;

@@ -103,6 +103,7 @@ const Sumry = styled.section`
   color: white;
 
   @media (max-width: 425px) {
+    height: 80vh;
     width: 90%;
   }
 

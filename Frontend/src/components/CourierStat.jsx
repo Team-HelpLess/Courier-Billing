@@ -145,6 +145,7 @@ const Stat = styled.section`
   width: 90%;
   background: #2f3136;
   color: white;
+  overflow: auto;
 
   padding: 15px;
   display: flex;

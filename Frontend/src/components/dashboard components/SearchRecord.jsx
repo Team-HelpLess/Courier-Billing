@@ -111,6 +111,8 @@ const Form = styled.form`
   @media (max-width: 425px) {
     flex-direction: column;
     gap: 10px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 `;
 
@@ -146,5 +148,10 @@ const Button = styled.button`
 
   &:hover {
     background: white;
+  }
+
+  @media (max-width: 425px) {
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 `;

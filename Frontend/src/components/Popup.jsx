@@ -30,6 +30,7 @@ export default Popup;
 
 // Stylings
 const PopupWrapper = styled.div`
+  z-index: 3;
   position: fixed;
   top: 0;
   left: 0;
