@@ -13,6 +13,7 @@ import RequireAuth from "./hooks/RequireAuth";
 import RefreshToken from "./hooks/RefreshToken";
 import PersistLogin from "./components/PersistLogin";
 import Tabs from "./components/Tabs";
+import Loading from "./components/Loading";
 
 // Functional App component
 function App() {
@@ -44,7 +45,7 @@ function App() {
   return (
     <>
       {isloading ? (
-        <P>Loading...</P>
+        <Loading />
       ) : (
         <AppWrapper>
           <Router>
@@ -60,6 +61,7 @@ function App() {
                   <Route path="/credit" element={<Credit />} />
                   <Route path="/partyBook" element={<PartyBook />} />
                   <Route path="/records" element={<Records />} />
+                  <Route path="/loading" element={<Loading />} />
                 </Route>
               </Route>
             </Routes>

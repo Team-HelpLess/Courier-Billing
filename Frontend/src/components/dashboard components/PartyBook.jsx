@@ -13,7 +13,8 @@ const SEARCH_URL = "find_many/";
 function PartyBook(props) {
   const {} = props; //Destructuring props
 
-  const [toctod, setToctod] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [toctod, setToctod] = useState();
   const [booked, setBooked] = useState();
 
   const [submitables, setSubmitables] = useState({});
@@ -38,13 +39,16 @@ function PartyBook(props) {
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
-      setToctod(response);
+      console.log(response);
+      setToctod(JSON.stringify(response?.data));
     } catch (err) {
       if (!err?.response) {
         setToctod("No Response from Server!");
       } else {
         setToctod("Something Went Wrong!");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -174,6 +178,7 @@ function PartyBook(props) {
           Details
         </Button>
       </MobileButtons>
+
       <PartyPage>
         <PartyInfo className={detail ? "active" : ""}>
           <Button
@@ -185,10 +190,19 @@ function PartyBook(props) {
           >
             {BACK}
           </Button>
+
           <FrequentParties>
             <Head>{partyName}</Head>
-            <PartyList>{toctod}</PartyList>
+            {loading ? (
+              <Loading>
+                <Span className="clock">⚙️</Span>
+                <Span className="antiClock">⚙️</Span>
+              </Loading>
+            ) : (
+              <PartyList>{toctod}</PartyList>
+            )}
           </FrequentParties>
+
           <PreviousBooks>
             {Array.isArray(booked) ? (
               <RecordTable>
@@ -457,6 +471,48 @@ const Head = styled.p`
   padding: 0px 5px;
   display: flex;
   align-items: center;
+`;
+
+const Loading = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2f3136;
+`;
+
+const Span = styled.span`
+  position: absolute;
+  font-size: 2rem;
+
+  &.clock {
+    margin-top: -3.75rem;
+    margin-left: -3rem;
+    font-size: 3rem;
+    animation: clock 2s infinite linear;
+  }
+  &.antiClock {
+    animation: antiClock 2s infinite linear;
+  }
+
+  @keyframes clock {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+  @keyframes antiClock {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-359deg);
+    }
+  }
 `;
 
 const PartyList = styled.div`
