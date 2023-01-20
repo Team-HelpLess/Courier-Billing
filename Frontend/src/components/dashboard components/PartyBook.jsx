@@ -7,9 +7,14 @@ import Popup from "../Popup";
 import Summary from "./Summary";
 
 const POST_URL = "";
+const TOCTOD_URL = "tctd/";
+const SEARCH_URL = "find_many/";
 
 function PartyBook(props) {
   const {} = props; //Destructuring props
+
+  const [toctod, setToctod] = useState("");
+  const [booked, setBooked] = useState();
 
   const [submitables, setSubmitables] = useState({});
   const [deleteTrigger, setDeleteTrigger] = useState(false);
@@ -29,6 +34,49 @@ function PartyBook(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const partyName = location?.state?.partyName;
+
+  const requestOne = async () => {
+    try {
+      const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
+      setToctod(response);
+    } catch (err) {
+      if (!err?.response) {
+        setToctod("No Response from Server!");
+      } else {
+        setToctod("Something Went Wrong!");
+      }
+    }
+  };
+
+  const requestTwo = async () => {
+    try {
+      const data = { from_company: partyName };
+      const response = await axiosPrivate.post(SEARCH_URL, data);
+
+      if (response?.data.length === 0) {
+        setBooked("Nothing Yet has been BOOKED!");
+      } else {
+        setBooked(response?.data);
+      }
+    } catch (err) {
+      if (!err?.response) {
+        setBooked("No Response from Server");
+      } else {
+        setBooked("Something Went Wrong");
+      }
+    }
+  };
+
+  const axiosPrivate = useAxiosPrivate();
+  useEffect(() => {
+    requestOne();
+    requestTwo();
+  }, []);
+
+  useEffect(() => {
+    requestOne();
+    requestTwo();
+  }, [status]);
 
   const handlePages = e => {
     e.preventDefault();
@@ -70,7 +118,6 @@ function PartyBook(props) {
     setDeleteTrigger(false);
   };
 
-  const axiosPrivate = useAxiosPrivate();
   const postToApi = async data => {
     try {
       const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
@@ -140,8 +187,36 @@ function PartyBook(props) {
           </Button>
           <FrequentParties>
             <Head>{partyName}</Head>
+            <PartyList>{toctod}</PartyList>
           </FrequentParties>
-          <PreviousBooks></PreviousBooks>
+          <PreviousBooks>
+            {Array.isArray(booked) ? (
+              <RecordTable>
+                <Tbody>
+                  <Tr>
+                    <Th>Date</Th>
+                    <Th>C.Number</Th>
+                    <Th>To</Th>
+                    <Th>District</Th>
+                    <Th>Weight</Th>
+                  </Tr>
+                  {booked.map((record, index) => {
+                    return (
+                      <Tr key={index}>
+                        <Td data-label="Date">{record.booked_date}</Td>
+                        <Td data-label="C.Number">{record.courier_number}</Td>
+                        <Td data-label="To">{record.to_company}</Td>
+                        <Td data-label="District">{record.to_destination}</Td>
+                        <Td data-label="Weight">{`${record.courier_weight} g`}</Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </RecordTable>
+            ) : (
+              <P>{booked}</P>
+            )}
+          </PreviousBooks>
         </PartyInfo>
 
         <BookParty>
@@ -358,6 +433,9 @@ const FrequentParties = styled.div`
   background: #202225;
   overflow-y: auto;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -380,12 +458,31 @@ const Head = styled.p`
   display: flex;
   align-items: center;
 `;
+
+const PartyList = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c7c7c7e2;
+  background: #2f3136;
+`;
+
+const P = styled.p`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const PreviousBooks = styled.div`
   height: 38vh;
   width: 100%;
   background: #202225;
+  color: #cac9c9df;
   overflow-y: auto;
-  padding: 10px;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -395,6 +492,72 @@ const PreviousBooks = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background: #2f3136;
+  }
+`;
+
+const RecordTable = styled.table`
+  font-size: 0.85rem;
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+
+  @media (max-width: 425px) {
+    display: block;
+  }
+`;
+const Tbody = styled.tbody`
+  & Tr:nth-child(even) {
+    background-color: #00000088;
+  }
+
+  & Th {
+    top: 0;
+    position: sticky;
+  }
+
+  @media (max-width: 425px) {
+    display: block;
+  }
+`;
+const Tr = styled.tr`
+  @media (max-width: 425px) {
+    display: block;
+    margin-bottom: 25px;
+    border: 1px solid gray;
+  }
+`;
+const Th = styled.th`
+  background: blue;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 12px;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
+`;
+const Td = styled.td`
+  padding: 10px;
+  text-align: center;
+  transition: 0.3s ease;
+
+  @media (max-width: 425px) {
+    color: white;
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+
+    &::before {
+      content: attr(data-label);
+      color: grey;
+      position: absolute;
+      left: 0;
+      width: 50%;
+      font-weight: 900;
+      text-align: left;
+      padding-left: 10px;
+    }
   }
 `;
 
