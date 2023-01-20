@@ -6,6 +6,7 @@ import Popup from "../../components/Popup";
 import ReadOnlyRow from "../../components/dashboard components/ReadOnlyRow";
 import EditableRow from "../../components/dashboard components/EditableRow";
 import SearchRecord from "../../components/dashboard components/SearchRecord";
+import Loading from "../../components/Loading";
 
 // Records api URL
 const RECORDS_URL = "";
@@ -72,7 +73,7 @@ function Records() {
       <RecWrapper>
         <SearchRecord setRecords={setRecords} />
         {loading ? (
-          <P>Loading...</P>
+          <Loading />
         ) : records.length !== 0 ? (
           <RecordsTable id="records">
             <Tbody>
