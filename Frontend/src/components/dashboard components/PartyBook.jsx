@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
 import PartyPages from "./PartyPages";
 import styled from "styled-components";
@@ -13,7 +14,8 @@ const SEARCH_URL = "find_many/";
 function PartyBook(props) {
   const {} = props; //Destructuring props
 
-  const [loading, setLoading] = useState(true);
+  const [compLoading, setCompLoading] = useState(true);
+  const [bookLoading, setBookLoading] = useState(true);
   const [toctod, setToctod] = useState();
   const [booked, setBooked] = useState();
 
@@ -48,7 +50,7 @@ function PartyBook(props) {
         setToctod("Something Went Wrong!");
       }
     } finally {
-      setLoading(false);
+      setCompLoading(false);
     }
   };
 
@@ -68,6 +70,8 @@ function PartyBook(props) {
       } else {
         setBooked("Something Went Wrong");
       }
+    } finally {
+      setBookLoading(false);
     }
   };
 
@@ -78,6 +82,9 @@ function PartyBook(props) {
   }, []);
 
   useEffect(() => {
+    setCompLoading(true);
+    setBookLoading(true);
+
     requestOne();
     requestTwo();
   }, [status]);
@@ -193,7 +200,7 @@ function PartyBook(props) {
 
           <FrequentParties>
             <Head>{partyName}</Head>
-            {loading ? (
+            {compLoading ? (
               <Loading>
                 <Span className="clock">⚙️</Span>
                 <Span className="antiClock">⚙️</Span>
@@ -204,7 +211,12 @@ function PartyBook(props) {
           </FrequentParties>
 
           <PreviousBooks>
-            {Array.isArray(booked) ? (
+            {bookLoading ? (
+              <Loading>
+                <Span className="clock">⚙️</Span>
+                <Span className="antiClock">⚙️</Span>
+              </Loading>
+            ) : Array.isArray(booked) ? (
               <RecordTable>
                 <Tbody>
                   <Tr>
@@ -215,9 +227,14 @@ function PartyBook(props) {
                     <Th>Weight</Th>
                   </Tr>
                   {booked.map((record, index) => {
+                    const formattedDate = format(
+                      new Date(record.booked_date),
+                      "dd-MM-yy"
+                    );
+
                     return (
                       <Tr key={index}>
-                        <Td data-label="Date">{record.booked_date}</Td>
+                        <Td data-label="Date">{formattedDate}</Td>
                         <Td data-label="C.Number">{record.courier_number}</Td>
                         <Td data-label="To">{record.to_company}</Td>
                         <Td data-label="District">{record.to_destination}</Td>
