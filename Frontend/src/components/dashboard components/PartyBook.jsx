@@ -30,6 +30,7 @@ function PartyBook(props) {
   const [partyTiles, setPartyTiles] = useState([]);
   const [cnum, setCnum] = useState();
   const [nums, setNums] = useState(0);
+  const [iteration, setIteration] = useState(0);
 
   const [active, setActive] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
@@ -95,6 +96,7 @@ function PartyBook(props) {
 
     const newTiles = [];
     for (let i = 0; i < nums; i++) {
+      setIteration(i + 1);
       newTiles.push(
         <PartyPages
           key={i}
@@ -301,6 +303,31 @@ function PartyBook(props) {
             </Button>
           </Reset>
           <Pages>{partyTiles}</Pages>
+          <AddPage
+            title="Add a Tile"
+            className={active ? "active" : ""}
+            onClick={e => {
+              e.preventDefault();
+              setPartyTiles([
+                ...partyTiles,
+                <PartyPages
+                  key={iteration}
+                  formNum={iteration}
+                  courier_number={parseInt(cnum) + iteration}
+                  partyName={partyName}
+                  cweight={50}
+                  camount={40}
+                  submitables={submitables}
+                  setSubmitables={setSubmitables}
+                  setDeleteId={setDeleteId}
+                  setDeleteTrigger={setDeleteTrigger}
+                />,
+              ]);
+              setIteration(prevIteration => prevIteration + 1);
+            }}
+          >
+            +
+          </AddPage>
           <BookButton
             className={active ? "active" : ""}
             onClick={e => {
@@ -751,6 +778,29 @@ const Reset = styled.div`
 
   &.active {
     display: flex;
+  }
+`;
+
+const AddPage = styled.button`
+  &.active {
+    display: block;
+  }
+
+  display: none;
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: 15rem;
+  outline: none;
+  border: none;
+  background: #747474;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.5s ease;
+
+  &:hover {
+    background: white;
   }
 `;
 
