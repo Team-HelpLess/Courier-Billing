@@ -1,5 +1,5 @@
 // Imports
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { parties } from "../../components/dashboard components/CompaniesList";
@@ -20,6 +20,8 @@ const CreditCard = partyName => {
 
 // Credit Functional component
 function Credit() {
+  const inputRef = useRef(null);
+
   const [partiesList] = useState(Object.keys(parties).sort());
   const [filterlist, setFilterList] = useState(Object.keys(parties).sort());
   const [key, setKey] = useState("");
@@ -29,6 +31,7 @@ function Credit() {
 
   // useEffect hook to run whenever the key changes
   useEffect(() => {
+    inputRef.current.focus();
     const filters = partiesList.filter(party =>
       party.toLowerCase().includes(key.toLowerCase())
     );
@@ -45,6 +48,7 @@ function Credit() {
     <CreditWrapper>
       <Search>
         <Input
+          ref={inputRef}
           title="Search 🔍 Party"
           type="text"
           onChange={e => setKey(e.target.value)}
