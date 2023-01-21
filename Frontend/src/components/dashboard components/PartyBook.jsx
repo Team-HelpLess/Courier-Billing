@@ -802,6 +802,10 @@ const AddPage = styled.button`
   &:hover {
     background: white;
   }
+
+  @media (max-width: 425px) {
+    margin-left: 6rem;
+  }
 `;
 
 const BookButton = styled.button`
