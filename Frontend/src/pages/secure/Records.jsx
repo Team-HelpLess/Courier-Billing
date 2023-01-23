@@ -75,6 +75,7 @@ function Records() {
         {loading ? (
           <Loading />
         ) : records.length !== 0 ? (
+          Array.isArray(records) ? ( 
           <RecordsTable id="records">
             <Tbody>
               <Tr>
@@ -112,7 +113,7 @@ function Records() {
               })}
             </Tbody>
           </RecordsTable>
-        ) : (
+        ) : (<Exclam> You don't have permission! </Exclam>))  : (
           <Exclam>❕No Records to show :(</Exclam>
         )}
 
