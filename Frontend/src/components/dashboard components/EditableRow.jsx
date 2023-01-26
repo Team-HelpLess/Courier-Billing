@@ -48,7 +48,7 @@ function EditableRow(props) {
 
   // private axios instance from useAxiosPrivate
   const axiosPrivate = useAxiosPrivate();
-  const handleSave = async (e) => {
+  const handleSave = async e => {
     e.preventDefault();
 
     const toUpdate = {
@@ -88,17 +88,17 @@ function EditableRow(props) {
           type="number"
           name="C.Number"
           value={cnum}
-          onChange={(e) => setCnum(e.target.value)}
+          onChange={e => setCnum(e.target.value)}
         />
       </Td>
       <Td data-label="C.Type">
-        <Select onChange={(e) => setCtype(e.target.value)}>
+        <Select value={courier_type} onChange={e => setCtype(e.target.value)}>
           <Option value="cash">cash</Option>
           <Option value="credit">credit</Option>
         </Select>
       </Td>
       <Td data-label="C.Company">
-        <Select onChange={(e) => setCcom(e.target.value)}>
+        <Select value={courier_company} onChange={e => setCcom(e.target.value)}>
           <Option value="akash">akash</Option>
           <Option value="anjani">anjani</Option>
         </Select>
@@ -107,17 +107,17 @@ function EditableRow(props) {
         <Input
           name="From"
           value={from}
-          onChange={(e) => setFrom(e.target.value)}
+          onChange={e => setFrom(e.target.value)}
         />
       </Td>
       <Td data-label="To">
-        <Input name="To" value={to} onChange={(e) => setTo(e.target.value)} />
+        <Input name="To" value={to} onChange={e => setTo(e.target.value)} />
       </Td>
       <Td data-label="Destination">
         <Input
           name="Destination"
           value={dest}
-          onChange={(e) => setDest(e.target.value)}
+          onChange={e => setDest(e.target.value)}
         />
       </Td>
       <Td data-label="Weight">
@@ -125,7 +125,7 @@ function EditableRow(props) {
           type="number"
           name="Weight"
           value={cweight}
-          onChange={(e) => setCweight(e.target.value)}
+          onChange={e => setCweight(e.target.value)}
         />
       </Td>
       <Td data-label="Amount">
@@ -133,21 +133,21 @@ function EditableRow(props) {
           type="number"
           name="Amount"
           value={crate}
-          onChange={(e) => setCrate(e.target.value)}
+          onChange={e => setCrate(e.target.value)}
         />
       </Td>
       <Td data-label="Phone">
         <Input
           type="number"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={e => setPhone(e.target.value)}
         />
       </Td>
       <Td data-label="Date">{formattedDate}</Td>
       <Td data-label="Time">{formattedTime}</Td>
       <Td data-label="Cancel">
         <Button
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault();
             setEditId(null);
           }}
