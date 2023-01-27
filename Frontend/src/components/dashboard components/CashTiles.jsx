@@ -195,7 +195,7 @@ const CashForm = styled.form`
     "from to district"
     "phone weight amount";
   padding: 25px 25px;
-  grid-row-gap: 15px;
+  grid-row-gap: 25px;
   grid-column-gap: 10px;
 
   @media (max-width: 425px) {
@@ -290,7 +290,7 @@ const Input = styled.input`
     -webkit-box-shadow: 0 0 0 30px #202225 inset !important;
   }
   &:-webkit-autofill {
-    -webkit-text-fill-color: #202225 !important;
+    -webkit-text-fill-color: white !important;
   }
 
   &::-webkit-outer-spin-button,
@@ -303,7 +303,7 @@ const Input = styled.input`
   height: 2rem;
   width: 8rem;
   padding: 10px 10px;
-  color: #ffffffa0;
+  color: white;
   outline: none;
   border: none;
 

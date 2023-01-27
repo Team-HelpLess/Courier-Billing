@@ -115,7 +115,7 @@ const Button = styled.button`
   height: 2rem;
   width: 3rem;
   border: none;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   color: white;
   background: #1d1d7a;
   transition: 0.3s ease;
