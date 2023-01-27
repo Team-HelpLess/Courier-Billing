@@ -6,6 +6,7 @@ import PartyPages from "./PartyPages";
 import styled from "styled-components";
 import Popup from "../Popup";
 import Summary from "./Summary";
+import { useRef } from "react";
 
 const POST_URL = "";
 const TOCTOD_URL = "tctd/";
@@ -13,6 +14,8 @@ const SEARCH_URL = "find_many/";
 
 function PartyBook(props) {
   const {} = props; //Destructuring props
+
+  const inputRef = useRef(null);
 
   const [compLoading, setCompLoading] = useState(true);
   const [bookLoading, setBookLoading] = useState(true);
@@ -80,6 +83,7 @@ function PartyBook(props) {
   useEffect(() => {
     requestOne();
     requestTwo();
+    inputRef.current.focus();
   }, []);
 
   useEffect(() => {
@@ -259,6 +263,7 @@ function PartyBook(props) {
             className={active ? "active" : ""}
           >
             <Input
+              ref={inputRef}
               className="courier_number"
               type="number"
               onChange={e => setCnum(e.target.value)}

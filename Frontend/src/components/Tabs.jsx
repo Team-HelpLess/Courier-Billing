@@ -13,7 +13,7 @@ const LOGOUT_URL = "/logout/";
 // Tabs component
 function Tabs() {
   // getting the logged in status
-  const aT = useSelector(state => state?.user?.userAccessToken);
+  const aT = useSelector((state) => state?.user?.userAccessToken);
 
   // Triggers and active boolean constants for popups
   const [trigger, setTrigger] = useState(false);
@@ -25,7 +25,7 @@ function Tabs() {
   const navigate = useNavigate();
   // logout function to block the refresh token and
   // erase the present user credentials from userSlice
-  const HandleLogout = async e => {
+  const HandleLogout = async (e) => {
     e.preventDefault();
 
     try {
@@ -49,10 +49,10 @@ function Tabs() {
 
   // functions to toggle the popup
   function toggleActive() {
-    setActive(prevActive => !prevActive);
+    setActive((prevActive) => !prevActive);
   }
   function activeToggle() {
-    setActive(prevActive => prevActive);
+    setActive((prevActive) => prevActive);
   }
 
   // jsx element for the tabs component
@@ -103,7 +103,7 @@ function Tabs() {
           {aT ? (
             <StyledTabLinks
               className="logout-btn"
-              onClick={e => setTrigger(true)}
+              onClick={(e) => setTrigger(true)}
             >
               LOGOUT
             </StyledTabLinks>
@@ -119,7 +119,7 @@ function Tabs() {
       <Popup
         trigger={trigger}
         setTrigger={setTrigger}
-        actionName="Logout?"
+        actionName="Logout ?"
         actionFunc={HandleLogout}
       />
     </TabsWrapper>
@@ -147,7 +147,7 @@ const TabLinks = styled.div`
 
 const Link = styled(NavLink)`
   padding: 5px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   text-decoration: none;
   color: #7a7b81;
   transition: 0.3s ease;
@@ -219,7 +219,6 @@ const StyledTabLinks = styled.li`
     justify-content: center;
     height: 2.5rem;
     width: 5.5rem;
-    border-radius: 10px;
     background: #bb2121b9;
   }
   &.logout-btn:hover {

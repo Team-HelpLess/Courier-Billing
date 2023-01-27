@@ -3,7 +3,7 @@ import styled from "styled-components";
 function Summary(props) {
   const { trigger, setTrigger, submitables, action } = props;
 
-  const bookListRow = rec => {
+  const bookListRow = (rec) => {
     const {
       courier_number,
       from_company,
@@ -51,7 +51,7 @@ function Summary(props) {
                   <Th>Weight</Th>
                   <Th>Amount</Th>
                 </Tr>
-                {Object.keys(submitables).map(key => {
+                {Object.keys(submitables).map((key) => {
                   return bookListRow(submitables[key]);
                 })}
               </Tbody>
@@ -205,13 +205,14 @@ const ButtonSection = styled.section`
   }
 `;
 const Button = styled.button`
+  outline: none;
+  border: none;
   height: 2rem;
   width: 5rem;
   background: #ffffffc8;
   color: black;
   cursor: pointer;
   transition: 0.5s ease;
-  border-radius: 10px;
 
   &:hover {
     background: white;

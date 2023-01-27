@@ -17,7 +17,7 @@ function Dashboard() {
           navigate("/cash");
         }}
       >
-        Book Now
+        Book Now {">"}
       </Button>
     </DashWrapper>
   );

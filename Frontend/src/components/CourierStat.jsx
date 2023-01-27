@@ -195,7 +195,7 @@ function CourierStat() {
           len === 9 
             ? <AkashTable details={stat.detail} />
             : <AnjaniTable details={stat.detail} />
-        ) : <P>{ JSON.stringify(stat?.Error) }</P> }</Stat>
+        ) : <P>{ JSON.stringify(stat) }</P> }</Stat>
       </StatContainer>
     </CourierStatWrapper>
   );
