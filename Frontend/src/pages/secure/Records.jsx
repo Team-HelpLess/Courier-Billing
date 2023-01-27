@@ -37,7 +37,7 @@ function Records() {
     }
   };
 
-  const handleDelete = async e => {
+  const handleDelete = async (e) => {
     e.preventDefault();
     try {
       const response = await axiosPrivate.delete(
@@ -71,49 +71,52 @@ function Records() {
   return (
     <RecordsWrapper>
       <RecWrapper>
-        <SearchRecord setRecords={setRecords} />
+        <SearchRecord setRecords={setRecords} setLoading={setLoading} />
         {loading ? (
           <Loading />
         ) : records.length !== 0 ? (
-          Array.isArray(records) ? ( 
-          <RecordsTable id="records">
-            <Tbody>
-              <Tr>
-                <Th>C.Number</Th>
-                <Th>C.Type</Th>
-                <Th>C.Company</Th>
-                <Th>From</Th>
-                <Th>To</Th>
-                <Th>Destination</Th>
-                <Th>Weight</Th>
-                <Th>Amount</Th>
-                <Th>Phone</Th>
-                <Th>Date</Th>
-                <Th>Time</Th>
-                <Th>Edit</Th>
-                <Th>Delete</Th>
-              </Tr>
-              {records.map((record, index) => {
-                return editId === record.courier_number ? (
-                  <EditableRow
-                    key={index}
-                    record={record}
-                    setEditId={setEditId}
-                    getRecords={getRecords}
-                  />
-                ) : (
-                  <ReadOnlyRow
-                    key={index}
-                    record={record}
-                    setEditId={setEditId}
-                    setDeleteRecId={setDeleteRecId}
-                    setDeleteRecTrigger={setDeleteRecTrigger}
-                  />
-                );
-              })}
-            </Tbody>
-          </RecordsTable>
-        ) : (<Exclam> You don't have permission! </Exclam>))  : (
+          Array.isArray(records) ? (
+            <RecordsTable id="records">
+              <Tbody>
+                <Tr>
+                  <Th>C.Number</Th>
+                  <Th>C.Type</Th>
+                  <Th>C.Company</Th>
+                  <Th>From</Th>
+                  <Th>To</Th>
+                  <Th>Destination</Th>
+                  <Th>Weight</Th>
+                  <Th>Amount</Th>
+                  <Th>Phone</Th>
+                  <Th>Date</Th>
+                  <Th>Time</Th>
+                  <Th>Edit</Th>
+                  <Th>Delete</Th>
+                </Tr>
+                {records.map((record, index) => {
+                  return editId === record.courier_number ? (
+                    <EditableRow
+                      key={index}
+                      record={record}
+                      setEditId={setEditId}
+                      getRecords={getRecords}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      key={index}
+                      record={record}
+                      setEditId={setEditId}
+                      setDeleteRecId={setDeleteRecId}
+                      setDeleteRecTrigger={setDeleteRecTrigger}
+                    />
+                  );
+                })}
+              </Tbody>
+            </RecordsTable>
+          ) : (
+            <Exclam> You don't have permission! </Exclam>
+          )
+        ) : (
           <Exclam>❕No Records to show :(</Exclam>
         )}
 
