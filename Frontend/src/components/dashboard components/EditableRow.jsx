@@ -66,8 +66,7 @@ function EditableRow(props) {
     };
     // actual axios request
     try {
-      const response = await axiosPrivate.put(UPDATE_URL, { ...toUpdate });
-      console.log(response);
+      await axiosPrivate.put(UPDATE_URL, { ...toUpdate });
       getRecords();
     } catch (err) {
       if (!err?.response) {

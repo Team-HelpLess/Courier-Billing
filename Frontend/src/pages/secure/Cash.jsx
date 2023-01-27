@@ -49,10 +49,9 @@ function Cash() {
 
   const postToApi = async (data) => {
     try {
-      const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
+      await axiosPrivate.post(POST_URL, JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
     } catch (err) {
       if (!err?.response) {
         console.log("NO SERVER RESPONSE");

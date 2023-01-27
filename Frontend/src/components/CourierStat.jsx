@@ -16,23 +16,21 @@ const AnjaniTable = (details) => {
           <Th>Time</Th>
         </Tr>
 
-        {
-          details.details.map((detail, index) => {
-            return (
-              <Tr key={index}>
-                <Td data-label="MFAX/PKG">{detail["MFAX/PKG."]}</Td>
-                <Td data-label="Date">{detail["Date"]}</Td>
-                <Td data-label="Type">{detail["Type"]}</Td>
-                <Td data-label="Branch">{detail["Branch"]}</Td>
-                <Td data-label="Time">{detail["Time"]}</Td>
-              </Tr>
-            )
-          })
-        }
+        {details.details.map((detail, index) => {
+          return (
+            <Tr key={index}>
+              <Td data-label="MFAX/PKG">{detail["MFAX/PKG."]}</Td>
+              <Td data-label="Date">{detail["Date"]}</Td>
+              <Td data-label="Type">{detail["Type"]}</Td>
+              <Td data-label="Branch">{detail["Branch"]}</Td>
+              <Td data-label="Time">{detail["Time"]}</Td>
+            </Tr>
+          );
+        })}
       </Tbody>
     </Table>
-  )
-}
+  );
+};
 
 const AkashTable = (details) => {
   return (
@@ -43,32 +41,32 @@ const AkashTable = (details) => {
           <Th>Date</Th>
           <Th>Type</Th>
           <Th>Time</Th>
-          <Th>Origin --{'>'} Dest</Th>
+          <Th>Origin --{">"} Dest</Th>
           <Th>Weight</Th>
           <Th>Out Station</Th>
           <Th>Description</Th>
         </Tr>
 
-        {
-          details.details.map((detail, index) => {
-            return (
-              <Tr key={index}>
-                <Td data-label="Upload By">{detail["Upload By"]}</Td>
-                <Td data-label="Date">{detail.Date}</Td>
-                <Td data-label="Type">{detail.Type}</Td>
-                <Td data-label="Time">{detail.Time}</Td>
-                <Td data-label="Origin --> Dest">{detail["Origin --> Dest.City"]}</Td>
-                <Td data-label="Weight">{detail.Weight}</Td>
-                <Td data-label="Out Station">{detail["Out Station"]}</Td>
-                <Td data-label="Description">{detail.Description}</Td>
-              </Tr>
-            )
-          })
-        }
+        {details.details.map((detail, index) => {
+          return (
+            <Tr key={index}>
+              <Td data-label="Upload By">{detail["Upload By"]}</Td>
+              <Td data-label="Date">{detail.Date}</Td>
+              <Td data-label="Type">{detail.Type}</Td>
+              <Td data-label="Time">{detail.Time}</Td>
+              <Td data-label="Origin --> Dest">
+                {detail["Origin --> Dest.City"]}
+              </Td>
+              <Td data-label="Weight">{detail.Weight}</Td>
+              <Td data-label="Out Station">{detail["Out Station"]}</Td>
+              <Td data-label="Description">{detail.Description}</Td>
+            </Tr>
+          );
+        })}
       </Tbody>
     </Table>
-  )
-}
+  );
+};
 
 const Table = styled.table`
   font-size: 0.8rem;
@@ -147,14 +145,11 @@ function CourierStat() {
 
     try {
       const response = await axiosPublic.get(`${STAT_URL}${cnum}/`);
-      console.log(response);
       setStat(response?.data);
     } catch (err) {
       if (!err?.response) {
-        console.log("No Server Response!");
         setStat("No Response From Server! :( Try again!");
       } else {
-        console.log("Something went wrong!");
         setStat("Something Went Wrong!");
       }
     } finally {
@@ -169,12 +164,12 @@ function CourierStat() {
           <Form>
             <Input
               type="number"
-              onChange={e => setCnum(e.target.value)}
+              onChange={(e) => setCnum(e.target.value)}
               required
             />
             <Button
               type="submit"
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 handleSubmit();
               }}
@@ -184,18 +179,24 @@ function CourierStat() {
           </Form>
         </StatForm>
 
-        <Stat>{ loading ? (
-          <LoadingWrapper>
-          <LoadGears>
-            <Span className="clock">⚙️</Span>
-            <Span className="antiClock">⚙️</Span>
-          </LoadGears>
-        </LoadingWrapper>
-        ) : Array.isArray(stat?.detail) ? (
-          len === 9 
-            ? <AkashTable details={stat.detail} />
-            : <AnjaniTable details={stat.detail} />
-        ) : <P>{ JSON.stringify(stat) }</P> }</Stat>
+        <Stat>
+          {loading ? (
+            <LoadingWrapper>
+              <LoadGears>
+                <Span className="clock">⚙️</Span>
+                <Span className="antiClock">⚙️</Span>
+              </LoadGears>
+            </LoadingWrapper>
+          ) : Array.isArray(stat?.detail) ? (
+            len === 9 ? (
+              <AkashTable details={stat.detail} />
+            ) : (
+              <AnjaniTable details={stat.detail} />
+            )
+          ) : (
+            <P>{JSON.stringify(stat)}</P>
+          )}
+        </Stat>
       </StatContainer>
     </CourierStatWrapper>
   );
