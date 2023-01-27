@@ -45,7 +45,6 @@ function PartyBook(props) {
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
-      console.log(response);
       setToctod(JSON.stringify(response?.data));
     } catch (err) {
       if (!err?.response) {
@@ -94,7 +93,7 @@ function PartyBook(props) {
     requestTwo();
   }, [status]);
 
-  const handlePages = e => {
+  const handlePages = (e) => {
     e.preventDefault();
     setActive(true);
 
@@ -127,20 +126,19 @@ function PartyBook(props) {
   };
 
   const deletePage = () => {
-    setPartyTiles(partyTiles.filter(tile => tile.key !== String(deleteId)));
-    setSubmitables(prevSubmitables => {
+    setPartyTiles(partyTiles.filter((tile) => tile.key !== String(deleteId)));
+    setSubmitables((prevSubmitables) => {
       const { [deleteId]: deleted, ...rest } = prevSubmitables;
       return rest;
     });
     setDeleteTrigger(false);
   };
 
-  const postToApi = async data => {
+  const postToApi = async (data) => {
     try {
       const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
       setStatus(response?.status);
     } catch (err) {
       if (!err?.response) {
@@ -154,7 +152,7 @@ function PartyBook(props) {
   };
   const handleSubmit = () => {
     if (Object.keys(submitables).length !== 0) {
-      Object.keys(submitables).map(key => {
+      Object.keys(submitables).map((key) => {
         const data = submitables[key];
         return postToApi(data);
       });
@@ -174,7 +172,7 @@ function PartyBook(props) {
       <MobileButtons>
         <Button
           className="mobile-btn"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             navigate(-1);
           }}
@@ -183,7 +181,7 @@ function PartyBook(props) {
         </Button>
         <Button
           className="mobile-detail-btn"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setDetail(!detail);
           }}
@@ -196,7 +194,7 @@ function PartyBook(props) {
         <PartyInfo className={detail ? "active" : ""}>
           <Button
             className="desktop-btn"
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               navigate(-1);
             }}
@@ -266,13 +264,13 @@ function PartyBook(props) {
               ref={inputRef}
               className="courier_number"
               type="number"
-              onChange={e => setCnum(e.target.value)}
+              onChange={(e) => setCnum(e.target.value)}
               required
             />
             <Dec
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
-                setNums(prevNums => prevNums - 1);
+                setNums((prevNums) => prevNums - 1);
               }}
             >
               -
@@ -287,12 +285,12 @@ function PartyBook(props) {
                 textAlign: "center",
                 paddingRight: "5px",
               }}
-              onChange={e => setNums(e.target.value)}
+              onChange={(e) => setNums(e.target.value)}
             />
             <Inc
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
-                setNums(prevNums => prevNums + 1);
+                setNums((prevNums) => prevNums + 1);
               }}
             >
               +
@@ -303,7 +301,10 @@ function PartyBook(props) {
             </Button>
           </Form>
           <Reset className={active ? "active" : ""}>
-            <Button className="reset-btn" onClick={e => setResetTrigger(true)}>
+            <Button
+              className="reset-btn"
+              onClick={(e) => setResetTrigger(true)}
+            >
               Reset
             </Button>
           </Reset>
@@ -311,7 +312,7 @@ function PartyBook(props) {
           <AddPage
             title="Add a Tile"
             className={active ? "active" : ""}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setPartyTiles([
                 ...partyTiles,
@@ -328,14 +329,14 @@ function PartyBook(props) {
                   setDeleteTrigger={setDeleteTrigger}
                 />,
               ]);
-              setIteration(prevIteration => prevIteration + 1);
+              setIteration((prevIteration) => prevIteration + 1);
             }}
           >
             +
           </AddPage>
           <BookButton
             className={active ? "active" : ""}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               setSummaryTrigger(true);
             }}

@@ -29,14 +29,11 @@ function Register() {
           withCredentials: false,
         }
       );
-      console.log(JSON.stringify(response?.data));
       setMsg("User Registered Successfully!");
     } catch (err) {
       if (!err?.response) {
-        console.log("NO SERVER RESPONSE");
         setMsg("NO SERVER RESPONSE");
       } else {
-        console.log("SOMETHING WRONG");
         setMsg("SOMETHING WENT WRONG!");
       }
     }

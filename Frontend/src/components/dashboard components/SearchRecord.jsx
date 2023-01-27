@@ -33,7 +33,6 @@ function SearchRecord(props) {
 
     try {
       const response = await axiosPrivate.post(SEARCH_URL, data);
-      console.log(response);
       setRecords(response?.data);
     } catch (err) {
       if (!err?.response) {

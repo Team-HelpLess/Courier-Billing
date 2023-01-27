@@ -40,10 +40,7 @@ function Records() {
   const handleDelete = async (e) => {
     e.preventDefault();
     try {
-      const response = await axiosPrivate.delete(
-        `${DELETE_URL}${deleteRecId}/`
-      );
-      console.log(response);
+      await axiosPrivate.delete(`${DELETE_URL}${deleteRecId}/`);
       getRecords();
     } catch (err) {
       if (!err?.response) {
