@@ -1,7 +1,8 @@
 // Imports
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Tiles from "../../components/dashboard components/Tiles";
+import CashTiles from "../../components/dashboard components/CashTiles";
 import Popup from "../../components/Popup";
 import Summary from "../../components/dashboard components/Summary";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
@@ -10,6 +11,8 @@ const POST_URL = "";
 
 // Cash functional component
 function Cash() {
+  const inputRef = useRef(null);
+
   // Custom hook
   const axiosPrivate = useAxiosPrivate();
 
@@ -33,16 +36,18 @@ function Cash() {
 
   // State for the Tiles
   const [tiles, setTiles] = useState([]);
+  const [iteration, setIteration] = useState(0);
 
   // State for the Generate and Reset actions
   const [active, setActive] = useState(false);
 
   // Debugging and miscellaneous goes here
   useEffect(() => {
+    inputRef.current.focus();
     window.scrollTo(0, 0);
   }, []);
 
-  const postToApi = async data => {
+  const postToApi = async (data) => {
     try {
       const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
         headers: { "Content-Type": "application/json" },
@@ -58,7 +63,7 @@ function Cash() {
   };
   const handleSubmit = () => {
     if (Object.keys(submitables).length !== 0) {
-      Object.keys(submitables).map(key => {
+      Object.keys(submitables).map((key) => {
         const data = submitables[key];
         return postToApi(data);
       });
@@ -73,14 +78,14 @@ function Cash() {
   };
 
   // Function to handle the Generate button for generating Tiles
-  const handleGenerate = e => {
+  const handleGenerate = (e) => {
     e.preventDefault();
 
     setActive(true);
     const newTiles = [];
     for (let i = 0; i < nums; i++) {
       newTiles.push(
-        <Tiles
+        <CashTiles
           key={i}
           formId={i}
           cn={parseInt(cn) + i}
@@ -99,6 +104,7 @@ function Cash() {
           setSubmitables={setSubmitables}
         />
       );
+      setIteration(parseInt(cn) + i);
     }
     setTiles(newTiles);
   };
@@ -114,8 +120,8 @@ function Cash() {
 
   // Function to delete a Tile from the cash component after generated
   const deleteTile = () => {
-    setTiles(tiles.filter(tile => tile.key !== String(deleteId)));
-    setSubmitables(prevSubmitables => {
+    setTiles(tiles.filter((tile) => tile.key !== String(deleteId)));
+    setSubmitables((prevSubmitables) => {
       const { [deleteId]: deleted, ...rest } = prevSubmitables;
       return rest;
     });
@@ -131,9 +137,10 @@ function Cash() {
             <InputPair>
               <Label>From</Label>
               <Input
+                ref={inputRef}
                 type="text"
                 style={{ width: "16ch" }}
-                onChange={e => setFrom(e.target.value)}
+                onChange={(e) => setFrom(e.target.value)}
                 required
               />
             </InputPair>
@@ -141,8 +148,8 @@ function Cash() {
               <Label>C.Number</Label>
               <Input
                 type="number"
-                style={{ width: "12ch" }}
-                onChange={e => setCn(e.target.value)}
+                style={{ width: "13ch" }}
+                onChange={(e) => setCn(e.target.value)}
                 required
               />
             </InputPair>
@@ -150,16 +157,16 @@ function Cash() {
               <Label>Ph.Number</Label>
               <Input
                 type="number"
-                style={{ width: "12ch" }}
-                onChange={e => setPhone(e.target.value)}
+                style={{ width: "13ch" }}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </InputPair>
             <InputPair>
               <Label className="NumsCourierlbl">CouriersCount</Label>
               <Dec
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
-                  setNums(prevNums => prevNums - 1);
+                  setNums((prevNums) => prevNums - 1);
                 }}
               >
                 -
@@ -172,14 +179,13 @@ function Cash() {
                 style={{
                   width: "5ch",
                   textAlign: "center",
-                  paddingRight: "5px",
                 }}
-                onChange={e => setNums(e.target.value)}
+                onChange={(e) => setNums(e.target.value)}
               />
               <Inc
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
-                  setNums(prevNums => prevNums + 1);
+                  setNums((prevNums) => prevNums + 1);
                 }}
               >
                 +
@@ -190,12 +196,43 @@ function Cash() {
         </Form>
       </Section>
       <Reset className={active ? "active" : ""}>
-        <Button onClick={e => setTrigger(true)}>Reset</Button>
+        <Button onClick={(e) => setTrigger(true)}>Reset</Button>
       </Reset>
       <CashWrapper>{tiles}</CashWrapper>
       <ButtonWrapper>
+        <AddPage
+          title="Add a Tile"
+          className={active ? "active" : ""}
+          onClick={(e) => {
+            e.preventDefault();
+            setTiles([
+              ...tiles,
+              <CashTiles
+                key={iteration + 1}
+                formId={iteration + 1}
+                cn={iteration + 1}
+                from={from}
+                phone={phone}
+                shadow={
+                  cn.toString().length === 10
+                    ? "anjani"
+                    : cn.toString().length === 9
+                    ? "akash"
+                    : ""
+                }
+                setDeleteTrigger={setDeleteTrigger}
+                setDeleteId={setDeleteId}
+                submitables={submitables}
+                setSubmitables={setSubmitables}
+              />,
+            ]);
+            setIteration((prevIteration) => prevIteration + 1);
+          }}
+        >
+          +
+        </AddPage>
         <Button
-          onClick={e => {
+          onClick={(e) => {
             setSummaryTrigger(true);
           }}
         >
@@ -248,11 +285,12 @@ const CashWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  background: #202225;
 
   & > * {
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   @media (max-width: 425px) {
@@ -304,6 +342,7 @@ const Reset = styled.div`
   display: none;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
 
   &.active {
     display: flex;
@@ -319,6 +358,8 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.button`
+  outline: none;
+  border: none;
   font-size: 0.7rem;
   height: 2rem;
   width: 5rem;
@@ -326,7 +367,6 @@ const Button = styled.button`
   color: black;
   cursor: pointer;
   transition: 0.5s ease;
-  border-radius: 10px;
 
   &:hover {
     background: white;
@@ -356,10 +396,11 @@ const InputPair = styled.div`
   }
 `;
 const Label = styled.label`
-  color: white;
-  padding-bottom: 5px;
+  color: #ffffffa0;
+  background: #202225;
+  padding-top: 3px;
+  padding-left: 5px;
   padding-right: 5px;
-  border-bottom: 1px solid white;
 
   @media (max-width: 425px) {
     &.NumsCourierlbl {
@@ -385,15 +426,16 @@ const Input = styled.input`
     margin: 0;
   }
 
-  background: transparent;
+  background: #202225;
+  height: 2rem;
+  padding: 10px 10px;
+  color: white;
   outline: none;
   border: none;
-  border-bottom: 1px solid white;
-  border-left: 1px solid white;
-  color: #d8d9da;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  width: 5rem;
+
+  &.white {
+    color: white;
+  }
 
   @media (max-width: 425px) {
     width: 100%;
@@ -412,10 +454,8 @@ const Dec = styled.button`
   width: 30px;
   background: transparent;
   outline: none;
-  border: 1px solid white;
   color: white;
   cursor: pointer;
-  margin-left: 10px;
 
   @media (max-width: 425px) {
     margin-top: auto;
@@ -426,4 +466,31 @@ const Dec = styled.button`
 `;
 const Inc = styled(Dec)`
   margin-left: 0;
+`;
+
+const AddPage = styled.button`
+  &.active {
+    display: block;
+  }
+
+  display: none;
+  position: absolute;
+  /* margin-top: 1rem; */
+  margin-left: -10rem;
+  outline: none;
+  border: none;
+  background: #747474;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.5s ease;
+
+  &:hover {
+    background: white;
+  }
+
+  @media (max-width: 425px) {
+    margin-left: -9rem;
+  }
 `;

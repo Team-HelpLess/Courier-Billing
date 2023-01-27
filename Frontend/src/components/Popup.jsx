@@ -54,11 +54,12 @@ const Pop = styled.div`
     width: 80%;
   }
 
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
+  background: #202225;
+  border: 1px solid #2f3136;
+  /* backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18); */
 
   display: flex;
   flex-direction: column;
@@ -82,11 +83,13 @@ const Section = styled.section`
 const Button = styled.button`
   height: 2rem;
   width: 5rem;
-  background: #ffffffc8;
-  color: black;
+  outline: none;
+  border: none;
+  background: #2f3136;
+  color: white;
   cursor: pointer;
   transition: 0.5s ease;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 
   &:hover {
     background: white;

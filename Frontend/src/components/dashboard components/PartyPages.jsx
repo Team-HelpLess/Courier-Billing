@@ -36,7 +36,7 @@ function PartyPages(props) {
       },
     };
 
-    setSubmitables(prevSubmits => {
+    setSubmitables((prevSubmits) => {
       return { ...prevSubmits, ...TileValues };
     });
   }, [cnum, to, district, weight, amount]);
@@ -45,7 +45,7 @@ function PartyPages(props) {
     <PartyTileWrapper>
       <PartyTile>
         <Delete
-          onClick={e => {
+          onClick={(e) => {
             setDeleteTrigger(true);
             setDeleteId(props.formNum);
           }}
@@ -58,7 +58,7 @@ function PartyPages(props) {
           <Input
             type="number"
             value={cnum}
-            onChange={e => setCnum(e.target.value)}
+            onChange={(e) => setCnum(e.target.value)}
           />
         </Div>
 
@@ -67,7 +67,7 @@ function PartyPages(props) {
           <Input
             className="white"
             type="text"
-            onChange={e => setTo(e.target.value)}
+            onChange={(e) => setTo(e.target.value)}
           />
         </Div>
 
@@ -76,7 +76,7 @@ function PartyPages(props) {
           <Input
             className="white"
             type="text"
-            onChange={e => setDistrict(e.target.value)}
+            onChange={(e) => setDistrict(e.target.value)}
             list="availableDistricts"
           />
           <datalist id="availableDistricts">
@@ -94,7 +94,7 @@ function PartyPages(props) {
             type="number"
             step="50"
             value={weight}
-            onChange={e => setWeight(e.target.value)}
+            onChange={(e) => setWeight(e.target.value)}
           />
         </Div>
 
@@ -104,7 +104,7 @@ function PartyPages(props) {
             type="number"
             step="10"
             value={amount}
-            onChange={e => setAmount(e.target.value)}
+            onChange={(e) => setAmount(e.target.value)}
           />
         </Div>
       </PartyTile>
@@ -131,7 +131,6 @@ const PartyTile = styled.section`
     "cNum cNum delete delete"
     "to to district district"
     "weight weight amount amount";
-  /* grid-gap: 1rem; */
   padding: 10px;
 
   @media (max-width: 425px) {
