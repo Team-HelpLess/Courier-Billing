@@ -5,14 +5,14 @@ choice = int(input("Choice: "))
 
 headers = {
     "Authorization": "Bearer "
-    + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjczODY5NjU3LCJpYXQiOjE2NzM4NTE2NTcsImp0aSI6ImE3NTMwZDJjODI2ODRiMzI4YjYyOTMwZmI0NTQwODhhIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiIxMTExIiwiZW1haWwiOiJhbWVlcjAzMDYyMDAzQGdtYWlsLmNvbSJ9.I0Em_MY6Zdg4Vp5_mqFcc-EGJREZG5HHsEwJZfp97QA"
+    + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0OTEyMzc1LCJpYXQiOjE2NzQ4OTQzNzUsImp0aSI6IjczZjkwNjYzOGZjNDQzOTNiMWRkZmZlMjg3MDk5NWRhIiwidXNlcl9pZCI6MiwidXNlcm5hbWUiOiIxMTExIiwiZW1haWwiOiJhbWVlcjAzMDYyMDAzQGdtYWlsLmNvbSJ9.sUxGrUxOndx3EXHFaser27B7tIaPw-xTzuE4pCBvKDs"
 }
-# url = "http://127.0.0.1:8000/"
-url = "https://goameer030-stunning-space-carnival-q4xx4xgvqgq2xrv-8000.preview.app.github.dev/"
+url = "http://127.0.0.1:8000/"
+# url = "https://goameer030-stunning-space-carnival-q4xx4xgvqgq2xrv-8000.preview.app.github.dev/"
 
 while choice:
     if choice == 1:
-        for i in range(50):
+        for i in range(100):
 
             data = {
                 "courier_number": random.randint(100000000, 999999999),
@@ -34,7 +34,7 @@ while choice:
             }
 
             response = requests.post(url=url + "api/", headers=headers, data=data)
-            print(i, response, response.text)
+            print(i, response)
 
         choice = int(input("Choice: "))
 

@@ -4,19 +4,27 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 from helper.sendings.sms import SMS
 from .models import RecordModel
 from .serializers import RecordSerializer
 import csv
 import os
 
+class PageSetPagination(PageNumberPagination):
+    page_size = 30
 
 class RecordView(viewsets.ViewSet):
     permission_classes = (IsAuthenticated, )
 
     def get(self, request):
         if request.user.has_perm("records.view_recordmodel"):
+            paginator = PageSetPagination()
             records = RecordModel.objects.all()
+            if request.query_params.get('page'):
+                records = paginator.paginate_queryset(records, request)
+                serializer = RecordSerializer(records, many=True)
+                return paginator.get_paginated_response(serializer.data)
             serializer = RecordSerializer(records, many=True)
             return Response(serializer.data)
         else:
@@ -45,7 +53,7 @@ class RecordView(viewsets.ViewSet):
             with open(r'./records/csv_data/tctd.csv', 'w') as tc_csv:
                 writer = csv.writer(tc_csv)
                 writer.writerows(rows)
-            if request.data['phone_no']:
+            if request.data.get('phone_no', None):
                 sms = SMS()
                 record = RecordModel.objects.get(courier_number=request.data['courier_number'])
                 if sms.daily_SMS(record, request.data['phone_no']):
@@ -139,6 +147,6 @@ class APIRoot(APIView):
                 # "api/find/ - get()": reverse('find_by_courier_no', request=request),
                 "api/find_many/ - post()": reverse("find_many", request=request),
                 "cleanup/ - post()": reverse("clean_up", request=request),
-                "excel/ - post()": reverse("get_excel", request=request),
+                # "excel/ - post()": reverse("send_mail", request=request),
             }
         )
