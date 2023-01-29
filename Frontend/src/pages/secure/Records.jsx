@@ -17,11 +17,11 @@ const DELETE_URL = "delete/";
 function Records() {
   // Constants for the states and miscallaneous
   const [deleteRecTrigger, setDeleteRecTrigger] = useState(false);
-  const [deleteRecId, setDeleteRecId] = useState(null);
+  const [deleteRecId, setDeleteRecId] = useState();
 
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editId, setEditId] = useState(null);
+  const [editId, setEditId] = useState();
   const dataFetchedRef = useRef(false);
   const axiosPrivate = useAxiosPrivate();
 

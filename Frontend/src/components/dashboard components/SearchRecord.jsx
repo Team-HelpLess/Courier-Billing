@@ -79,10 +79,12 @@ function SearchRecord(props) {
             name="to_destination"
           />
           <Select value={type} onChange={(e) => setType(e.target.value)}>
+            <Option value="">Either</Option>
             <Option value="cash">cash</Option>
             <Option value="credit">credit</Option>
           </Select>
           <Select value={comp} onChange={(e) => setComp(e.target.value)}>
+            <Option value="">Either</Option>
             <Option value="akash">akash</Option>
             <Option value="anjani">anjani</Option>
           </Select>

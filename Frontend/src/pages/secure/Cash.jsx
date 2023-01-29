@@ -20,7 +20,7 @@ function Cash() {
 
   // Triggers for Popups
   const [trigger, setTrigger] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
+  const [deleteId, setDeleteId] = useState();
   const [deleteTrigger, setDeleteTrigger] = useState(false);
   const [notify, setNotify] = useState(false);
 
