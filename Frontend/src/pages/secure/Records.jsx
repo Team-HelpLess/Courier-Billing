@@ -69,53 +69,55 @@ function Records() {
     <RecordsWrapper>
       <RecWrapper>
         <SearchRecord setRecords={setRecords} setLoading={setLoading} />
-        {loading ? (
-          <Loading />
-        ) : records.length !== 0 ? (
-          Array.isArray(records) ? (
-            <RecordsTable id="records">
-              <Tbody>
-                <Tr>
-                  <Th>C.Number</Th>
-                  <Th>C.Type</Th>
-                  <Th>C.Company</Th>
-                  <Th>From</Th>
-                  <Th>To</Th>
-                  <Th>Destination</Th>
-                  <Th>Weight</Th>
-                  <Th>Amount</Th>
-                  <Th>Phone</Th>
-                  <Th>Date</Th>
-                  <Th>Time</Th>
-                  <Th>Edit</Th>
-                  <Th>Delete</Th>
-                </Tr>
-                {records.map((record, index) => {
-                  return editId === record.courier_number ? (
-                    <EditableRow
-                      key={index}
-                      record={record}
-                      setEditId={setEditId}
-                      getRecords={getRecords}
-                    />
-                  ) : (
-                    <ReadOnlyRow
-                      key={index}
-                      record={record}
-                      setEditId={setEditId}
-                      setDeleteRecId={setDeleteRecId}
-                      setDeleteRecTrigger={setDeleteRecTrigger}
-                    />
-                  );
-                })}
-              </Tbody>
-            </RecordsTable>
+        <RecordsArea>
+          {loading ? (
+            <Loading />
+          ) : records.length !== 0 ? (
+            Array.isArray(records) ? (
+              <RecordsTable id="records">
+                <Tbody>
+                  <Tr>
+                    <Th>C.Number</Th>
+                    <Th>C.Type</Th>
+                    <Th>C.Company</Th>
+                    <Th>From</Th>
+                    <Th>To</Th>
+                    <Th>Destination</Th>
+                    <Th>Weight</Th>
+                    <Th>Amount</Th>
+                    <Th>Phone</Th>
+                    <Th>Date</Th>
+                    <Th>Time</Th>
+                    <Th>Edit</Th>
+                    <Th>Delete</Th>
+                  </Tr>
+                  {records.map((record, index) => {
+                    return editId === record.courier_number ? (
+                      <EditableRow
+                        key={index}
+                        record={record}
+                        setEditId={setEditId}
+                        getRecords={getRecords}
+                      />
+                    ) : (
+                      <ReadOnlyRow
+                        key={index}
+                        record={record}
+                        setEditId={setEditId}
+                        setDeleteRecId={setDeleteRecId}
+                        setDeleteRecTrigger={setDeleteRecTrigger}
+                      />
+                    );
+                  })}
+                </Tbody>
+              </RecordsTable>
+            ) : (
+              <Exclam> You don't have permission! </Exclam>
+            )
           ) : (
-            <Exclam> You don't have permission! </Exclam>
-          )
-        ) : (
-          <Exclam>❕No Records to show :(</Exclam>
-        )}
+            <Exclam>❕No Records to show :(</Exclam>
+          )}
+        </RecordsArea>
 
         <Popup
           trigger={deleteRecTrigger}
@@ -154,14 +156,12 @@ const RecWrapper = styled.div`
   justify-content: center;
 `;
 
-const P = styled.div`
-  height: 100vh;
+const RecordsArea = styled.div`
+  min-height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: white;
-  background: #2f3136;
+  align-items: flex-start;
 `;
 
 const Exclam = styled.div`
