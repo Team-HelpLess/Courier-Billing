@@ -24,7 +24,7 @@ function PartyBook(props) {
 
   const [submitables, setSubmitables] = useState({});
   const [deleteTrigger, setDeleteTrigger] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
+  const [deleteId, setDeleteId] = useState();
   const [summaryTrigger, setSummaryTrigger] = useState(false);
   const [notify, setNotify] = useState(false);
   const [status, setStatus] = useState(0);
@@ -45,7 +45,7 @@ function PartyBook(props) {
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
-      setToctod(JSON.stringify(response?.data));
+      setToctod(response?.data);
     } catch (err) {
       if (!err?.response) {
         setToctod("No Response from Server!");
@@ -210,7 +210,24 @@ function PartyBook(props) {
                 <Span className="antiClock">⚙️</Span>
               </Loading>
             ) : (
-              <PartyList>{toctod}</PartyList>
+              <PartyList>
+                {Arrays.isArray(toctod) ? (
+                  <RecordTable>
+                    <Tbody>
+                      {Object.keys(toctod).map((key, index) => {
+                        return (
+                          <Tr key={index}>
+                            <Td data-label="To">{key}</Td>
+                            <Td data-label="District">{toctod.key}</Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </RecordTable>
+                ) : (
+                  JSON.stringify(toctod)
+                )}
+              </PartyList>
             )}
           </FrequentParties>
 

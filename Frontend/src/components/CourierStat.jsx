@@ -135,7 +135,7 @@ const Td = styled.td`
 
 function CourierStat() {
   const [loading, setLoading] = useState(false);
-  const [cnum, setCnum] = useState(null);
+  const [cnum, setCnum] = useState();
   const [stat, setStat] = useState();
   const [len, setLen] = useState();
 

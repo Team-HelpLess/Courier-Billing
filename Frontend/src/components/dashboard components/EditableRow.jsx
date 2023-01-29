@@ -76,7 +76,7 @@ function EditableRow(props) {
       }
     }
 
-    setEditId(null);
+    setEditId();
   };
 
   // JSX element for the editable row
@@ -151,7 +151,7 @@ function EditableRow(props) {
         <Button
           onClick={(e) => {
             e.preventDefault();
-            setEditId(null);
+            setEditId();
           }}
         >
           Cancel
