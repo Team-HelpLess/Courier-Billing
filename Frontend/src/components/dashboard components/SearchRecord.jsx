@@ -25,9 +25,18 @@ function SearchRecord(props) {
     setLoading(true);
 
     const data = {};
-    if (from !== "") data["from_company"] = from;
-    if (to !== "") data["to_company"] = to;
-    if (district !== "") data["to_destination"] = district;
+    if (from !== "")
+      data["from_company"] = from.replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+      });
+    if (to !== "")
+      data["to_company"] = to.replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+      });
+    if (district !== "")
+      data["to_destination"] = district.replace(/\b[a-z]/g, function (letter) {
+        return letter.toUpperCase();
+      });
     if (type !== "") data["courier_type"] = type;
     if (comp !== "") data["courier_company"] = comp;
 

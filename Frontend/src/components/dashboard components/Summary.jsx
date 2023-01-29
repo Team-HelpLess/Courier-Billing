@@ -3,7 +3,7 @@ import styled from "styled-components";
 function Summary(props) {
   const { trigger, setTrigger, submitables, action } = props;
 
-  const bookListRow = (rec) => {
+  const bookListRow = (rec, index) => {
     const {
       courier_number,
       from_company,
@@ -15,7 +15,7 @@ function Summary(props) {
     } = rec;
 
     return (
-      <Tr>
+      <Tr key={index}>
         <Td data-label="C.Number">{courier_number}</Td>
         <Td data-label="From">{from_company}</Td>
         <Td data-label="To">{to_company}</Td>
@@ -51,7 +51,7 @@ function Summary(props) {
                   <Th>Weight</Th>
                   <Th>Amount</Th>
                 </Tr>
-                {Object.keys(submitables).map((key) => {
+                {Object.keys(submitables).map((key, index) => {
                   return bookListRow(submitables[key]);
                 })}
               </Tbody>

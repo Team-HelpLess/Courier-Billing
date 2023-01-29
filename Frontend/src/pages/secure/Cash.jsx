@@ -1,7 +1,6 @@
 // Imports
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Tiles from "../../components/dashboard components/Tiles";
 import CashTiles from "../../components/dashboard components/CashTiles";
 import Popup from "../../components/Popup";
 import Summary from "../../components/dashboard components/Summary";
@@ -82,7 +81,7 @@ function Cash() {
 
     setActive(true);
     const newTiles = [];
-    for (let i = 0; i < nums; i++) {
+    for (let i = 0; i < Math.abs(nums); i++) {
       newTiles.push(
         <CashTiles
           key={i}
