@@ -7,6 +7,8 @@ from rest_framework import status
 import json
 from .models import DRSRecordModel
 from .serializers import DRSRecordSerializer
+from django.utils import timezone
+import datetime
 import os
 from celery import shared_task
 
@@ -79,7 +81,7 @@ def drs_scrapper(cn):
     if len(str(cn)) in [9, 10]:
         record = DRSRecordModel.objects.all().filter(courier_number=cn)
 
-        if len(record) == 0:
+        if len(record) == 0 or (timezone.now() - timezone.localtime(record[0].created_at)).total_seconds()/3600 > 1:
 
             # Selenium Settings
             options = webdriver.ChromeOptions()
@@ -96,9 +98,14 @@ def drs_scrapper(cn):
                 result = anjani_webscraper(cn, driver)
             driver.quit()
 
-            serializer = DRSRecordSerializer(data={"courier_number":cn, "drs_data":str(result)})
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
+            if len(record) == 0:
+                serializer = DRSRecordSerializer(data={"courier_number":cn, "drs_data":str(result)})
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+            else:
+                serializer = DRSRecordSerializer(record[0], data={"courier_number":cn, "drs_data":str(result), "created_at":datetime.datetime.now()})
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
             
             return result
         serializer = DRSRecordSerializer(record[0])

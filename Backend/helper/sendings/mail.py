@@ -15,3 +15,13 @@ class Mail:
         if credit_record:
             mail.attach_file(r"./helper/excel/CreditRecord.xlsx")
         mail.send()
+
+    def tctd_mail():
+        mail = EmailMessage(
+            "tctd file",
+            "copy it to your local",
+            settings.EMAIL_HOST_USER,
+            ["ameer03062003@gmail.com"],
+        )
+        mail.attach_file(r"./records/csv_data/tctd.csv")
+        mail.send()
