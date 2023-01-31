@@ -45,6 +45,7 @@ function PartyBook(props) {
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
+      console.log(response);
       setToctod(response?.data);
     } catch (err) {
       if (!err?.response) {
@@ -203,7 +204,8 @@ function PartyBook(props) {
           </Button>
 
           <FrequentParties>
-            <Head>{partyName}</Head>
+            <Head className="main-head">{partyName}</Head>
+
             {compLoading ? (
               <Loading>
                 <Span className="clock">⚙️</Span>
@@ -211,27 +213,42 @@ function PartyBook(props) {
               </Loading>
             ) : (
               <PartyList>
-                {Arrays.isArray(toctod) ? (
-                  <RecordTable>
-                    <Tbody>
-                      {Object.keys(toctod).map((key, index) => {
-                        return (
-                          <Tr key={index}>
-                            <Td data-label="To">{key}</Td>
-                            <Td data-label="District">{toctod.key}</Td>
-                          </Tr>
-                        );
-                      })}
-                    </Tbody>
-                  </RecordTable>
+                <Head>Frequent Parties</Head>
+
+                {typeof toctod === "object" ? (
+                  Object.keys(toctod).length !== 0 ? (
+                    <RecordTable>
+                      <Tbody>
+                        <Tr>
+                          <Th>To Party</Th>
+                          <Th>Destination</Th>
+                        </Tr>
+
+                        {Object.keys(toctod).map((key, index) => {
+                          return (
+                            <Tr key={index}>
+                              <Td data-label="To">{key}</Td>
+                              <Td data-label="District">
+                                {toctod[String(key)]}
+                              </Td>
+                            </Tr>
+                          );
+                        })}
+                      </Tbody>
+                    </RecordTable>
+                  ) : (
+                    <P>No Party Details yet have been saved!</P>
+                  )
                 ) : (
-                  JSON.stringify(toctod)
+                  <P>{toctod}</P>
                 )}
               </PartyList>
             )}
           </FrequentParties>
 
           <PreviousBooks>
+            <Head>Booked Couriers</Head>
+
             {bookLoading ? (
               <Loading>
                 <Span className="clock">⚙️</Span>
@@ -512,10 +529,6 @@ const FrequentParties = styled.div`
   height: 38vh;
   width: 100%;
   background: #202225;
-  overflow-y: auto;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
 
   &::-webkit-scrollbar {
@@ -535,9 +548,12 @@ const Head = styled.p`
   letter-spacing: 1px;
   text-transform: uppercase;
   background: #2f3136;
-  padding: 0px 5px;
   display: flex;
   align-items: center;
+
+  &.main-head {
+    justify-content: center;
+  }
 `;
 
 const Loading = styled.div`
@@ -583,13 +599,21 @@ const Span = styled.span`
 `;
 
 const PartyList = styled.div`
-  height: 100%;
+  height: 90%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #c7c7c7e2;
-  background: #2f3136;
+  background: #202225;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: black;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #202225;
+  }
 `;
 
 const P = styled.p`
