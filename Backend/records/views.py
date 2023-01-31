@@ -129,7 +129,7 @@ class RecordView(viewsets.ViewSet):
                             tctd = item.split(':')
                             data[tctd[0]] = tctd[1]
                         break
-            return Response(str(data))
+            return Response(data)
 
 class APIRoot(APIView):
     def get(self, request):
