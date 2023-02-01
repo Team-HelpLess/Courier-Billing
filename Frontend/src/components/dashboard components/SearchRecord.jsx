@@ -2,7 +2,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import useAxiosPrivate from "../../hooks/usePrivateAxios";
-import Loading from "../Loading";
 
 // api URL for searching records
 const SEARCH_URL = "find_many/";

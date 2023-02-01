@@ -19,6 +19,9 @@ function Records() {
   const [deleteRecTrigger, setDeleteRecTrigger] = useState(false);
   const [deleteRecId, setDeleteRecId] = useState();
 
+  let pageNumber = 1;
+  let pageLimit = true;
+  const [loadPage, setLoadPage] = useState(false);
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editId, setEditId] = useState();
@@ -28,11 +31,20 @@ function Records() {
   // Async Await axios request to the API for getting the records
   const getRecords = async () => {
     try {
-      const response = await axiosPrivate.get(RECORDS_URL);
-      setRecords(response.data);
+      const response = await axiosPrivate.get(RECORDS_URL, {
+        params: { page: pageNumber },
+      });
+      pageNumber++;
+      console.log(response);
+      setRecords((prevRecords) => [...prevRecords, ...response?.data?.results]);
     } catch (err) {
-      console.error(err);
+      if (err?.response?.status === 404) {
+        pageLimit = false;
+      } else {
+        console.error(err);
+      }
     } finally {
+      setLoadPage(false);
       setLoading(false);
     }
   };
@@ -60,9 +72,26 @@ function Records() {
     dataFetchedRef.current = true;
     getRecords();
   }, []);
-  // useEffect(() => {
-  //   window.scrollTo(0, 100);
-  // }, [records]);
+
+  const handleScroll = () => {
+    setLoadPage(true);
+    getRecords();
+    console.log(pageNumber);
+  };
+
+  // const scrollRef = useRef(true);
+  useEffect(() => {
+    window.onscroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        if (pageLimit) {
+          handleScroll();
+        }
+      }
+    };
+    return () => {
+      window.onscroll = null;
+    };
+  }, []);
 
   // Actual records JSX element.
   return (
@@ -117,6 +146,10 @@ function Records() {
           ) : (
             <Exclam>❕No Records to show :(</Exclam>
           )}
+
+          <LoadNextPage className={loadPage ? "active rotate" : ""}>
+            ⚙️
+          </LoadNextPage>
         </RecordsArea>
 
         <Popup
@@ -160,8 +193,39 @@ const RecordsArea = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+`;
+
+const LoadNextPage = styled.span`
+  font-size: 1.5rem;
+  display: none;
+  height: 10vh;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  /* @media (max-width: 425px) {
+    margin-left: 8.9rem;
+  } */
+
+  &.active {
+    display: flex;
+  }
+
+  &.rotate {
+    animation: rotation 2s infinite linear;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
 `;
 
 const Exclam = styled.div`
