@@ -272,7 +272,7 @@ const CashComponent = styled.div`
   padding-top: 2.5rem;
   background: #2f3136;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     padding-top: 2rem;
   }
 `;
@@ -291,7 +291,7 @@ const CashWrapper = styled.section`
     margin-bottom: 2rem;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     min-height: 50vh;
 
     & > * {
@@ -316,17 +316,19 @@ const Section = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 2rem;
 
   &.active {
     display: none;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 30vh;
     width: auto;
     flex-direction: column;
     align-items: center;
     margin: auto;
+    margin-bottom: 2rem;
 
     & > * {
       margin-right: 0;
@@ -378,7 +380,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 60%;
     flex-direction: column;
     align-items: flex-start;
@@ -389,7 +391,7 @@ const Div = styled.div`
 const InputPair = styled.div`
   display: flex;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-bottom: 5px;
   }
 `;
@@ -400,7 +402,7 @@ const Label = styled.label`
   padding-left: 5px;
   padding-right: 5px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     &.NumsCourierlbl {
       margin-bottom: 5px;
     }
@@ -435,14 +437,14 @@ const Input = styled.input`
     color: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 
   &.NumsCourier {
     border-left: 0;
 
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
       margin-bottom: 5px;
     }
   }
@@ -455,7 +457,7 @@ const Dec = styled.button`
   color: white;
   cursor: pointer;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-top: auto;
     margin-bottom: 5px;
     height: 32px;
@@ -488,7 +490,7 @@ const AddPage = styled.button`
     background: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-left: -9rem;
   }
 `;

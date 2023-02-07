@@ -103,7 +103,7 @@ function Records() {
             Array.isArray(records) ? (
               <RecordsTable id="records">
                 <Tbody>
-                  <Tr>
+                  <Tr className="headRow">
                     <Th>C.Number</Th>
                     <Th>C.Type</Th>
                     <Th>C.Company</Th>
@@ -235,7 +235,7 @@ const RecordsTable = styled.table`
   width: 90%;
   border-collapse: collapse;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
@@ -250,16 +250,20 @@ const Tbody = styled.tbody`
     position: sticky;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
 
 const Tr = styled.tr`
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
     margin-bottom: 25px;
     border: 1px solid gray;
+
+    &.headRow {
+      display: none;
+    }
   }
 `;
 
@@ -269,7 +273,7 @@ const Th = styled.th`
   text-transform: uppercase;
   padding: 12px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;

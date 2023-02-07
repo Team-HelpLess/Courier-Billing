@@ -226,7 +226,7 @@ function PartyBook(props) {
                   Object.keys(toctod).length !== 0 ? (
                     <RecordTable>
                       <Tbody>
-                        <Tr>
+                        <Tr className="headRow">
                           <Th>To Party</Th>
                           <Th>Destination</Th>
                         </Tr>
@@ -264,7 +264,7 @@ function PartyBook(props) {
             ) : Array.isArray(booked) ? (
               <RecordTable>
                 <Tbody>
-                  <Tr>
+                  <Tr className="headRow">
                     <Th>Date</Th>
                     <Th>C.Number</Th>
                     <Th>To</Th>
@@ -349,41 +349,45 @@ function PartyBook(props) {
               Reset
             </Button>
           </Reset>
+
           <Pages>{partyTiles}</Pages>
-          <AddPage
-            title="Add a Tile"
-            className={active ? "active" : ""}
-            onClick={(e) => {
-              e.preventDefault();
-              setPartyTiles([
-                ...partyTiles,
-                <PartyPages
-                  key={iteration}
-                  formNum={iteration}
-                  courier_number={parseInt(cnum) + iteration}
-                  partyName={partyName}
-                  cweight={50}
-                  camount={40}
-                  submitables={submitables}
-                  setSubmitables={setSubmitables}
-                  setDeleteId={setDeleteId}
-                  setDeleteTrigger={setDeleteTrigger}
-                />,
-              ]);
-              setIteration((prevIteration) => prevIteration + 1);
-            }}
-          >
-            +
-          </AddPage>
-          <BookButton
-            className={active ? "active" : ""}
-            onClick={(e) => {
-              e.preventDefault();
-              setSummaryTrigger(true);
-            }}
-          >
-            BOOK
-          </BookButton>
+
+          <ButtonGroup>
+            <AddPage
+              title="Add a Tile"
+              className={active ? "active" : ""}
+              onClick={(e) => {
+                e.preventDefault();
+                setPartyTiles([
+                  ...partyTiles,
+                  <PartyPages
+                    key={iteration}
+                    formNum={iteration}
+                    courier_number={parseInt(cnum) + iteration}
+                    partyName={partyName}
+                    cweight={50}
+                    camount={40}
+                    submitables={submitables}
+                    setSubmitables={setSubmitables}
+                    setDeleteId={setDeleteId}
+                    setDeleteTrigger={setDeleteTrigger}
+                  />,
+                ]);
+                setIteration((prevIteration) => prevIteration + 1);
+              }}
+            >
+              +
+            </AddPage>
+            <BookButton
+              className={active ? "active" : ""}
+              onClick={(e) => {
+                e.preventDefault();
+                setSummaryTrigger(true);
+              }}
+            >
+              BOOK
+            </BookButton>
+          </ButtonGroup>
 
           <Popup
             trigger={deleteTrigger}
@@ -432,7 +436,7 @@ const MobileButtons = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: flex;
   }
 `;
@@ -444,7 +448,7 @@ const PartyPage = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     justify-content: space-around;
   }
 `;
@@ -456,7 +460,7 @@ const PartyInfo = styled.section`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     z-index: 1;
     justify-content: space-around;
     width: 95%;
@@ -490,7 +494,7 @@ const Button = styled.button`
     color: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     &.desktop-btn {
       display: none;
     }
@@ -527,7 +531,7 @@ const Button = styled.button`
       color: white;
     }
 
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
       margin-left: 0;
     }
   }
@@ -645,7 +649,7 @@ const RecordTable = styled.table`
   width: 100%;
   border-collapse: collapse;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
@@ -659,15 +663,23 @@ const Tbody = styled.tbody`
     position: sticky;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
 const Tr = styled.tr`
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
+    width: 90%;
     display: block;
-    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
     border: 1px solid gray;
+
+    &.headRow {
+      display: none;
+    }
   }
 `;
 const Th = styled.th`
@@ -676,7 +688,7 @@ const Th = styled.th`
   text-transform: uppercase;
   padding: 12px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -685,7 +697,7 @@ const Td = styled.td`
   text-align: center;
   transition: 0.3s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     color: white;
     display: block;
     text-align: right;
@@ -711,9 +723,9 @@ const BookParty = styled.section`
   background: #202225;
   padding: 10px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 100%;
-    height: 77.5vh;
+    height: 80vh;
   }
 `;
 
@@ -737,7 +749,7 @@ const Pages = styled.div`
     background: #2f3136;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     max-height: 80%;
   }
 `;
@@ -787,7 +799,7 @@ const Input = styled.input`
     padding: 5px 0px;
     margin-bottom: 10px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
       margin-bottom: 10px;
     }
   }
@@ -803,7 +815,7 @@ const Dec = styled.button`
   cursor: pointer;
   margin-left: 10px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-bottom: 3px;
     height: 25px;
     width: 32px;
@@ -825,15 +837,20 @@ const Reset = styled.div`
   }
 `;
 
+const ButtonGroup = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const AddPage = styled.button`
   &.active {
     display: block;
   }
 
   display: none;
-  position: absolute;
   margin-top: 1rem;
-  margin-left: 15rem;
   outline: none;
   border: none;
   background: #747474;
@@ -845,10 +862,6 @@ const AddPage = styled.button`
 
   &:hover {
     background: white;
-  }
-
-  @media (max-width: 425px) {
-    margin-left: 6rem;
   }
 `;
 
@@ -865,16 +878,11 @@ const BookButton = styled.button`
   border-radius: 25px;
   transition: 0.4s ease;
   cursor: pointer;
-
   margin-top: 1rem;
-  margin-left: 18rem;
+  margin-left: 1rem;
 
   &:hover {
     background: black;
     color: white;
-  }
-
-  @media (max-width: 425px) {
-    margin-left: 9rem;
   }
 `;

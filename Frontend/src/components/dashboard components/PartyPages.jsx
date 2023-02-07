@@ -118,7 +118,7 @@ const PartyTileWrapper = styled.div`
   width: 100%;
   background: #2f3136;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     min-height: 35vh;
   }
 `;
@@ -133,7 +133,7 @@ const PartyTile = styled.section`
     "weight weight amount amount";
   padding: 10px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -183,6 +183,7 @@ const P = styled.p`
 const Input = styled.input`
   background: #202225;
   height: 2rem;
+  width: 10rem;
   padding: 10px 10px;
   color: #ffffffa0;
   outline: none;
@@ -190,6 +191,13 @@ const Input = styled.input`
 
   &.white {
     color: white;
+  }
+
+  @media (min-width: 768px) and (max-width: 1115px) {
+    width: 5rem;
+  }
+  @media (max-width: 768px) {
+    width: 8rem;
   }
 `;
 
@@ -213,9 +221,8 @@ const Delete = styled.div`
     }
   }
 
-  @media (max-width: 425px) {
-    margin-top: -1rem;
-    margin-left: 19rem;
+  @media (max-width: 768px) {
+    align-self: end;
   }
 `;
 const Span = styled.span`

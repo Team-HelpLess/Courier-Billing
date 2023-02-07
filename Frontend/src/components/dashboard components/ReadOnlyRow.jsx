@@ -79,7 +79,7 @@ export default ReadOnlyRow;
 
 // Stylings
 const Tr = styled.tr`
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
     margin-bottom: 25px;
     border: 1px solid gray;
@@ -91,7 +91,7 @@ const Td = styled.td`
   text-align: center;
   transition: 0.3s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     color: white;
     display: block;
     text-align: right;

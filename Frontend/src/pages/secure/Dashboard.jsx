@@ -12,7 +12,7 @@ function Dashboard() {
       <CourierStat />
 
       <Button
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           navigate("/cash");
         }}
@@ -50,7 +50,7 @@ const Button = styled.button`
     color: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     right: 9rem;
     bottom: 3rem;
   }

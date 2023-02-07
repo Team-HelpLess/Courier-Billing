@@ -42,7 +42,7 @@ function Summary(props) {
           ) : (
             <BookListTable>
               <Tbody>
-                <Tr>
+                <Tr className="headRow">
                   <Th>C.Number</Th>
                   <Th>From</Th>
                   <Th>To</Th>
@@ -52,7 +52,7 @@ function Summary(props) {
                   <Th>Amount</Th>
                 </Tr>
                 {Object.keys(submitables).map((key, index) => {
-                  return bookListRow(submitables[key]);
+                  return bookListRow(submitables[key], index);
                 })}
               </Tbody>
             </BookListTable>
@@ -102,7 +102,7 @@ const Sumry = styled.section`
   width: 65%;
   color: white;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 80vh;
     width: 90%;
   }
@@ -119,7 +119,9 @@ const Sumry = styled.section`
   justify-content: center;
 `;
 
-const H3 = styled.h3``;
+const H3 = styled.h3`
+  margin-bottom: 1rem;
+`;
 
 const Section = styled.section`
   height: 75%;
@@ -135,7 +137,7 @@ const BookListTable = styled.table`
   width: 100%;
   border-collapse: collapse;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
@@ -144,15 +146,20 @@ const Tbody = styled.tbody`
     background-color: #2929296c;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
 const Tr = styled.tr`
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
-    margin-bottom: 25px;
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
     border: 1px solid gray;
+
+    &.headRow {
+      display: none;
+    }
   }
 `;
 const Th = styled.th`
@@ -163,7 +170,7 @@ const Th = styled.th`
   top: 0;
   position: sticky;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -172,7 +179,7 @@ const Td = styled.td`
   text-align: center;
   transition: 0.3s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     color: white;
     display: block;
     text-align: right;
@@ -200,7 +207,7 @@ const ButtonSection = styled.section`
   align-items: center;
   justify-content: space-around;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 60%;
   }
 `;

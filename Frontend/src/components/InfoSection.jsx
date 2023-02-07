@@ -18,7 +18,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 20vh;
     width: 100%;
   }
@@ -30,7 +30,6 @@ const Wrapper = styled.section`
   background: #36393f;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border-radius: 10px;
   border: 1px solid #36393f;
 
   display: flex;
@@ -45,7 +44,7 @@ const Text = styled.p`
   letter-spacing: 0.1rem;
   font-weight: 900;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     font-size: 3rem;
   }
 `;
