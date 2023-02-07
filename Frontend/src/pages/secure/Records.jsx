@@ -35,7 +35,6 @@ function Records() {
         params: { page: pageNumber },
       });
       pageNumber++;
-      console.log(response);
       setRecords((prevRecords) => [...prevRecords, ...response?.data?.results]);
     } catch (err) {
       if (err?.response?.status === 404) {
@@ -76,7 +75,6 @@ function Records() {
   const handleScroll = () => {
     setLoadPage(true);
     getRecords();
-    console.log(pageNumber);
   };
 
   // const scrollRef = useRef(true);
@@ -205,10 +203,6 @@ const LoadNextPage = styled.span`
   width: 100%;
   align-items: center;
   justify-content: center;
-
-  /* @media (max-width: 425px) {
-    margin-left: 8.9rem;
-  } */
 
   &.active {
     display: flex;

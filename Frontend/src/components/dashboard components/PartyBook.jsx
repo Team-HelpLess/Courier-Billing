@@ -47,7 +47,6 @@ function PartyBook(props) {
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
-      console.log(response);
       setToctod(response?.data);
     } catch (err) {
       if (!err?.response) {
@@ -538,16 +537,6 @@ const FrequentParties = styled.div`
   width: 100%;
   background: #202225;
   gap: 10px;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-track {
-    background: black;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #2f3136;
-  }
 `;
 const Head = styled.p`
   height: 2rem;
@@ -620,7 +609,7 @@ const PartyList = styled.div`
     background: black;
   }
   &::-webkit-scrollbar-thumb {
-    background: #202225;
+    background: #2f3136;
   }
 `;
 
