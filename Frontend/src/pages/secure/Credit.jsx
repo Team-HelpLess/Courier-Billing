@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { parties } from "../../components/dashboard components/CompaniesList";
 
 // Particular Cards
-const CreditCard = partyName => {
+const CreditCard = (partyName) => {
   const navigate = useNavigate();
   function handleClick() {
     navigate("/partyBook", { state: { partyName: partyName.partyName } });
@@ -32,7 +32,7 @@ function Credit() {
   // useEffect hook to run whenever the key changes
   useEffect(() => {
     inputRef.current.focus();
-    const filters = partiesList.filter(party =>
+    const filters = partiesList.filter((party) =>
       party.toLowerCase().includes(key.toLowerCase())
     );
     setFilterList(filters);
@@ -51,12 +51,12 @@ function Credit() {
           ref={inputRef}
           title="Search 🔍 Party"
           type="text"
-          onChange={e => setKey(e.target.value)}
+          onChange={(e) => setKey(e.target.value)}
         />
 
         <Button
           title="Add a Party"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setToggle(!toggle);
             setAddtoggle(!addtoggle);
@@ -72,12 +72,12 @@ function Credit() {
           <Input
             className="addParty"
             type="text"
-            onChange={e => setNewParty(e.target.value)}
+            onChange={(e) => setNewParty(e.target.value)}
           />
           <Button
             title="click to add party"
             className={addtoggle ? "addParty-btn active" : "addParty-btn"}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               handleAddParty;
             }}
@@ -120,7 +120,7 @@ const Card = styled.div`
     }
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 9.5rem;
     width: 9.5rem;
     border-radius: 10px;
@@ -142,7 +142,7 @@ const Descript = styled.p`
   margin-top: 5rem;
   transition: 0.5s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-top: 3rem;
     font-size: 20px;
     width: 8rem;
@@ -197,7 +197,7 @@ const Input = styled.input`
   &.addParty {
     background: #2f3136;
   }
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 10rem;
   }
 `;
@@ -225,7 +225,7 @@ const Button = styled.button`
       justify-content: center;
     }
 
-    @media (max-width: 425px) {
+    @media (max-width: 768px) {
       margin-left: 70%;
       position: absolute;
     }
@@ -246,7 +246,7 @@ const Button = styled.button`
     background: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     padding: 7px;
   }
 `;
@@ -262,7 +262,7 @@ const CreditTiles = styled.section`
   gap: 2.5rem;
   transition: 0.5s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     gap: 0;
     justify-content: space-between;
     width: 85%;

@@ -147,7 +147,7 @@ const Loading = styled.span`
   margin-left: 15.65rem;
   display: none;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-left: 8.9rem;
   }
 
@@ -176,7 +176,7 @@ const H1 = styled.h1`
   color: white;
   letter-spacing: 2px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-bottom: 4rem;
   }
 `;
@@ -188,7 +188,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 50vh;
     width: 100%;
   }
@@ -201,10 +201,9 @@ const LoginWrapper = styled.section`
   background: #36393f;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border-radius: 10px;
   border: 1px solid #36393f;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 80%;
     height: 50vh;
   }
@@ -226,14 +225,11 @@ const InputPair = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-botton: 1rem;
   }
 `;
-// const Label = styled.label`
-//   color: white;
-//   padding-bottom: 10px;
-// `;
+
 const Input = styled.input`
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -264,7 +260,6 @@ const Button = styled.button`
   width: auto;
   height: 2rem;
   width: 5rem;
-  border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1.5rem;
@@ -277,7 +272,7 @@ const Button = styled.button`
     background: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-top: 2rem;
   }
 `;

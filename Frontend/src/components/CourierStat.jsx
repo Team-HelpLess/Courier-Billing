@@ -73,7 +73,7 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
@@ -87,12 +87,12 @@ const Tbody = styled.tbody`
     position: sticky;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
 const Tr = styled.tr`
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: block;
     margin-bottom: 25px;
     border: 1px solid gray;
@@ -104,7 +104,7 @@ const Th = styled.th`
   text-transform: uppercase;
   padding: 12px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
@@ -113,7 +113,7 @@ const Td = styled.td`
   text-align: center;
   transition: 0.3s ease;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     color: white;
     display: block;
     text-align: right;
@@ -148,7 +148,7 @@ function CourierStat() {
       setStat(response?.data);
     } catch (err) {
       if (!err?.response) {
-        setStat("No Response From Server! :( Try again!");
+        setStat("No Response From Server! Try again!");
       } else {
         setStat("Something Went Wrong!");
       }
@@ -225,7 +225,7 @@ const StatContainer = styled.section`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 90%;
     height: 60%;
   }
@@ -237,7 +237,7 @@ const StatForm = styled.div`
   background: #2f3136;
   padding: 15px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 10%;
   }
 `;
@@ -285,7 +285,7 @@ const Button = styled.button`
   border: none;
   outline: none;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     height: 1.9rem;
   }
 `;
@@ -360,7 +360,8 @@ const Span = styled.span`
 
 const P = styled.p`
   height: 100%;
-  width: 100%;
+  width: 90%;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;

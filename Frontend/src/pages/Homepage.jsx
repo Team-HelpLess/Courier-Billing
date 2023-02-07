@@ -19,7 +19,7 @@ function Homepage() {
         <Scroll>
           <Navs>
             <Button
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo(0, 0);
               }}
@@ -27,7 +27,7 @@ function Homepage() {
               ˄
             </Button>
             <Button
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo(0, document.body.scrollHeight);
               }}
@@ -57,7 +57,7 @@ const SubSection = styled.section`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;

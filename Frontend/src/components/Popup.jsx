@@ -50,7 +50,7 @@ const Pop = styled.div`
   width: 25%;
   color: white;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 80%;
   }
 
@@ -75,7 +75,7 @@ const Section = styled.section`
   justify-content: center;
   gap: 2rem;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 60%;
   }
 `;

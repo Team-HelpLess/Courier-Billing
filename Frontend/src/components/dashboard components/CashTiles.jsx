@@ -198,7 +198,7 @@ const CashForm = styled.form`
   grid-row-gap: 25px;
   grid-column-gap: 10px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -225,7 +225,7 @@ const Div = styled.div`
     gap: 1.59rem;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     &.small {
       justify-content: space-between;
     }
@@ -332,7 +332,7 @@ const Delete = styled.div`
     }
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-top: -1rem;
     margin-left: 19rem;
   }

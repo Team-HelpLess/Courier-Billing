@@ -104,8 +104,8 @@ const SearchWrapper = styled.div`
   justify-content: center;
   margin-bottom: 2rem;
 
-  @media (max-width: 425px) {
-    height: 20vh;
+  @media (max-width: 768px) {
+    height: 25vh;
   }
 `;
 
@@ -120,7 +120,7 @@ const Form = styled.form`
   align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     gap: 10px;
     margin-top: 0.5rem;
@@ -169,7 +169,7 @@ const Button = styled.button`
     background: white;
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     margin-top: 0.25rem;
     margin-bottom: 0.5rem;
   }
