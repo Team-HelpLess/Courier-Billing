@@ -163,13 +163,17 @@ const Link = styled(NavLink)`
 
 const Header = styled.div`
   height: inherit;
-  width: auto;
+  width: 45%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   letter-spacing: 1px;
   margin-left: 1rem;
+
+  @media (max-width: 768px) {
+    width: auto;
+  }
 `;
 
 const P = styled.p`
