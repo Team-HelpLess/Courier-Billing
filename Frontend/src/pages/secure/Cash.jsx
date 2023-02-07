@@ -412,10 +412,10 @@ const Input = styled.input`
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     box-shadow: none;
-    -webkit-box-shadow: 0 0 0 30px black inset !important;
+    -webkit-box-shadow: 0 0 0 30px #202225 inset !important;
   }
   &:-webkit-autofill {
-    -webkit-text-fill-color: #2f3136 !important;
+    -webkit-text-fill-color: white !important;
   }
 
   &::-webkit-outer-spin-button,

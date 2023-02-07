@@ -13,7 +13,7 @@ const LOGIN_URL = "token/obtain/";
 // Action Login component
 function Login() {
   // aT for checking whether user is logged in or not!
-  const aT = useSelector(state => state?.user?.userAccessToken);
+  const aT = useSelector((state) => state?.user?.userAccessToken);
 
   // useRef
   const inputRef = useRef(null);
@@ -48,7 +48,7 @@ function Login() {
   const from = location.state?.from?.pathname || "/dashboard";
 
   // Functino to handle submit of the login form
-  const LoginHandler = async e => {
+  const LoginHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     let res = "";
@@ -94,35 +94,27 @@ function Login() {
         <LoginForm>
           <Message> {msg} </Message>
           <Loading className={loading ? "active rotate" : ""}>⚙️</Loading>
-          <h1
-            style={{
-              fontSize: "2rem",
-              textAlign: "center",
-              marginBottom: "1rem",
-              color: "white",
-              letterSpacing: "2px",
-            }}
-          >
-            LOGIN
-          </h1>
+          <H1>LOGIN</H1>
           <Form onSubmit={LoginHandler}>
             <InputPair>
-              <Label htmlFor="name">Username</Label>
+              {/* <Label htmlFor="name">Username</Label> */}
               <Input
                 ref={inputRef}
                 type="text"
                 name="name"
                 autoComplete="off"
-                onChange={e => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
                 required
               />
             </InputPair>
             <InputPair>
-              <Label htmlFor="password">Password</Label>
+              {/* <Label htmlFor="password">Password</Label> */}
               <Input
                 type="password"
                 name="password"
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
                 required
               />
             </InputPair>
@@ -177,6 +169,18 @@ const Loading = styled.span`
   }
 `;
 
+const H1 = styled.h1`
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+  letter-spacing: 2px;
+
+  @media (max-width: 425px) {
+    margin-bottom: 4rem;
+  }
+`;
+
 const Section = styled.section`
   height: 50vh;
   width: 70%;
@@ -226,28 +230,28 @@ const InputPair = styled.div`
     margin-botton: 1rem;
   }
 `;
-const Label = styled.label`
-  color: white;
-  padding-bottom: 10px;
-`;
+// const Label = styled.label`
+//   color: white;
+//   padding-bottom: 10px;
+// `;
 const Input = styled.input`
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     box-shadow: none;
-    -webkit-box-shadow: 0 0 0 30px #2f3136 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #202225 inset !important;
   }
   &:-webkit-autofill {
-    -webkit-text-fill-color: #101010d1 !important;
+    -webkit-text-fill-color: white !important;
   }
 
-  background: transparent;
+  background: #202225;
+  height: 2rem;
+  padding: 10px 10px;
+  color: white;
   outline: none;
   border: none;
-  border-bottom: 1px solid white;
-  color: white;
-  padding-bottom: 5px;
 `;
 const Button = styled.button`
   margin-top: 0.5rem;
@@ -271,5 +275,9 @@ const Button = styled.button`
   &:hover {
     color: black;
     background: white;
+  }
+
+  @media (max-width: 425px) {
+    margin-top: 2rem;
   }
 `;
