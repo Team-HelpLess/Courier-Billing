@@ -16,6 +16,8 @@ function PartyBook(props) {
   const {} = props; //Destructuring props
 
   const inputRef = useRef(null);
+  const loadRef = useRef(false);
+  const refreshRef = useRef(false);
 
   const [compLoading, setCompLoading] = useState(true);
   const [bookLoading, setBookLoading] = useState(true);
@@ -81,12 +83,18 @@ function PartyBook(props) {
 
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
+    if (loadRef.current) return;
+    loadRef.current = true;
+
     requestOne();
     requestTwo();
     inputRef.current.focus();
   }, []);
 
   useEffect(() => {
+    if (refreshRef.current) return;
+    refreshRef.current = true;
+
     setCompLoading(true);
     setBookLoading(true);
 
@@ -644,7 +652,7 @@ const PreviousBooks = styled.div`
 
 const RecordTable = styled.table`
   font-size: 0.85rem;
-  height: 100%;
+  height: auto;
   width: 100%;
   border-collapse: collapse;
 
