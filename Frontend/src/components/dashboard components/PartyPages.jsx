@@ -42,7 +42,9 @@ function PartyPages(props) {
   }, [cnum, to, district, weight, amount]);
 
   return (
-    <PartyTileWrapper>
+    <PartyTileWrapper
+      style={{ background: String(cnum).length === 9 ? "#1c345c" : "#641c21" }}
+    >
       <PartyTile>
         <Delete
           onClick={(e) => {
