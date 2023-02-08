@@ -145,9 +145,11 @@ function Records() {
             <Exclam>❕No Records to show :(</Exclam>
           )}
 
-          <LoadNextPage className={loadPage ? "active rotate" : ""}>
-            ⚙️
-          </LoadNextPage>
+          <LoadNext>
+            <LoadNextPage className={loadPage ? "active rotate" : ""}>
+              ⚙️
+            </LoadNextPage>
+          </LoadNext>
         </RecordsArea>
 
         <Popup
@@ -196,16 +198,20 @@ const RecordsArea = styled.div`
   align-items: center;
 `;
 
+const LoadNext = styled.div`
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const LoadNextPage = styled.span`
   font-size: 1.5rem;
   display: none;
-  height: 10vh;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
 
   &.active {
-    display: flex;
+    display: block;
   }
 
   &.rotate {
