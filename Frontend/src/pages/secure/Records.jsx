@@ -35,7 +35,53 @@ function Records() {
         params: { page: pageNumber },
       });
       pageNumber++;
-      setRecords((prevRecords) => [...prevRecords, ...response?.data?.results]);
+      setRecords((prevRecords) => {
+        const newRecords = [...response?.data?.results];
+        const isRecordUnique = (record) => {
+          for (const prevRecord of prevRecords) {
+            if (isObjectEqual(record, prevRecord)) {
+              return false;
+            }
+          }
+          return true;
+        };
+        const uniqueRecords = newRecords.filter(isRecordUnique);
+        return [...prevRecords, ...uniqueRecords];
+      });
+
+      function isObjectEqual(a, b) {
+        if (a === b) {
+          return true;
+        }
+
+        if (
+          a == null ||
+          typeof a != "object" ||
+          b == null ||
+          typeof b != "object"
+        ) {
+          return false;
+        }
+
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+
+        if (keysA.length !== keysB.length) {
+          return false;
+        }
+
+        for (const key of keysA) {
+          if (!b.hasOwnProperty(key)) {
+            return false;
+          }
+
+          if (!isObjectEqual(a[key], b[key])) {
+            return false;
+          }
+        }
+
+        return true;
+      }
     } catch (err) {
       if (err?.response?.status === 404) {
         pageLimit = false;
