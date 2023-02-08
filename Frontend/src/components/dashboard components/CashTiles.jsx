@@ -67,7 +67,9 @@ function CashTiles(props) {
   }, [cnum, fr, to, district, ph, weight, amount]);
 
   return (
-    <CashFormCard>
+    <CashFormCard
+      style={{ background: String(cnum).length === 9 ? "#1c345c" : "#641c21" }}
+    >
       <CashForm>
         <Delete
           title="Delete"
