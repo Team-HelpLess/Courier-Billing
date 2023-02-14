@@ -146,7 +146,7 @@ const TabLinks = styled.div`
 `;
 
 const Link = styled(NavLink)`
-  padding: 10px;
+  padding: 5px 10px;
   text-decoration: none;
   color: #7a7b81;
   transition: 0.3s ease;

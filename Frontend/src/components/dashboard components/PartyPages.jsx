@@ -63,7 +63,7 @@ function PartyPages(props) {
           <Span className="bar"></Span>
         </Delete>
         <Div className="cNum">
-          <P>C.Num</P>
+          <P>C.Num *</P>
           <Input
             type="number"
             value={cnum}
@@ -72,7 +72,7 @@ function PartyPages(props) {
         </Div>
 
         <Div className="to">
-          <P>To</P>
+          <P>To *</P>
           <Input
             className="white"
             type="text"
@@ -81,7 +81,7 @@ function PartyPages(props) {
         </Div>
 
         <Div className="district">
-          <P>Dist</P>
+          <P>Dist *</P>
           <Input
             className="white"
             type="text"
