@@ -498,7 +498,6 @@ const Button = styled.button`
   padding: 5px;
   border: none;
   outline: none;
-  border-radius: 10px;
   text-transform: uppercase;
   color: #ffffff86;
   letter-spacing: 1px;
