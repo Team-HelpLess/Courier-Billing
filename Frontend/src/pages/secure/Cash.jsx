@@ -26,9 +26,10 @@ function Cash() {
 
   // State for the Final Submitables
   const [submitables, setSubmitables] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   // State for the cash input field values
-  const [from, setFrom] = useState(" ");
+  const [from, setFrom] = useState("");
   const [cn, setCn] = useState(NaN);
   const [phone, setPhone] = useState(undefined);
   const [nums, setNums] = useState(0);
@@ -45,6 +46,21 @@ function Cash() {
     inputRef.current.focus();
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    let bool = true;
+    for (let key in submitables) {
+      if (
+        submitables[key].to_company === "" ||
+        submitables[key].to_destination === ""
+      ) {
+        bool = false;
+        break;
+      }
+    }
+
+    bool ? setIsValid(true) : setIsValid(false);
+  }, [submitables]);
 
   const postToApi = async (data) => {
     try {
@@ -98,7 +114,6 @@ function Cash() {
           }
           setDeleteTrigger={setDeleteTrigger}
           setDeleteId={setDeleteId}
-          submitables={submitables}
           setSubmitables={setSubmitables}
         />
       );
@@ -146,6 +161,8 @@ function Cash() {
               <Label>C.Number</Label>
               <Input
                 type="number"
+                minlength="9"
+                maxlength="10"
                 style={{ width: "13ch" }}
                 onChange={(e) => setCn(e.target.value)}
                 required
@@ -242,6 +259,7 @@ function Cash() {
         trigger={summaryTrigger}
         setTrigger={setSummaryTrigger}
         submitables={submitables}
+        isValid={isValid}
         action={handleSubmit}
       />
 

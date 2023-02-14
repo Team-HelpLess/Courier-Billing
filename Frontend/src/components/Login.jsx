@@ -50,6 +50,7 @@ function Login() {
   // Functino to handle submit of the login form
   const LoginHandler = async (e) => {
     e.preventDefault();
+    setMsg("");
     setLoading(true);
     let res = "";
 
@@ -92,8 +93,10 @@ function Login() {
     <Section id="login">
       <LoginWrapper>
         <LoginForm>
-          <Message> {msg} </Message>
-          <Loading className={loading ? "active rotate" : ""}>⚙️</Loading>
+          <Responses>
+            <Message> {msg} </Message>
+            <Loading className={loading ? "active rotate" : ""}>⚙️</Loading>
+          </Responses>
           <H1>LOGIN</H1>
           <Form onSubmit={LoginHandler}>
             <InputPair>
@@ -129,6 +132,14 @@ function Login() {
 export default Login;
 
 // Styling using styled components...
+const Responses = styled.div`
+  height: 5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Message = styled.div`
   font-size: 0.75rem;
   height: 5vh;
@@ -143,13 +154,8 @@ const Message = styled.div`
 const Loading = styled.span`
   position: absolute;
   font-size: 1.5rem;
-  margin-top: -2.25rem;
-  margin-left: 15.65rem;
+  text-align: center;
   display: none;
-
-  @media (max-width: 768px) {
-    margin-left: 8.9rem;
-  }
 
   &.active {
     display: block;
