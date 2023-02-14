@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 function Summary(props) {
-  const { trigger, setTrigger, submitables, action } = props;
+  const { trigger, setTrigger, submitables, isValid, action } = props;
 
   const bookListRow = (rec, index) => {
     const {
@@ -20,7 +20,9 @@ function Summary(props) {
         <Td data-label="From">{from_company}</Td>
         <Td data-label="To">{to_company}</Td>
         <Td data-label="Destination">{to_destination}</Td>
-        <Td data-label="Phone">{phone_no}</Td>
+        {Object.keys(submitables[0]).length === 8 ? null : (
+          <Td data-label="Phone">{phone_no}</Td>
+        )}
         <Td data-label="Weight">{courier_weight} g</Td>
         <Td data-label="Rate">{courier_rate}</Td>
       </Tr>
@@ -47,7 +49,9 @@ function Summary(props) {
                   <Th>From</Th>
                   <Th>To</Th>
                   <Th>Destination</Th>
-                  <Th>Phone</Th>
+                  {Object.keys(submitables[0]).length === 8 ? null : (
+                    <Th>Phone</Th>
+                  )}
                   <Th>Weight</Th>
                   <Th>Amount</Th>
                 </Tr>
@@ -59,8 +63,18 @@ function Summary(props) {
           )}
         </Section>
 
+        <Note className={!isValid ? "active" : ""}>
+          ❕Fill all the required * fields to enable the button❕
+        </Note>
+
         <ButtonSection>
-          <Button onClick={() => action()}>BOOK</Button>
+          {isValid ? (
+            <Button onClick={() => action()}>BOOK</Button>
+          ) : (
+            <Button disabled style={{ cursor: "not-allowed" }}>
+              BOOK
+            </Button>
+          )}
           <Button onClick={() => setTrigger(false)}>Cancel</Button>
         </ButtonSection>
       </Sumry>
@@ -120,7 +134,7 @@ const Sumry = styled.section`
 `;
 
 const H3 = styled.h3`
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 `;
 
 const Section = styled.section`
@@ -199,10 +213,23 @@ const Td = styled.td`
   }
 `;
 
+const Note = styled.p`
+  color: white;
+  height: 5vh;
+  width: 90%;
+  margin-top: 2rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    display: flex;
+  }
+`;
+
 const ButtonSection = styled.section`
   width: 25%;
   height: 10vh;
-  margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-around;

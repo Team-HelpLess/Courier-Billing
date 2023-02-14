@@ -146,8 +146,7 @@ const TabLinks = styled.div`
 `;
 
 const Link = styled(NavLink)`
-  padding: 5px;
-  /* border-radius: 10px; */
+  padding: 10px;
   text-decoration: none;
   color: #7a7b81;
   transition: 0.3s ease;
@@ -261,7 +260,4 @@ const Span = styled.span`
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   background-color: white;
-
-  @media (max-width: 768px) {
-  }
 `;

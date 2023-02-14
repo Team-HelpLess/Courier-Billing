@@ -43,7 +43,14 @@ function PartyPages(props) {
 
   return (
     <PartyTileWrapper
-      style={{ background: String(cnum).length === 9 ? "#1c345c" : "#641c21" }}
+      style={{
+        background:
+          String(cnum).length === 9
+            ? "#1c345c"
+            : String(cnum).length === 10
+            ? "#641c21"
+            : "#2f3136",
+      }}
     >
       <PartyTile>
         <Delete
@@ -119,6 +126,7 @@ const PartyTileWrapper = styled.div`
   min-height: 29.5vh;
   width: 100%;
   background: #2f3136;
+  transition: 0.5s ease;
 
   @media (max-width: 768px) {
     min-height: 35vh;

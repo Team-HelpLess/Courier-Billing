@@ -24,6 +24,7 @@ function PartyBook(props) {
   const [toctod, setToctod] = useState();
   const [booked, setBooked] = useState();
 
+  const [isValid, setIsValid] = useState(false);
   const [submitables, setSubmitables] = useState({});
   const [deleteTrigger, setDeleteTrigger] = useState(false);
   const [deleteId, setDeleteId] = useState();
@@ -173,6 +174,21 @@ function PartyBook(props) {
       }
     }
   };
+
+  useEffect(() => {
+    let bool = true;
+    for (let key in submitables) {
+      if (
+        submitables[key].to_company === "" ||
+        submitables[key].to_destination === ""
+      ) {
+        bool = false;
+        break;
+      }
+    }
+
+    bool ? setIsValid(true) : setIsValid(false);
+  }, [submitables]);
 
   const BACK = "< Back";
   return (
@@ -415,6 +431,7 @@ function PartyBook(props) {
         trigger={summaryTrigger}
         setTrigger={setSummaryTrigger}
         submitables={submitables}
+        isValid={isValid}
         action={handleSubmit}
       />
     </PartyWrapper>

@@ -17,7 +17,7 @@ function CashTiles(props) {
   const [cnum, setcnum] = useState(cn);
   const [fr, setFr] = useState(from);
   const [to, setTo] = useState("");
-  const [district, setDistrict] = useState("Select");
+  const [district, setDistrict] = useState("");
   const [ph, setPh] = useState(phone);
   const [weight, setWeight] = useState(50);
   const [amount, setAmount] = useState(40);
@@ -68,7 +68,14 @@ function CashTiles(props) {
 
   return (
     <CashFormCard
-      style={{ background: String(cnum).length === 9 ? "#1c345c" : "#641c21" }}
+      style={{
+        background:
+          String(cnum).length === 9
+            ? "#1c345c"
+            : String(cnum).length === 10
+            ? "#641c21"
+            : "#2f3136",
+      }}
     >
       <CashForm>
         <Delete
@@ -83,10 +90,12 @@ function CashTiles(props) {
         </Delete>
 
         <Div className="cNum">
-          <P>C.Num</P>
+          <P>C.Num *</P>
           <Input
             value={cnum !== null ? cnum : cn}
             type="number"
+            minLength="9"
+            maxlength="10"
             name="name"
             onChange={(e) => setcnum(e.target.value)}
             autoComplete="off"
@@ -94,7 +103,7 @@ function CashTiles(props) {
         </Div>
 
         <Div className="from">
-          <P>From</P>
+          <P>From *</P>
           <Input
             value={fr !== null ? fr : from}
             onChange={(e) => setFr(e.target.value)}
@@ -104,7 +113,7 @@ function CashTiles(props) {
         </Div>
 
         <Div className="to">
-          <P>To</P>
+          <P>To *</P>
           <Input
             onChange={(e) => setTo(e.target.value)}
             value={to}
@@ -114,7 +123,7 @@ function CashTiles(props) {
         </Div>
 
         <Div className="district">
-          <P>Dist</P>
+          <P>Dist *</P>
           <Input
             onChange={(e) => setDistrict(e.target.value)}
             ref={inputRef}
@@ -137,8 +146,9 @@ function CashTiles(props) {
           <Input
             value={ph !== null ? ph : phone}
             onChange={(e) => setPh(e.target.value)}
-            style={{ width: "13ch" }}
             type="number"
+            minlength="10"
+            maxlength="10"
             autoComplete="off"
           />
         </Div>
@@ -147,7 +157,6 @@ function CashTiles(props) {
           <P>⚖️</P>
           <Input
             onChange={(e) => setWeight(e.target.value)}
-            style={{ width: "7ch" }}
             type="number"
             step="50"
             defaultValue={weight}
@@ -156,10 +165,9 @@ function CashTiles(props) {
         </Div>
 
         <Div className="amount small three">
-          <P>₹</P>
+          <P>Fa₹e</P>
           <Input
             onChange={(e) => setAmount(e.target.value)}
-            style={{ width: "7ch" }}
             type="number"
             step="10"
             defaultValue={amount}
@@ -181,6 +189,7 @@ const CashFormCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.5s ease;
 
   @media (max-width: 768px) {
     height: 40%;
@@ -213,19 +222,6 @@ const Div = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
-
-  &.small {
-    justify-content: flex-start;
-  }
-  &.one {
-    gap: 34px;
-  }
-  &.two {
-    gap: 4px;
-  }
-  &.three {
-    gap: 1.59rem;
-  }
 
   @media (max-width: 768px) {
     &.small {
@@ -303,7 +299,7 @@ const Input = styled.input`
 
   background: #202225;
   height: 2rem;
-  width: 8rem;
+  width: 7rem;
   padding: 10px 10px;
   color: white;
   outline: none;
@@ -318,7 +314,6 @@ const Delete = styled.div`
   grid-area: delete;
   justify-self: end;
   align-self: center;
-  /* margin-right: 1rem; */
 
   cursor: pointer;
   & .bar:nth-child(1) {
