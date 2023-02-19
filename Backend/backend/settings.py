@@ -171,7 +171,7 @@ REST_FRAMEWORK = {
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = ['https://goameer030-stunning-space-carnival-q4xx4xgvqgq2xrv-5173.preview.app.github.dev', 'https://frontend-goameer030.cloud.okteto.net', 'https://*',]
+    CORS_ALLOWED_ORIGINS = ['https://goameer030-organic-guide-p6gpwx95rqh7v65-8000.preview.app.github.dev/', 'https://frontend-goameer030.cloud.okteto.net', 'https://*',]
 CORS_ALLOW_CREDENTIALS = True
 
 # JWT settings

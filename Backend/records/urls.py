@@ -10,7 +10,7 @@ urlpatterns = [
     path('api/find/<cn>/', RecordView.as_view({'get':'find_by_courier_no'}), name="find_by_courier_no"),
     path('api/find_many/', RecordView.as_view({'post':'find_many'}), name="find_many"),
 
-    path('api/tctd/<fc>/', RecordView.as_view({'get':'find_tctd'}), name="find_tctd"),
+    path('api/gc/<con>/', RecordView.as_view({'get':'find_tctd'}), name="find_tctd"),
 
     path('', APIRoot.as_view(), name='api_view')
 ]
