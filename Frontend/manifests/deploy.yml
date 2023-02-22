@@ -27,4 +27,4 @@ spec:
           - secretRef:
               name: frontend-secret
         ports:
-        - containerPort: 5173
+        - containerPort: 3000
