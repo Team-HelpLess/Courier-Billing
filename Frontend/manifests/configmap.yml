@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: frontend-configmap
 data:
-  VITE_BACKEND_IP_ADDRESS: "backend:5000"
+  REACT_APP_BACKEND_IP_ADDRESS: "backend:5000"
