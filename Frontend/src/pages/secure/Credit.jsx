@@ -31,11 +31,10 @@ function Credit() {
 
   // useEffect hook to run whenever the key changes
   useEffect(() => {
-    inputRef.current.focus();
-    const filters = partiesList.filter((party) =>
-      party.toLowerCase().includes(key.toLowerCase())
-    );
-    setFilterList(filters);
+		inputRef.current.focus();
+		const filters = partiesList.filter((party) => party.toLowerCase().includes(key.toLowerCase()));
+		setFilterList(filters);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   const handleAddParty = () => {
@@ -79,7 +78,7 @@ function Credit() {
             className={addtoggle ? "addParty-btn active" : "addParty-btn"}
             onClick={(e) => {
               e.preventDefault();
-              handleAddParty;
+              handleAddParty();
             }}
           >
             ADD
@@ -99,36 +98,36 @@ export default Credit;
 
 // Stylings for the particular cards
 const Card = styled.div`
-  height: 14rem;
-  width: 15rem;
-  border-radius: 10px;
-  border: 1px solid #202225;
-  background: #202225;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  cursor: pointer;
-  transition: 0.9s ease;
+	height: 13rem;
+	width: 14rem;
+	border-radius: 10px;
+	border: 1px solid #202225;
+	background: #202225;
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	cursor: pointer;
+	transition: 0.9s ease;
 
-  &:hover {
-    border: 1px solid white;
+	&:hover {
+		border: 1px solid white;
 
-    & > * {
-      color: white;
-    }
-  }
+		& > * {
+			color: white;
+		}
+	}
 
-  @media (max-width: 768px) {
-    height: 9.5rem;
-    width: 9.5rem;
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
+	@media (max-width: 768px) {
+		height: 9.5rem;
+		width: 9.5rem;
+		border-radius: 10px;
+		margin-bottom: 2rem;
+		display: flex;
+		align-items: center;
+		padding: 10px;
+	}
 `;
 
 const Descript = styled.p`

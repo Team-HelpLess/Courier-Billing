@@ -38,11 +38,12 @@ function Login() {
 
   // UseEffect to navigate user to dashboard if logged in!
   useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-    inputRef.current.focus();
-    if (aT) {
-      navigate("/dashboard");
-    }
+		window.scrollTo(0, document.body.scrollHeight);
+		inputRef.current.focus();
+		if (aT) {
+			navigate('/dashboard');
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // Setting the history
   const from = location.state?.from?.pathname || "/dashboard";

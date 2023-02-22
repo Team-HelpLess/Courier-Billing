@@ -25,20 +25,21 @@ function App() {
   const loadRef = useRef(false);
   const refresh = RefreshToken();
   useEffect(() => {
-    if (loadRef.current) return;
-    loadRef.current = true;
+		if (loadRef.current) return;
+		loadRef.current = true;
 
-    const verifyRefresh = async () => {
-      try {
-        await refresh();
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+		const verifyRefresh = async () => {
+			try {
+				await refresh();
+			} catch (err) {
+				console.error(err);
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-    !aT ? verifyRefresh() : setIsLoading(false);
+		!aT ? verifyRefresh() : setIsLoading(false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Actual app JSX
@@ -74,16 +75,6 @@ function App() {
 export default App;
 
 // Stylings for the APP component
-const P = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: #2f3136;
-`;
-
 const AppWrapper = styled.div`
   min-height: 100vh;
   min-width: 100%;

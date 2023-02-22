@@ -24,46 +24,49 @@ function CashTiles(props) {
 
   const [comp, setComp] = useState(shadow);
   useEffect(() => {
-    if (cnum.toString().length === 10) {
-      setComp("anjani");
-    } else if (cnum.toString().length === 9) {
-      setComp("akash");
-    } else {
-      setComp("NULL");
-    }
+		if (cnum.toString().length === 10) {
+			setComp('anjani');
+		} else if (cnum.toString().length === 9) {
+			setComp('akash');
+		} else {
+			setComp('NULL');
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum]);
 
   const inputRef = useRef(null);
   useEffect(() => {
-    const input = inputRef.current;
-    input.addEventListener("click", selectInput);
+		const input = inputRef.current;
+		input.addEventListener('click', selectInput);
 
-    return () => {
-      input.removeEventListener("click", selectInput);
-    };
+		return () => {
+			input.removeEventListener('click', selectInput);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function selectInput(event) {
     event.target.select();
   }
 
   useEffect(() => {
-    const TileValues = {
-      [formId]: {
-        courier_number: parseInt(cnum),
-        courier_type: "cash",
-        courier_company: comp,
-        from_company: fr,
-        to_company: to,
-        to_destination: district,
-        courier_weight: weight,
-        courier_rate: amount,
-        phone_no: phone,
-      },
-    };
+		const TileValues = {
+			[formId]: {
+				courier_number: parseInt(cnum),
+				courier_type: 'cash',
+				courier_company: comp,
+				from_company: fr,
+				to_company: to,
+				to_destination: district,
+				courier_weight: weight,
+				courier_rate: amount,
+				phone_no: phone,
+			},
+		};
 
-    setSubmitables((prevSubmitables) => {
-      return { ...prevSubmitables, ...TileValues };
-    });
+		setSubmitables((prevSubmitables) => {
+			return { ...prevSubmitables, ...TileValues };
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum, fr, to, district, ph, weight, amount]);
 
   return (
@@ -280,34 +283,41 @@ const P = styled.p`
 `;
 
 const Input = styled.input`
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    box-shadow: none;
-    -webkit-box-shadow: 0 0 0 30px #202225 inset !important;
-  }
-  &:-webkit-autofill {
-    -webkit-text-fill-color: white !important;
-  }
+	&:-webkit-autofill,
+	&:-webkit-autofill:hover,
+	&:-webkit-autofill:focus,
+	&:-webkit-autofill:active {
+		box-shadow: none;
+		-webkit-box-shadow: 0 0 0 30px #202225 inset !important;
+	}
+	&:-webkit-autofill {
+		-webkit-text-fill-color: white !important;
+	}
 
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 
-  background: #202225;
-  height: 2rem;
-  width: 7rem;
-  padding: 10px 10px;
-  color: white;
-  outline: none;
-  border: none;
+	background: #202225;
+	height: 2rem;
+	padding: 10px 10px;
+	color: white;
+	outline: none;
+	border: none;
 
-  &.white {
-    color: white;
-  }
+	&.white {
+		color: white;
+	}
+
+	@media (min-width: 768px) and (max-width: 1115px) {
+		width: 4rem;
+	}
+
+	@media (max-width: 768px) {
+		width: 8rem;
+	}
 `;
 
 const Delete = styled.div`

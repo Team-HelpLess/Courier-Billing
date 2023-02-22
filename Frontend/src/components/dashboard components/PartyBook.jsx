@@ -13,7 +13,7 @@ const TOCTOD_URL = "tctd/";
 const SEARCH_URL = "find_many/";
 
 function PartyBook(props) {
-  const {} = props; //Destructuring props
+  // const {} = props; //Destructuring props
 
   const inputRef = useRef(null);
   const loadRef = useRef(false);
@@ -83,23 +83,26 @@ function PartyBook(props) {
 
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
-    if (loadRef.current) return;
-    loadRef.current = true;
+		if (loadRef.current) return;
+		loadRef.current = true;
 
-    requestOne();
-    requestTwo();
-    inputRef.current.focus();
+		requestOne();
+		requestTwo();
+		inputRef.current.focus();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (refreshRef.current) return;
-    refreshRef.current = true;
+		if (refreshRef.current) return;
+		refreshRef.current = true;
 
-    setCompLoading(true);
-    setBookLoading(true);
+		setCompLoading(true);
+		setBookLoading(true);
 
-    requestOne();
-    requestTwo();
+		requestOne();
+		requestTwo();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   const handlePages = (e) => {
@@ -176,18 +179,16 @@ function PartyBook(props) {
   };
 
   useEffect(() => {
-    let bool = true;
-    for (let key in submitables) {
-      if (
-        submitables[key].to_company === "" ||
-        submitables[key].to_destination === ""
-      ) {
-        bool = false;
-        break;
-      }
-    }
+		let bool = true;
+		for (let key in submitables) {
+			if (submitables[key].to_company === '' || submitables[key].to_destination === '') {
+				bool = false;
+				break;
+			}
+		}
 
-    bool ? setIsValid(true) : setIsValid(false);
+		bool ? setIsValid(true) : setIsValid(false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitables]);
 
   const BACK = "< Back";

@@ -112,10 +112,11 @@ function Records() {
 
   // useEffect hook to run the getRecords function while component loads.
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
-    getRecords();
+		window.scrollTo(0, 0);
+		if (dataFetchedRef.current) return;
+		dataFetchedRef.current = true;
+		getRecords();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleScroll = () => {
@@ -125,16 +126,17 @@ function Records() {
 
   // const scrollRef = useRef(true);
   useEffect(() => {
-    window.onscroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        if (pageLimit) {
-          handleScroll();
-        }
-      }
-    };
-    return () => {
-      window.onscroll = null;
-    };
+		window.onscroll = () => {
+			if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+				if (pageLimit) {
+					handleScroll();
+				}
+			}
+		};
+		return () => {
+			window.onscroll = null;
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Actual records JSX element.

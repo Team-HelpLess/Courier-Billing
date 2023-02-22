@@ -43,23 +43,22 @@ function Cash() {
 
   // Debugging and miscellaneous goes here
   useEffect(() => {
-    inputRef.current.focus();
-    window.scrollTo(0, 0);
+		inputRef.current.focus();
+		window.scrollTo(0, 0);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    let bool = true;
-    for (let key in submitables) {
-      if (
-        submitables[key].to_company === "" ||
-        submitables[key].to_destination === ""
-      ) {
-        bool = false;
-        break;
-      }
-    }
+		let bool = true;
+		for (let key in submitables) {
+			if (submitables[key].to_company === '' || submitables[key].to_destination === '') {
+				bool = false;
+				break;
+			}
+		}
 
-    bool ? setIsValid(true) : setIsValid(false);
+		bool ? setIsValid(true) : setIsValid(false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitables]);
 
   const postToApi = async (data) => {

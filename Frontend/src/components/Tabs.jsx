@@ -76,7 +76,7 @@ function Tabs() {
           <StyledTabLinks
             className={tabActive === "cash" ? "active" : ""}
             onClick={() => {
-              activeToggle;
+              activeToggle();
               setTabActive("cash");
             }}
           >
@@ -85,7 +85,7 @@ function Tabs() {
           <StyledTabLinks
             className={tabActive === "credit" ? "active" : ""}
             onClick={() => {
-              activeToggle;
+              activeToggle();
               setTabActive("credit");
             }}
           >
@@ -94,7 +94,7 @@ function Tabs() {
           <StyledTabLinks
             className={tabActive === "records" ? "active" : ""}
             onClick={() => {
-              activeToggle;
+              activeToggle();
               setTabActive("records");
             }}
           >

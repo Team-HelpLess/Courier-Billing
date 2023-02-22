@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { districts } from "./districtList";
 import styled from "styled-components";
 
@@ -22,23 +22,24 @@ function PartyPages(props) {
   const comp = String(courier_number).length === 9 ? "akash" : "anjani";
 
   useEffect(() => {
-    const TileValues = {
-      [props.formNum]: {
-        courier_number: parseInt(cnum),
-        courier_type: "credit",
-        courier_company: comp,
-        from_company: partyName,
-        to_company: to,
-        to_destination: district,
-        courier_weight: parseInt(weight),
-        courier_rate: parseInt(amount),
-        // phone_no: phone,
-      },
-    };
+		const TileValues = {
+			[props.formNum]: {
+				courier_number: parseInt(cnum),
+				courier_type: 'credit',
+				courier_company: comp,
+				from_company: partyName,
+				to_company: to,
+				to_destination: district,
+				courier_weight: parseInt(weight),
+				courier_rate: parseInt(amount),
+				// phone_no: phone,
+			},
+		};
 
-    setSubmitables((prevSubmits) => {
-      return { ...prevSubmits, ...TileValues };
-    });
+		setSubmitables((prevSubmits) => {
+			return { ...prevSubmits, ...TileValues };
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum, to, district, weight, amount]);
 
   return (
