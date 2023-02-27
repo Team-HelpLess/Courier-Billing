@@ -8,8 +8,34 @@ from rest_framework.pagination import PageNumberPagination
 from helper.sendings.sms import SMS
 from .models import RecordModel, CompanyModel
 from .serializers import RecordSerializer, CompanySerializer
-import csv
-import os
+
+class CompanyManipulation:
+    def create_company(company_name, is_it_from_company, is_it_cash, phone_no, company_destination):
+        '''Create a company'''
+        company_serializer = CompanySerializer(data={'company_name': company_name, 'is_it_from_company': is_it_from_company, 'is_it_cash': is_it_cash, 'phone_no': phone_no, 'company_destination': company_destination})
+        if company_serializer.is_valid(raise_exception=True):
+            company_serializer.save()
+    
+    def create_or_get_company(company_name, is_it_from_company, is_it_cash, phone_no, company_destination):
+        '''Create a company if it doesn't exist else return the company'''
+        try:
+            company = CompanyModel.objects.get(company_name=company_name.strip().lower().replace(" ", "_"))
+        except CompanyModel.DoesNotExist:
+            CompanyManipulation.create_company(company_name, is_it_from_company, is_it_cash, phone_no, company_destination)
+            company = CompanyModel.objects.get(company_name=company_name.strip().lower().replace(" ", "_"))
+        return company
+
+    def create_or_update_company(company_name, is_it_from_company, is_it_cash, phone_no, company_destination):
+        '''Create a company if it doesn't exist else update the company'''
+        try:
+            company = CompanyModel.objects.get(company_name=company_name.strip().lower().replace(" ", "_"))
+            company_serializer = CompanySerializer(company, data={'company_name': company_name, 'is_it_from_company': is_it_from_company, 'is_it_cash': is_it_cash, 'phone_no': phone_no, 'company_destination': company_destination})
+            if company_serializer.is_valid(raise_exception=True):
+                company = company_serializer.save()
+        except CompanyModel.DoesNotExist:
+            CompanyManipulation.create_company(company_name, is_it_from_company, is_it_cash, phone_no, company_destination)
+        
+        return CompanyModel.objects.get(company_name=company_name.strip().lower().replace(" ", "_"))
 
 class PageSetPagination(PageNumberPagination):
     '''Pagination for RecordList, for now it's 30 records per page'''
@@ -56,30 +82,22 @@ class RecordView(viewsets.ViewSet):
         }
         '''
         if request.user.has_perm("records.add_recordmodel"):
+            from_company = CompanyManipulation.create_or_get_company(request.data['from_company'], True, True if request.data['courier_type'] == 'cash' else False, request.data.get('from_company_phone_no'), 'erode')
+            to_company = CompanyManipulation.create_or_get_company(request.data['to_company'], False, True if request.data['courier_type'] == 'cash' else False, request.data.get('to_company_phone_no'), request.data['to_destination'])
 
-            try:
-                from_company = CompanyModel.objects.get(company_name=request.data['from_company'])
-            except CompanyModel.DoesNotExist:
-                from_company_serializer = CompanySerializer(data={'company_name': request.data['from_company'], 'is_it_from_company': True, 'phone_no': request.data['from_company_phone_no']})
-                if from_company_serializer.is_valid(raise_exception=True):
-                    from_company = from_company_serializer.save()
-
-            try:
-                to_company = CompanyModel.objects.get(company_name=request.data['to_company'])
-            except CompanyModel.DoesNotExist:
-                to_company_serializer = CompanySerializer(data={'company_name': request.data['to_company'], 'is_it_from_company': False, 'phone_no': request.data['to_company_phone_no'], 'company_destination': request.data['to_destination']})
-                if to_company_serializer.is_valid(raise_exception=True):
-                    to_company = to_company_serializer.save()
-
-            if not from_company.to_companies.filter(company_name=to_company.company_name).exists():
-                from_company.to_companies.add(to_company)
-            if not to_company.from_companies.filter(company_name=from_company.company_name).exists():
-                to_company.from_companies.add(from_company)
-
-            request.data['from_company'] = from_company.company_name
-            request.data['to_company'] = to_company.company_name
-
-            serializer = RecordSerializer(data=request.data)
+            serializer = RecordSerializer(
+                data={
+                    'courier_number': request.data['courier_number'],
+                    'courier_type': request.data['courier_type'],
+                    'courier_company': request.data['courier_company'],
+                    'from_company': from_company,
+                    'to_company': to_company,
+                    'to_destination': request.data['to_destination'],
+                    'courier_weight': 100 if request.data.get('courier_weight') == None else request.data['courier_weight'],
+                    'courier_rate': 40 if request.data.get('courier_rate') == None else request.data['courier_rate'],
+                    'is_paid': False if request.data.get('is_paid') == None else request.data['is_paid'],
+                }
+            )
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
 
@@ -87,7 +105,7 @@ class RecordView(viewsets.ViewSet):
                 sms = SMS()
                 record = RecordModel.objects.get(courier_number=request.data['courier_number'])
 
-                if sms.daily_SMS(record, request.data['from_company_phone_no']) and sms.daily_SMS(record, request.data['to_company_phone_no']):
+                if sms.daily_SMS(record, from_company.phone_no) and sms.daily_SMS(record, request.data['to_company_phone_no']):
                         return Response()
                 else:
                     return Response({'record':"saved", 'message':"not sent", 'reason':"server error"})
@@ -115,34 +133,41 @@ class RecordView(viewsets.ViewSet):
         }
         '''
         if request.user.has_perm("records.change_recordmodel"):
-            record = RecordModel.objects.get(courier_number=request.data['courier_number'])
+            from_company = CompanyManipulation.create_or_get_company(request.data['from_company'], True, True if request.data['courier_type'] == 'cash' else False, request.data.get('from_company_phone_no'), 'erode')
+            to_company = CompanyManipulation.create_or_get_company(request.data['to_company'], False, True if request.data['courier_type'] == 'cash' else False, request.data.get('to_company_phone_no'), request.data['to_destination'])
 
-            try:
-                from_company = CompanyModel.objects.get(company_name=request.data['from_company'])
-            except CompanyModel.DoesNotExist:
-                from_company_serializer = CompanySerializer(data={'company_name': request.data['from_company'], 'is_it_from_company': True, 'phone_no': request.data['from_company_phone_no']})
-                if from_company_serializer.is_valid(raise_exception=True):
-                    from_company = from_company_serializer.save()
+            record = get_object_or_404(RecordModel, courier_number=request.data['courier_number'])
 
-            try:
-                to_company = CompanyModel.objects.get(company_name=request.data['to_company'])
-            except CompanyModel.DoesNotExist:
-                to_company_serializer = CompanySerializer(data={'company_name': request.data['to_company'], 'is_it_from_company': False, 'phone_no': request.data['to_company_phone_no'], 'company_destination': request.data['to_destination']})
-                if to_company_serializer.is_valid(raise_exception=True):
-                    to_company = to_company_serializer.save()
+            if request.data.get('n_courier_number') == None:
+                serializer = RecordSerializer(record, data={
+                    'courier_number': request.data['courier_number'],
+                    'courier_type': request.data['courier_type'],
+                    'courier_company': request.data['courier_company'],
+                    'from_company': from_company,
+                    'to_company': to_company,
+                    'to_destination': request.data['to_destination'],
+                    'courier_weight': 100 if request.data.get('courier_weight') == None else request.data['courier_weight'],
+                    'courier_rate': 40 if request.data.get('courier_rate') == None else request.data['courier_rate'],
+                    'is_paid': False if request.data.get('is_paid') == None else request.data['is_paid'],
+                    'booked_date': record.booked_date,
+                    'booked_time': record.booked_time,
+                })
+            else:
+                serializer = RecordSerializer(record, data={
+                    'courier_number': request.data['n_courier_number'],
+                    'courier_type': request.data['courier_type'],
+                    'courier_company': request.data['courier_company'],
+                    'from_company': from_company,
+                    'to_company': to_company,
+                    'to_destination': request.data['to_destination'],
+                    'courier_weight': 100 if request.data.get('courier_weight') == None else request.data['courier_weight'],
+                    'courier_rate': 40 if request.data.get('courier_rate') == None else request.data['courier_rate'],
+                    'is_paid': False if request.data.get('is_paid') == None else request.data['is_paid'],
+                    'booked_date': record.booked_date,
+                    'booked_time': record.booked_time,
+                })
+                record.delete()
 
-            if not from_company.to_companies.filter(company_name=to_company.company_name).exists():
-                from_company.to_companies.add(to_company)
-            if not to_company.from_companies.filter(company_name=from_company.company_name).exists():
-                to_company.from_companies.add(from_company)
-
-            request.data['from_company'] = from_company.company_name
-            request.data['to_company'] = to_company.company_name
-            request.data['booked_date'] = record.booked_date
-            request.data['booked_time'] = record.booked_time
-            request.data['is_paid'] = record.is_paid
-
-            serializer = RecordSerializer(record, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response()

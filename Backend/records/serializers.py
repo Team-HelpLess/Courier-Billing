@@ -4,13 +4,13 @@ from .models import RecordModel, CompanyModel
 class RecordSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        for field in ['from_company', 'to_company', 'to_destination']:
+        for field in ['to_destination']:
             if field in data:
                 data[field] = data[field].replace("_", " ").title()
         return data
 
     def to_internal_value(self, data):
-        for field in ['from_company', 'to_company', 'to_destination']:
+        for field in ['to_destination']:
             if field in data:
                 data[field] = data[field].strip().lower().replace(" ", "_")
         return super().to_internal_value(data)
