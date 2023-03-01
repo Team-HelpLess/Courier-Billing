@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_ADDRESS;
+const BASE_URL = 'https://hlrahul-super-adventure-49j999vpqrph74x7-8000.preview.app.github.dev/';
 //const BASE_URL = "http://127.0.0.1:8000/";
 
 export const axiosPublic = axios.create({

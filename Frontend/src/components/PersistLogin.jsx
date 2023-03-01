@@ -14,18 +14,18 @@ const PersistLogin = () => {
 
   // Persist Login using custom refresh hook
   useEffect(() => {
-		const verifyRefreshToken = async () => {
-			try {
-				await refresh();
-			} catch (err) {
-				console.error(err);
-			} finally {
-				setIsLoading(false);
-			}
-		};
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-		!aT ? verifyRefreshToken() : setIsLoading(false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+    !aT ? verifyRefreshToken() : setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // react fragment
@@ -35,7 +35,7 @@ export default PersistLogin;
 
 // Styling for the P tag
 const P = styled.div`
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   display: flex;
   align-items: center;

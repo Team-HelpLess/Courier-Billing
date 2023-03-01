@@ -38,12 +38,12 @@ function Login() {
 
   // UseEffect to navigate user to dashboard if logged in!
   useEffect(() => {
-		window.scrollTo(0, document.body.scrollHeight);
-		inputRef.current.focus();
-		if (aT) {
-			navigate('/dashboard');
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+    window.scrollTo(0, document.body.scrollHeight);
+    inputRef.current.focus();
+    if (aT) {
+      navigate("/dashboard");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // Setting the history
   const from = location.state?.from?.pathname || "/dashboard";
@@ -134,7 +134,7 @@ export default Login;
 
 // Styling using styled components...
 const Responses = styled.div`
-  height: 5vh;
+  height: 5svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -143,7 +143,7 @@ const Responses = styled.div`
 
 const Message = styled.div`
   font-size: 0.75rem;
-  height: 5vh;
+  height: 5svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -189,20 +189,20 @@ const H1 = styled.h1`
 `;
 
 const Section = styled.section`
-  height: 50vh;
+  height: 50svh;
   width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 768px) {
-    height: 50vh;
+    height: 50svh;
     width: 100%;
   }
 `;
 
 const LoginWrapper = styled.section`
-  height: 50vh;
+  height: 50svh;
   width: 80%;
   position: relative;
   background: #36393f;
@@ -212,7 +212,7 @@ const LoginWrapper = styled.section`
 
   @media (max-width: 768px) {
     width: 80%;
-    height: 50vh;
+    height: 50svh;
   }
 `;
 const LoginForm = styled.section`

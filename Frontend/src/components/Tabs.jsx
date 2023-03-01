@@ -136,7 +136,7 @@ const TabsWrapper = styled.section`
 `;
 
 const TabLinks = styled.div`
-  height: 10vh;
+  height: 10svh;
   width: 100%;
   padding: 24px 0px;
   background: #202225;
@@ -183,7 +183,7 @@ const P = styled.p`
 `;
 
 const Ullist = styled.ul`
-  height: 10vh;
+  height: 10svh;
   width: 70%;
   display: flex;
   align-items: center;
@@ -192,9 +192,9 @@ const Ullist = styled.ul`
 
   @media (max-width: 768px) {
     position: fixed;
-    top: 10vh;
+    top: 10svh;
     right: -100%;
-    height: 30vh;
+    height: 30svh;
     gap: 25px;
     flex-direction: column;
     background-color: #202225;

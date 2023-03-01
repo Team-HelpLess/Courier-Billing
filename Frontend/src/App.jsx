@@ -18,28 +18,28 @@ import Loading from "./components/Loading";
 // Functional App component
 function App() {
   // constant for AccessToken
-  const aT = useSelector(state => state.user.userAccessToken);
+  const aT = useSelector((state) => state.user.userAccessToken);
 
   // checking if user already logged in for persist login
   const [isloading, setIsLoading] = useState(true);
   const loadRef = useRef(false);
   const refresh = RefreshToken();
   useEffect(() => {
-		if (loadRef.current) return;
-		loadRef.current = true;
+    if (loadRef.current) return;
+    loadRef.current = true;
 
-		const verifyRefresh = async () => {
-			try {
-				await refresh();
-			} catch (err) {
-				console.error(err);
-			} finally {
-				setIsLoading(false);
-			}
-		};
+    const verifyRefresh = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-		!aT ? verifyRefresh() : setIsLoading(false);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+    !aT ? verifyRefresh() : setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Actual app JSX
@@ -76,7 +76,7 @@ export default App;
 
 // Stylings for the APP component
 const AppWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 100svh;
   min-width: 100%;
   margin: auto;
 

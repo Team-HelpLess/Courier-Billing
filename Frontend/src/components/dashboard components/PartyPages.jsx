@@ -22,24 +22,24 @@ function PartyPages(props) {
   const comp = String(courier_number).length === 9 ? "akash" : "anjani";
 
   useEffect(() => {
-		const TileValues = {
-			[props.formNum]: {
-				courier_number: parseInt(cnum),
-				courier_type: 'credit',
-				courier_company: comp,
-				from_company: partyName,
-				to_company: to,
-				to_destination: district,
-				courier_weight: parseInt(weight),
-				courier_rate: parseInt(amount),
-				// phone_no: phone,
-			},
-		};
+    const TileValues = {
+      [props.formNum]: {
+        courier_number: parseInt(cnum),
+        courier_type: "credit",
+        courier_company: comp,
+        from_company: partyName,
+        to_company: to,
+        to_destination: district,
+        courier_weight: parseInt(weight),
+        courier_rate: parseInt(amount),
+        // phone_no: phone,
+      },
+    };
 
-		setSubmitables((prevSubmits) => {
-			return { ...prevSubmits, ...TileValues };
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+    setSubmitables((prevSubmits) => {
+      return { ...prevSubmits, ...TileValues };
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum, to, district, weight, amount]);
 
   return (
@@ -124,13 +124,13 @@ function PartyPages(props) {
 export default PartyPages;
 
 const PartyTileWrapper = styled.div`
-  min-height: 29.5vh;
+  min-height: 29.5svh;
   width: 100%;
   background: #2f3136;
   transition: 0.5s ease;
 
   @media (max-width: 768px) {
-    min-height: 35vh;
+    min-height: 35svh;
   }
 `;
 

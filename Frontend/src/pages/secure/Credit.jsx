@@ -31,10 +31,12 @@ function Credit() {
 
   // useEffect hook to run whenever the key changes
   useEffect(() => {
-		inputRef.current.focus();
-		const filters = partiesList.filter((party) => party.toLowerCase().includes(key.toLowerCase()));
-		setFilterList(filters);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+    inputRef.current.focus();
+    const filters = partiesList.filter((party) =>
+      party.toLowerCase().includes(key.toLowerCase())
+    );
+    setFilterList(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   const handleAddParty = () => {
@@ -98,36 +100,36 @@ export default Credit;
 
 // Stylings for the particular cards
 const Card = styled.div`
-	height: 13rem;
-	width: 14rem;
-	border-radius: 10px;
-	border: 1px solid #202225;
-	background: #202225;
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-	display: flex;
-	align-items: center;
-	padding: 15px;
-	cursor: pointer;
-	transition: 0.9s ease;
+  height: 13rem;
+  width: 14rem;
+  border-radius: 10px;
+  border: 1px solid #202225;
+  background: #202225;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.9s ease;
 
-	&:hover {
-		border: 1px solid white;
+  &:hover {
+    border: 1px solid white;
 
-		& > * {
-			color: white;
-		}
-	}
+    & > * {
+      color: white;
+    }
+  }
 
-	@media (max-width: 768px) {
-		height: 9.5rem;
-		width: 9.5rem;
-		border-radius: 10px;
-		margin-bottom: 2rem;
-		display: flex;
-		align-items: center;
-		padding: 10px;
-	}
+  @media (max-width: 768px) {
+    height: 9.5rem;
+    width: 9.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
 `;
 
 const Descript = styled.p`
@@ -150,13 +152,13 @@ const Descript = styled.p`
 
 // Stylings for the credit page
 const CreditWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
   background: #2f3136;
 `;
 
 const Search = styled.div`
-  height: 15vh;
+  height: 15svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -173,7 +175,7 @@ const AddWrapper = styled.div`
   transition: all 0.4s ease-in-out;
 
   &.active {
-    height: 25vh;
+    height: 25svh;
   }
 `;
 const AddParty = styled.div`

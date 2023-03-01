@@ -35,7 +35,7 @@ const PopupWrapper = styled.div`
   top: 0;
   left: 0;
 
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -46,7 +46,7 @@ const PopupWrapper = styled.div`
 const Pop = styled.div`
   position: relative;
 
-  height: 20vh;
+  height: 20svh;
   width: 25%;
   color: white;
 
