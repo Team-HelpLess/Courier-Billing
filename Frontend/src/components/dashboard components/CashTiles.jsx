@@ -19,6 +19,7 @@ function CashTiles(props) {
   const [to, setTo] = useState("");
   const [district, setDistrict] = useState("");
   const [ph, setPh] = useState(phone);
+  const [sendSms, setSendSms] = useState(false);
   const [weight, setWeight] = useState(50);
   const [amount, setAmount] = useState(40);
 
@@ -55,11 +56,13 @@ function CashTiles(props) {
 				courier_type: 'cash',
 				courier_company: comp,
 				from_company: fr,
+        from_company_phone_no: phone,
 				to_company: to,
+        to_company_phone_no: 0,
 				to_destination: district,
 				courier_weight: weight,
 				courier_rate: amount,
-				phone_no: phone,
+        send_sms: sendSms,
 			},
 		};
 
