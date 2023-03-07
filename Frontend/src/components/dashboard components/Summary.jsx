@@ -9,7 +9,7 @@ function Summary(props) {
       from_company,
       to_company,
       to_destination,
-      phone_no,
+      to_company_phone_no,
       courier_weight,
       courier_rate,
     } = rec;
@@ -21,7 +21,7 @@ function Summary(props) {
         <Td data-label="To">{to_company}</Td>
         <Td data-label="Destination">{to_destination}</Td>
         {Object.keys(submitables[0]).length === 8 ? null : (
-          <Td data-label="Phone">{phone_no}</Td>
+          <Td data-label="Phone">{to_company_phone_no}</Td>
         )}
         <Td data-label="Weight">{courier_weight} g</Td>
         <Td data-label="Rate">{courier_rate}</Td>
@@ -64,7 +64,7 @@ function Summary(props) {
         </Section>
 
         <Note className={!isValid ? "active" : ""}>
-          ❕Fill all the required * fields to enable the button❕
+          Note: Fill all the required * fields to enable the button!
         </Note>
 
         <ButtonSection>
@@ -214,13 +214,14 @@ const Td = styled.td`
 `;
 
 const Note = styled.p`
-  color: white;
+  color: #ffffffc1;
   height: 5svh;
   width: 90%;
   margin-top: 2rem;
   display: none;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
 
   &.active {
     display: flex;

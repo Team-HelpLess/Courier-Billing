@@ -56,9 +56,9 @@ function CashTiles(props) {
 				courier_type: 'cash',
 				courier_company: comp,
 				from_company: fr,
-        from_company_phone_no: phone,
+        from_company_phone_no: 0,
 				to_company: to,
-        to_company_phone_no: 0,
+        to_company_phone_no: ph,
 				to_destination: district,
 				courier_weight: weight,
 				courier_rate: amount,
@@ -309,6 +309,7 @@ const Input = styled.input`
 	color: white;
 	outline: none;
 	border: none;
+  width: 7rem;
 
 	&.white {
 		color: white;
@@ -319,7 +320,7 @@ const Input = styled.input`
 	}
 
 	@media (max-width: 768px) {
-		width: 8rem;
+		width: 7rem;
 	}
 `;
 
