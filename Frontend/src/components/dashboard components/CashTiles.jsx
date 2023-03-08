@@ -21,6 +21,8 @@ function CashTiles(props) {
   const [ph, setPh] = useState(phone);
   const [weight, setWeight] = useState(50);
   const [amount, setAmount] = useState(40);
+  const [sendSms, setSendSms] = useState(true);
+  const [isPaid, setIsPaid] = useState(true);
 
   const [comp, setComp] = useState(shadow);
   useEffect(() => {
@@ -31,6 +33,7 @@ function CashTiles(props) {
     } else {
       setComp("NULL");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum]);
 
   const inputRef = useRef(null);
@@ -41,6 +44,7 @@ function CashTiles(props) {
     return () => {
       input.removeEventListener("click", selectInput);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function selectInput(event) {
     event.target.select();
@@ -53,17 +57,21 @@ function CashTiles(props) {
         courier_type: "cash",
         courier_company: comp,
         from_company: fr,
+        from_company_phone_no: 0,
         to_company: to,
+        to_company_phone_no: ph,
         to_destination: district,
         courier_weight: weight,
         courier_rate: amount,
-        phone_no: phone,
+        send_sms: sendSms,
+        is_paid: isPaid,
       },
     };
 
     setSubmitables((prevSubmitables) => {
       return { ...prevSubmitables, ...TileValues };
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum, fr, to, district, ph, weight, amount]);
 
   return (
@@ -174,6 +182,28 @@ function CashTiles(props) {
             autoComplete="new-password"
           />
         </Div>
+
+        <Div className="sendSMS">
+          <Input
+            className="sms-checkbox"
+            id="sendSMS"
+            type="checkbox"
+            defaultChecked
+            onClick={(e) => setSendSms(!sendSms)}
+          />
+          <Label for="sendSMS">SMS</Label>
+        </Div>
+
+        <Div className="isPaid">
+          <Input
+            className="paid-checkbox"
+            id="isPaid"
+            type="checkbox"
+            defaultChecked
+            onClick={(e) => setIsPaid(!isPaid)}
+          />
+          <Label for="isPaid">Paid</Label>
+        </Div>
       </CashForm>
     </CashFormCard>
   );
@@ -204,7 +234,8 @@ const CashForm = styled.form`
   grid-template-areas:
     "cNum other delete"
     "from to district"
-    "phone weight amount";
+    "phone weight amount"
+    "none sendSMS isPaid";
   padding: 25px 25px;
   grid-row-gap: 25px;
   grid-column-gap: 10px;
@@ -273,6 +304,20 @@ const Div = styled.div`
     justify-self: center;
     align-self: center;
   }
+
+  &.sendSMS {
+    grid-area: sendSMS;
+    justify-self: center;
+    align-self: center;
+    justify-content: flex-end;
+  }
+
+  &.isPaid {
+    grid-area: isPaid;
+    justify-self: center;
+    align-self: center;
+    justify-content: flex-end;
+  }
 `;
 
 const P = styled.p`
@@ -299,15 +344,40 @@ const Input = styled.input`
 
   background: #202225;
   height: 2rem;
+  padding: 10px 10px;
+  color: white;
+  outline: none;
+  border: none;
   width: 7rem;
   padding: 10px 10px;
   color: white;
   outline: none;
   border: none;
 
+  &.sms-checkbox {
+    height: 1rem;
+    width: 2rem;
+  }
+  &.paid-checkbox {
+    height: 1rem;
+    width: 2rem;
+  }
+
   &.white {
     color: white;
   }
+
+  @media (min-width: 768px) and (max-width: 1115px) {
+    width: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 7rem;
+  }
+`;
+
+const Label = styled.label`
+  color: #75787cc3;
 `;
 
 const Delete = styled.div`

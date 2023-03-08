@@ -55,14 +55,14 @@ function App() {
               <Route path="/" element={<Homepage />} />
 
               <Route element={<PersistLogin />}>
-                <Route element={<RequireAuth />}>
+                {/* <Route element={<RequireAuth />}> */}
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/cash" element={<Cash />} />
                   <Route path="/credit" element={<Credit />} />
                   <Route path="/partyBook" element={<PartyBook />} />
                   <Route path="/records" element={<Records />} />
                   <Route path="/loading" element={<Loading />} />
-                </Route>
+                {/* </Route> */}
               </Route>
             </Routes>
           </Router>

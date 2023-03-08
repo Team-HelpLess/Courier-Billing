@@ -272,7 +272,7 @@ function Cash() {
       <Popup
         trigger={deleteTrigger}
         setTrigger={setDeleteTrigger}
-        actionName="Delete"
+        actionName="Delete ?"
         actionFunc={deleteTile}
       />
       <Popup
