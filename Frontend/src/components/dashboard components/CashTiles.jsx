@@ -349,10 +349,6 @@ const Input = styled.input`
   outline: none;
   border: none;
   width: 7rem;
-  padding: 10px 10px;
-  color: white;
-  outline: none;
-  border: none;
 
   &.sms-checkbox {
     height: 1rem;

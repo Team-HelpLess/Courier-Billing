@@ -12,14 +12,14 @@ function InfoSection() {
 export default InfoSection;
 
 const Div = styled.div`
-  height: 30vh;
+  height: 30svh;
   width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 768px) {
-    height: 20vh;
+    height: 20svh;
     width: 100%;
   }
 `;

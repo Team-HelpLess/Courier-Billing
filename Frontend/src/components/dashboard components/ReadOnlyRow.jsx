@@ -1,7 +1,6 @@
 // Imports
 import { format } from "date-fns";
 import styled from "styled-components";
-import usePrivateAxios from "../../hooks/usePrivateAxios";
 
 // Function to render the Table records in the table
 function ReadOnlyRow(props) {
@@ -33,9 +32,6 @@ function ReadOnlyRow(props) {
   const time = new Date(0, 0, 0, hours, minutes, seconds);
   const timeFormatter = new Intl.DateTimeFormat("en-US", timeOptions);
   const formattedTime = timeFormatter.format(time);
-
-  // axiosPrivate instance from usePrivateAxios
-  const axiosPrivate = usePrivateAxios();
 
   // jsx element for the row in the table
   return (

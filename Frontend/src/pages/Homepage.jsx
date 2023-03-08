@@ -49,7 +49,7 @@ const Section = styled.section`
   background: #2f3136;
 `;
 const SubSection = styled.section`
-  height: 90vh;
+  height: 90svh;
   width: 70%;
   margin: auto;
   display: flex;

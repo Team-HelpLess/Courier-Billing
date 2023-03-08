@@ -18,7 +18,7 @@ import Loading from "./components/Loading";
 // Functional App component
 function App() {
   // constant for AccessToken
-  const aT = useSelector(state => state.user.userAccessToken);
+  const aT = useSelector((state) => state.user.userAccessToken);
 
   // checking if user already logged in for persist login
   const [isloading, setIsLoading] = useState(true);
@@ -39,6 +39,7 @@ function App() {
     };
 
     !aT ? verifyRefresh() : setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Actual app JSX
@@ -74,18 +75,8 @@ function App() {
 export default App;
 
 // Stylings for the APP component
-const P = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  background: #2f3136;
-`;
-
 const AppWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 100svh;
   min-width: 100%;
   margin: auto;
 

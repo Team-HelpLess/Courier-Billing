@@ -205,7 +205,7 @@ export default CourierStat;
 
 // Stylings
 const CourierStatWrapper = styled.div`
-  height: 90vh;
+  height: 90svh;
   width: 100%;
   background: transparent;
   display: flex;

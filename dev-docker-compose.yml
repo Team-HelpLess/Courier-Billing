@@ -5,9 +5,9 @@ services:
     build: ./Frontend/.
     container_name: frontend
     environment:
-      - VITE_BACKEND_ADDRESS=${BACKEND_URL}
+      - REACT_APP_BACKEND_ADDRESS=${BACKEND_URL}
     ports:
-      - 5173:5173
+      - 3000:3000
     volumes:
       - ./Frontend:/Frontend
     links:

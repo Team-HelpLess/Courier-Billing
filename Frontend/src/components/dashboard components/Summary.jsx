@@ -19,7 +19,7 @@ function Summary(props) {
       from_company,
       to_company,
       to_destination,
-      phone_no,
+      to_company_phone_no,
       courier_weight,
       courier_rate,
     } = rec;
@@ -31,7 +31,7 @@ function Summary(props) {
         <Td data-label="To">{to_company}</Td>
         <Td data-label="Destination">{to_destination}</Td>
         {Object.keys(submitables[0]).length === 8 ? null : (
-          <Td data-label="Phone">{phone_no}</Td>
+          <Td data-label="Phone">{to_company_phone_no}</Td>
         )}
         <Td data-label="Weight">{courier_weight} g</Td>
         <Td data-label="Rate">{courier_rate}</Td>
@@ -117,7 +117,7 @@ const SummaryWrapper = styled.div`
   left: 0;
   padding: 10px;
 
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -137,12 +137,12 @@ const Sumry = styled.section`
   position: relative;
   padding: 10px;
 
-  height: 60vh;
+  height: 60svh;
   width: 65%;
   color: white;
 
   @media (max-width: 768px) {
-    height: 80vh;
+    height: 80svh;
     width: 90%;
   }
 
@@ -239,8 +239,8 @@ const Td = styled.td`
 `;
 
 const Note = styled.p`
-  color: white;
-  height: 5vh;
+  color: #ffffffc1;
+  height: 5svh;
   width: 90%;
   margin-top: 2rem;
   display: none;
@@ -259,7 +259,7 @@ const Note = styled.p`
 
 const ButtonSection = styled.section`
   width: 25%;
-  height: 10vh;
+  height: 10svh;
   display: flex;
   align-items: center;
   justify-content: space-around;

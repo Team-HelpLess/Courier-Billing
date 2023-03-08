@@ -97,7 +97,7 @@ export default SearchRecord;
 
 // Stylings
 const SearchWrapper = styled.div`
-  height: 10vh;
+  height: 10svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -105,7 +105,7 @@ const SearchWrapper = styled.div`
   margin-bottom: 2rem;
 
   @media (max-width: 768px) {
-    height: 25vh;
+    height: 25svh;
   }
 `;
 

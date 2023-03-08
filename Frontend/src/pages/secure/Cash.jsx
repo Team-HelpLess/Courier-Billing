@@ -21,6 +21,7 @@ function Cash() {
   // Triggers for Popups
   const [trigger, setTrigger] = useState(false);
   const [deleteId, setDeleteId] = useState();
+  const [deleteNum, setDeleteNum] = useState(0);
   const [deleteTrigger, setDeleteTrigger] = useState(false);
   const [notify, setNotify] = useState(false);
 
@@ -45,9 +46,11 @@ function Cash() {
   useEffect(() => {
     inputRef.current.focus();
     window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    console.log(submitables);
     let bool = true;
     for (let key in submitables) {
       if (
@@ -60,6 +63,7 @@ function Cash() {
     }
 
     bool ? setIsValid(true) : setIsValid(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitables]);
 
   const postToApi = async (data) => {
@@ -297,7 +301,7 @@ const CashComponent = styled.div`
 
 const CashWrapper = styled.section`
   width: 100%;
-  min-height: 75vh;
+  min-height: 75svh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -310,7 +314,7 @@ const CashWrapper = styled.section`
   }
 
   @media (max-width: 768px) {
-    min-height: 50vh;
+    min-height: 50svh;
 
     & > * {
       margin-top: 0.5rem;
@@ -327,7 +331,7 @@ const Form = styled.form`
 `;
 
 const Section = styled.section`
-  height: 10vh;
+  height: 10svh;
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
@@ -341,7 +345,7 @@ const Section = styled.section`
   }
 
   @media (max-width: 768px) {
-    height: 30vh;
+    height: 30svh;
     width: auto;
     flex-direction: column;
     align-items: center;
@@ -369,7 +373,7 @@ const Reset = styled.div`
 
 const ButtonWrapper = styled.div`
   width: 100%;
-  height: 10vh;
+  height: 10svh;
   display: flex;
   align-items: center;
   justify-content: center;

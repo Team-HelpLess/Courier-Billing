@@ -13,7 +13,7 @@ const TOCTOD_URL = "tctd/";
 const SEARCH_URL = "find_many/";
 
 function PartyBook(props) {
-  const {} = props; //Destructuring props
+  // const {} = props; //Destructuring props
 
   const inputRef = useRef(null);
   const loadRef = useRef(false);
@@ -89,6 +89,7 @@ function PartyBook(props) {
     requestOne();
     requestTwo();
     inputRef.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -100,6 +101,8 @@ function PartyBook(props) {
 
     requestOne();
     requestTwo();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   const handlePages = (e) => {
@@ -188,6 +191,7 @@ function PartyBook(props) {
     }
 
     bool ? setIsValid(true) : setIsValid(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitables]);
 
   const BACK = "< Back";
@@ -440,14 +444,14 @@ function PartyBook(props) {
 export default PartyBook;
 
 const PartyWrapper = styled.div`
-  min-height: 90vh;
+  min-height: 90svh;
   width: 100%;
   background: #2f3136;
   padding: 1rem;
 `;
 
 const MobileButtons = styled.div`
-  height: 5vh;
+  height: 5svh;
   width: 100%;
   display: none;
   align-items: center;
@@ -471,7 +475,7 @@ const PartyPage = styled.div`
 `;
 
 const PartyInfo = styled.section`
-  height: 85vh;
+  height: 85svh;
   width: 49%;
   display: flex;
   flex-direction: column;
@@ -482,7 +486,7 @@ const PartyInfo = styled.section`
     justify-content: space-around;
     width: 95%;
     position: fixed;
-    top: 16.5vh;
+    top: 16.5svh;
     left: -100%;
     transition: 0.5s ease;
     background: #2f3136;
@@ -553,7 +557,7 @@ const Button = styled.button`
   }
 `;
 const FrequentParties = styled.div`
-  height: 38vh;
+  height: 38svh;
   width: 100%;
   background: #202225;
   gap: 10px;
@@ -642,7 +646,7 @@ const P = styled.p`
 `;
 
 const PreviousBooks = styled.div`
-  height: 38vh;
+  height: 38svh;
   width: 100%;
   background: #202225;
   color: #cac9c9df;
@@ -734,19 +738,19 @@ const Td = styled.td`
 `;
 
 const BookParty = styled.section`
-  height: 85vh;
+  height: 85svh;
   width: 49%;
   background: #202225;
   padding: 10px;
 
   @media (max-width: 768px) {
     width: 100%;
-    height: 80vh;
+    height: 80svh;
   }
 `;
 
 const Pages = styled.div`
-  height: 66vh;
+  height: 66svh;
   width: 100%;
   overflow-y: auto;
   padding: 0 10px;

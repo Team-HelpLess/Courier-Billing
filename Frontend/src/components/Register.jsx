@@ -109,7 +109,7 @@ function Register() {
 export default Register;
 
 const Message = styled.div`
-  height: 5vh;
+  height: 5svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -119,7 +119,7 @@ const Message = styled.div`
 `;
 
 const Section = styled.section`
-  min-height: 90vh;
+  min-height: 90svh;
   width: 100%;
   display: flex;
   align-items: center;

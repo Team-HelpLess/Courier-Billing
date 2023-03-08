@@ -13,7 +13,7 @@ function Loading() {
 export default Loading;
 
 const LoadingWrapper = styled.div`
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   display: flex;
   align-items: center;

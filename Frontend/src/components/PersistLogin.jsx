@@ -25,6 +25,7 @@ const PersistLogin = () => {
     };
 
     !aT ? verifyRefreshToken() : setIsLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // react fragment
@@ -34,7 +35,7 @@ export default PersistLogin;
 
 // Styling for the P tag
 const P = styled.div`
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   display: flex;
   align-items: center;

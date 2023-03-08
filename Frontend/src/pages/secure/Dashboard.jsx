@@ -26,7 +26,7 @@ export default Dashboard;
 
 // Stylings
 const DashWrapper = styled.div`
-  min-height: 90vh;
+  min-height: 90svh;
   min-width: 100%;
   background: #2f3136;
 `;

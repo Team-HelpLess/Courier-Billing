@@ -36,6 +36,7 @@ function Credit() {
       party.toLowerCase().includes(key.toLowerCase())
     );
     setFilterList(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
   const handleAddParty = () => {
@@ -79,7 +80,7 @@ function Credit() {
             className={addtoggle ? "addParty-btn active" : "addParty-btn"}
             onClick={(e) => {
               e.preventDefault();
-              handleAddParty;
+              handleAddParty();
             }}
           >
             ADD
@@ -99,8 +100,8 @@ export default Credit;
 
 // Stylings for the particular cards
 const Card = styled.div`
-  height: 14rem;
-  width: 15rem;
+  height: 13rem;
+  width: 14rem;
   border-radius: 10px;
   border: 1px solid #202225;
   background: #202225;
@@ -151,13 +152,13 @@ const Descript = styled.p`
 
 // Stylings for the credit page
 const CreditWrapper = styled.div`
-  min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
   background: #2f3136;
 `;
 
 const Search = styled.div`
-  height: 15vh;
+  height: 15svh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -174,7 +175,7 @@ const AddWrapper = styled.div`
   transition: all 0.4s ease-in-out;
 
   &.active {
-    height: 25vh;
+    height: 25svh;
   }
 `;
 const AddParty = styled.div`
