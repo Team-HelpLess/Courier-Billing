@@ -1,7 +1,17 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 function Summary(props) {
   const { trigger, setTrigger, submitables, isValid, action } = props;
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    setIsHovered(false);
+  };
 
   const bookListRow = (rec, index) => {
     const {
@@ -63,15 +73,30 @@ function Summary(props) {
           )}
         </Section>
 
-        <Note className={!isValid ? "active" : ""}>
+        <Note
+          className={`${!isValid ? "active" : ""} ${
+            isHovered ? "hovered" : ""
+          }`}
+        >
           Note: Fill all the required * fields to enable the button!
         </Note>
 
         <ButtonSection>
           {isValid ? (
-            <Button onClick={() => action()}>BOOK</Button>
+            <Button
+              onMouseOver={handleHover}
+              onMouseLeave={handleLeave}
+              onClick={() => action()}
+            >
+              BOOK
+            </Button>
           ) : (
-            <Button disabled style={{ cursor: "not-allowed" }}>
+            <Button
+              onMouseOver={handleHover}
+              onMouseLeave={handleLeave}
+              disabled
+              style={{ cursor: "not-allowed" }}
+            >
               BOOK
             </Button>
           )}
@@ -221,10 +246,15 @@ const Note = styled.p`
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
 
   &.active {
     display: flex;
+  }
+
+  &.hovered {
+    color: white;
   }
 `;
 
