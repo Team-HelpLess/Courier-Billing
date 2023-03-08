@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 function Summary(props) {
@@ -246,6 +246,7 @@ const Note = styled.p`
   display: none;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem;
   transition: 0.3s ease;
 
   &.active {
