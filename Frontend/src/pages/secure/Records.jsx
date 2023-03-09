@@ -163,6 +163,7 @@ function Records() {
                     <Th>Phone</Th>
                     <Th>Date</Th>
                     <Th>Time</Th>
+                    <Th>Paid</Th>
                     <Th>Edit</Th>
                     <Th>Delete</Th>
                   </Tr>
