@@ -1,3 +1,4 @@
+// Imports
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
@@ -8,6 +9,7 @@ import Popup from "../Popup";
 import Summary from "./Summary";
 import { useRef } from "react";
 
+// Constants
 const POST_URL = "";
 const TOCTOD_URL = "tctd/";
 const SEARCH_URL = "find_many/";
@@ -15,6 +17,7 @@ const SEARCH_URL = "find_many/";
 function PartyBook(props) {
   // const {} = props; //Destructuring props
 
+  // States for the Component
   const inputRef = useRef(null);
   const loadRef = useRef(false);
   const refreshRef = useRef(false);
@@ -41,10 +44,12 @@ function PartyBook(props) {
   const [active, setActive] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
 
+  // Initializing functions to consts
   const navigate = useNavigate();
   const location = useLocation();
   const partyName = location?.state?.partyName;
 
+  // The function for getting To party and district
   const requestOne = async () => {
     try {
       const response = await axiosPrivate.get(`${TOCTOD_URL}${partyName}`);
@@ -60,6 +65,7 @@ function PartyBook(props) {
     }
   };
 
+  // Function to retieve already booked couriers
   const requestTwo = async () => {
     try {
       const data = { from_company: partyName };
@@ -81,6 +87,7 @@ function PartyBook(props) {
     }
   };
 
+  // Actual initialization and function call when credit component is fired!
   const axiosPrivate = useAxiosPrivate();
   useEffect(() => {
     if (loadRef.current) return;
@@ -146,6 +153,7 @@ function PartyBook(props) {
     setDeleteTrigger(false);
   };
 
+  // Function to submit the details one by one to the API
   const postToApi = async (data) => {
     try {
       const response = await axiosPrivate.post(POST_URL, JSON.stringify(data), {
@@ -194,6 +202,7 @@ function PartyBook(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitables]);
 
+  // Actual JSX element
   const BACK = "< Back";
   return (
     <PartyWrapper>
@@ -443,6 +452,7 @@ function PartyBook(props) {
 }
 export default PartyBook;
 
+// Stylings...
 const PartyWrapper = styled.div`
   min-height: 90svh;
   width: 100%;
