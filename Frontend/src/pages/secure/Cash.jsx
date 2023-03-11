@@ -49,7 +49,6 @@ function Cash() {
   }, []);
 
   useEffect(() => {
-    console.log(submitables);
     let bool = true;
     for (let key in submitables) {
       if (

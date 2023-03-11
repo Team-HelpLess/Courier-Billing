@@ -34,6 +34,7 @@ function Records() {
       const response = await axiosPrivate.get(RECORDS_URL, {
         params: { page: pageNumber },
       });
+      if (response?.data?.results.length < 30) pageLimit = false;
       pageNumber++;
       setRecords((prevRecords) => {
         const newRecords = [...response?.data?.results];
@@ -160,7 +161,7 @@ function Records() {
                     <Th>Destination</Th>
                     <Th>Weight</Th>
                     <Th>Amount</Th>
-                    <Th>Phone</Th>
+                    {/* <Th>Phone</Th> */}
                     <Th>Date</Th>
                     <Th>Time</Th>
                     <Th>Paid</Th>

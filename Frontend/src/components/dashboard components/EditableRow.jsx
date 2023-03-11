@@ -17,13 +17,13 @@ function EditableRow(props) {
     courier_type,
     courier_company,
     from_company,
-    from_company_phone_number,
+    // from_company_phone_number,
     to_company,
-    to_company_phone_number,
+    // to_company_phone_number,
     to_destination,
     courier_weight,
     courier_rate,
-    phone_no,
+    // phone_no,
     is_paid,
     booked_date,
     booked_time,
@@ -43,13 +43,12 @@ function EditableRow(props) {
   const [ctype, setCtype] = useState(courier_type);
   const [ccom, setCcom] = useState(courier_company);
   const [from, setFrom] = useState(from_company);
-  const [frPhone, setFrPhone] = useState(from_company_phone_number);
+  // const [frPhone, setFrPhone] = useState(from_company_phone_number);
   const [to, setTo] = useState(to_company);
-  const [toPhone, setToPhone] = useState(to_company_phone_number);
+  // const [toPhone, setToPhone] = useState(to_company_phone_number);
   const [dest, setDest] = useState(to_destination);
   const [cweight, setCweight] = useState(courier_weight);
   const [crate, setCrate] = useState(courier_rate);
-  const [phone, setPhone] = useState(phone_no);
   const [paid, setPaid] = useState(is_paid);
 
   // private axios instance from useAxiosPrivate
@@ -62,13 +61,12 @@ function EditableRow(props) {
       courier_type: ctype,
       courier_company: ccom,
       from_company: from,
-      from_company_phone_number: frPhone,
+      // from_company_phone_number: frPhone,
       to_company: to,
-      to_company_phone_number: toPhone,
+      // to_company_phone_number: toPhone,
       to_destination: dest,
       courier_weight: cweight,
       courier_rate: crate,
-      phone_no: phone,
       is_paid: paid,
       booked_date: booked_date,
       booked_time: booked_time,
@@ -121,23 +119,23 @@ function EditableRow(props) {
           onChange={(e) => setFrom(e.target.value)}
         />
       </Td>
-      <Td data-label="From">
+      {/* <Td data-label="From">
         <Input
           name="FromPhoneNumber"
           value={frPhone}
           onChange={(e) => setFrPhone(e.target.value)}
         />
-      </Td>
+      </Td> */}
       <Td data-label="To">
         <Input name="To" value={to} onChange={(e) => setTo(e.target.value)} />
       </Td>
-      <Td data-label="To">
+      {/* <Td data-label="To">
         <Input
           name="ToPhoneNumber"
           value={toPhone}
           onChange={(e) => setToPhone(e.target.value)}
         />
-      </Td>
+      </Td> */}
       <Td data-label="Destination">
         <Input
           name="Destination"
@@ -161,22 +159,23 @@ function EditableRow(props) {
           onChange={(e) => setCrate(e.target.value)}
         />
       </Td>
-      <Td>
-        <Input
-          type="checkbox"
-          checked={paid}
-          onChange={(e) => setPaid(!paid)}
-        ></Input>
-      </Td>
-      <Td data-label="Phone">
+      {/* <Td data-label="Phone">
         <Input
           type="number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
-      </Td>
+      </Td> */}
       <Td data-label="Date">{formattedDate}</Td>
       <Td data-label="Time">{formattedTime}</Td>
+      <Td>
+        <Input
+          style={{ cursor: "pointer" }}
+          type="checkbox"
+          checked={paid}
+          onChange={(e) => setPaid(!paid)}
+        ></Input>
+      </Td>
       <Td data-label="Cancel">
         <Button
           onClick={(e) => {
