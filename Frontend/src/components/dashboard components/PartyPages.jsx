@@ -1,7 +1,9 @@
+// Imports
 import { useEffect, useState } from "react";
 import { districts } from "./districtList";
 import styled from "styled-components";
 
+// PartyPage Component which actually renders the tiles to book.
 function PartyPages(props) {
   const {
     courier_number,
@@ -42,6 +44,7 @@ function PartyPages(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cnum, to, district, weight, amount]);
 
+  // Actual JSX element
   return (
     <PartyTileWrapper
       style={{
@@ -123,6 +126,7 @@ function PartyPages(props) {
 }
 export default PartyPages;
 
+// Stylings
 const PartyTileWrapper = styled.div`
   min-height: 29.5svh;
   width: 100%;
