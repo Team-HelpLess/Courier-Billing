@@ -145,6 +145,7 @@ function EditableRow(props) {
       </Td>
       <Td data-label="Weight">
         <Input
+          className="small"
           type="number"
           name="Weight"
           value={cweight}
@@ -153,6 +154,7 @@ function EditableRow(props) {
       </Td>
       <Td data-label="Amount">
         <Input
+          className="small"
           type="number"
           name="Amount"
           value={crate}
@@ -236,8 +238,12 @@ const Input = styled.input`
   border-bottom: 1px solid white;
   color: white;
   padding-bottom: 5px;
-  width: 10ch;
+  width: 8ch;
   transition: 0.3s ease;
+
+  &.small {
+    width: 4ch;
+  }
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
